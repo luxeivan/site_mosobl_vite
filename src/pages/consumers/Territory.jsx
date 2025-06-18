@@ -150,7 +150,7 @@ export default function Territory() {
             { wch: 20 },
           ];
           utils.book_append_sheet(wb, ws, "Таблица1");
-          // writeFileXLSX(wb, "Территория обслуживания Мособлэнерго.xlsx");
+          writeFileXLSX(wb, "Территория обслуживания Мособлэнерго.xlsx");
           setLoadingAllTerritory(false);
         }
       });
