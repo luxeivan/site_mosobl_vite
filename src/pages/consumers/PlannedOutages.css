@@ -1,0 +1,70 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.creditRating table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.creditRating th,
+.creditRating td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.creditRating th {
+  text-align: center;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  /* font-size: 100rem; */
+  vertical-align: middle;
+}
+
+.creditRating th,
+.creditRating td {
+  min-width: 150px;
+  /* Минимальная ширина для ячеек */
+}
+
+@media (max-width: 768px) {
+
+  .creditRating th,
+  .creditRating td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .creditRating th {
+    text-align: left;
+    background-color: #f9f9f9;
+  }
+
+  .creditRating td {
+    text-align: right;
+    border-left: 4px solid #ddd;
+  }
+
+  .creditRating tr {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .creditRating th::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .creditRating td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,32 @@
+.btn__feedback__open__form {
+    display: block;
+    width: 240px;
+    min-height: 56px;
+    font-size: 18px;
+    line-height: 24px;
+    cursor: pointer;
+    background: #0d4cd3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    outline: 0;
+  }
+  
+  .btn__feedback__open__form:hover {
+    background: #1d5deb;
+  }
+  
+  .btn__feedback__open__form:focus {
+    background: #2a63ad;
+  }
+  
+  .btn__feedback__open__form:active {
+    background: #2a63ad;
+  }
+
+  .no-scroll {
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  

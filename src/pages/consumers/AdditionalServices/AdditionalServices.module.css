@@ -1,0 +1,125 @@
+.more {
+  width: clamp(30%, 600px, 100%);
+}
+
+.more_link {
+  color: white;
+  transition: all .3s ease-in-out;
+}
+
+.more:hover .more_link {
+  color: black;
+}
+
+.list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+
+.list li {
+  margin-bottom: 10px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.documentLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+}
+
+.wrap-table {
+  margin-top: 20px;
+}
+
+.accordion {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.accordion-row__up {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.accordion-row__text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.para {
+  font-size: 18px;
+  text-indent: 20px;
+  line-height: 1.6;
+}
+
+.row-docs-age {
+  margin-top: 20px;
+}
+
+.doc-line {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.doc-line__wrap-icon {
+  margin-right: 10px;
+}
+
+.doc-line__wrap-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-line__name {
+  font-weight: bold;
+}
+
+.doc-line__file-info {
+  font-size: 14px;
+  color: #555;
+}
+
+
+/* .list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.list li {
+  margin-bottom: 5px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.documentLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+} */
+/* @media(max-width:900px){
+  .more {
+    max-width: 100%;
+  }
+ } */

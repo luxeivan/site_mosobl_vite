@@ -1,0 +1,21 @@
+
+.slider-container {
+  margin-bottom: 16px;
+}
+.photo{
+  box-shadow: 2px 2px 8px 0px rgba(34, 60, 80, 0.2);
+  transition: box-shadow .2s ease-in-out;
+}
+.photo:hover{
+  box-shadow: 2px 2px 8px 0px rgba(34, 60, 80, 0.5);
+}
+.flexElem{
+  width: calc(50% - 20px);
+}
+
+@media (max-width:1000px) {
+  .flexElem{
+    width: 100%;
+  }
+  
+}

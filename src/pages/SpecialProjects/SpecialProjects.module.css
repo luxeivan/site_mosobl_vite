@@ -1,0 +1,46 @@
+.content {
+  padding: 20px;
+  
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* height: 100%; */
+  max-width: 400px;
+}
+
+.cover {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardContent {
+  /* display: flex; */
+  /* flex-direction: column;
+  justify-content: space-between; */
+  flex-grow: 1;
+}
+
+.cardContent h1,
+.cardContent p {
+  margin: 0;
+  padding: 0;
+}
+
+.cardContent h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardContent p {
+  flex-grow: 1;
+}

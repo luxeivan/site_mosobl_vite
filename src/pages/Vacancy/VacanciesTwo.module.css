@@ -1,0 +1,136 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.storySection {
+  padding: 30px 0 10px;
+}
+
+.sectionTitle {
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #ff6b00;
+}
+
+.bigParagraph {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-right: 20px;
+}
+
+.pillWrapper {
+  max-width: 800px;
+}
+
+.pillImage {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.pillImage:hover {
+  transform: scale(1.03);
+}
+
+.menCol {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+.menImage {
+  max-width: 100%;
+  max-height: 950px;
+  object-fit: contain;
+  margin-top: -60px;
+}
+
+.profsSection {
+  padding: 30px 0 40px;
+}
+
+.profTitle {
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.profTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #ff6b00;
+}
+
+.profCard {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  border: none;
+  margin-bottom: 24px;
+}
+
+.profCard:hover {
+  transform: translateY(-5px);
+}
+
+.profImage {
+  height: 200px;
+  object-fit: cover;
+}
+
+.ant-card-meta-title {
+  font-size: 20px !important;
+  margin-bottom: 12px !important;
+}
+
+.ant-card-meta {
+  padding: 16px;
+}
+
+.profLink {
+  color: #ff6b00 !important;
+  font-weight: 500;
+  padding: 0 !important;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.profLink:hover {
+  color: #e05a00 !important;
+}
+
+

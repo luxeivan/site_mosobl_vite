@@ -1,0 +1,9 @@
+.input {
+    max-width: calc(33% - 5px)
+}
+
+@media(max-width:996px) {
+    .input {
+        max-width: 100%
+    }
+}
