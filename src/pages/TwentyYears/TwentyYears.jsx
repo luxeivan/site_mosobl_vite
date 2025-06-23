@@ -119,12 +119,12 @@ export default function TwentyYears() {
             onClick={(e) => e.stopPropagation()}
           >
             <HTMLFlipBook
-              width={700}
-              height={1000}
-              minWidth={300}
-              maxWidth={700}
-              minHeight={400}
-              maxHeight={1000}
+              width={900}
+              height={1200}
+              minWidth={500}
+              maxWidth={900}
+              minHeight={600}
+              maxHeight={1200}
               showCover
               usePortrait
               autoCenter
