@@ -71,7 +71,27 @@ export default function TwentyYears() {
         <img src={back} className={`${styles.img} ${styles.reverse}`} alt="" />
         <img src={logo} className={styles.logo} alt="20 лет МосОблЭнерго" />
         <img src={back} className={styles.img} alt="" />
-        <div className={styles.line}>20 лет во благо Подмосковья!</div>
+        {/* <div className={styles.line}>20 лет во благо Подмосковья!</div> */}
+        <div className={styles.line}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              ease: [0.16, 1, 0.3, 1], // Плавная кривая
+            }}
+            style={{
+              background: "linear-gradient(45deg, #ff8c00, #ffd700, #ff8c00)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              backgroundSize: "300% 300%",
+              animation: `${styles.gradientShift} 4s ease infinite`,
+            }}
+          >
+            20 лет во благо Подмосковья!
+          </motion.div>
+        </div>
       </Flex>
 
       {/* Памятная книга */}

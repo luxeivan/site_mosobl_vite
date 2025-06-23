@@ -125,6 +125,14 @@
   line-height: 1.7;
 }
 
+@keyframes gradientShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+
+
 @media (max-width: 1024px) {
   .flex {
     background: linear-gradient(
@@ -180,5 +188,10 @@
     height: 40px;
     font-size: 18px;
     margin: 0;
+  }
+
+    .line {
+    font-size: 16px; /* Уменьшаем размер текста */
+    padding: 0 10px; /* Добавляем отступы */
   }
 }
