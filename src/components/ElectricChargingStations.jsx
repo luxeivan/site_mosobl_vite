@@ -790,16 +790,17 @@ export default React.memo(function ElectricChargingStations() {
                               options={{
                                 iconLayout: "default#image",
                                 // Своё изображение иконки метки.
-                                iconImageHref:
-                                  item.attributes.power == 22
-                                    ? item.attributes.disabled ||
-                                      item.statecode != "available"
-                                      ? chargingIco_dis
-                                      : chargingIco22
-                                    : item.attributes.disabled ||
-                                      item.statecode != "available"
-                                      ? chargingIco_dis
-                                      : chargingIco,
+                                 iconImageHref: (() => {
+                          if (item.attributes.disabled || item.statecode != "available") {
+                            return chargingIco_dis
+                          }else if(item.attributes.power == 22){
+                            return chargingIco22
+                          }else if(item.attributes.power == 150){
+                            return chargingIco150
+                          }else {
+                            return chargingIco
+                          }
+                        })(),
                                 // Размеры метки.
                                 iconImageSize,
                                 // Смещение левого верхнего угла иконки относительно
