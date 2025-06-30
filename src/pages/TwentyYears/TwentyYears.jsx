@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import TopImage from "../../components/TopImage";
 import back from "../../img/20years/back.svg";
@@ -8,7 +8,7 @@ import pdfURL from "../../img/20years/book.pdf?url";
 import styles from "./TwentyYears.module.css";
 import { addressServer } from "../../config";
 
-import { Flex, Typography, Modal } from "antd";
+import { Flex, Typography, Grid } from "antd";
 import HTMLFlipBook from "react-pageflip";
 
 import Lightbox from "yet-another-react-lightbox";
@@ -16,51 +16,46 @@ import "yet-another-react-lightbox/styles.css";
 import axios from "axios";
 
 const { Title, Paragraph, Link } = Typography;
-
-const PAGES = 17;
-
-// const archiveReq = require.context(
-//   "../../img/20years/Archive",
-//   true,
-//   /\.(jpe?g|png|webp)$/i
-// );
-
-// const archiveMap = archiveReq.keys().reduce((acc, path) => {
-//   const [, branch, file] = path.match(/^\.\/([^/]+)\/(.+)$/);
-//   const prettyName = file
-//     .replace(/\.(jpe?g|png|webp)$/i, "")
-//     .replace(/_/g, " ")
-//     .replace(/\s{2,}/g, " ")
-//     .trim();
-//   (acc[branch] = acc[branch] || []).push({
-//     src: archiveReq(path),
-//     caption: prettyName,
-//   });
-//   return acc;
-// }, {});
+const { useBreakpoint } = Grid;
 
 export default function TwentyYears() {
   const [open, setOpen] = useState(false);
   const [lbOpen, setLbOpen] = useState(false);
   const [lbSlides, setLbSlides] = useState([]);
   const [lbIndex, setLbIndex] = useState(0);
-  const [pdfLbOpen, setPdfLbOpen] = useState(false);
-  const [photos, setPhotos] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const [slides, setSlides] = useState([]);
+  const screens = useBreakpoint();
 
-  // const branchNames = useMemo(
-  //   () => Object.keys(archiveMap).sort((a, b) => a.localeCompare(b, "ru")),
-  //   []
-  // );
+  // Загружаем страницы книги из single-type Book
   useEffect(() => {
-    axios.get(`${addressServer}/api/twentyyear?populate[0]=filial&populate[1]=filial.photos`)
-      .then(res => {
-        console.log(res.data);
-        setPhotos(res.data.data.filial)
+    axios
+      .get(`${addressServer}/api/twentyyear?populate=Book`)
+      .then((res) => {
+        const mediaArray = res.data.data.Book || [];
+        const mapped = mediaArray.map((file) => ({
+          src: `${addressServer}${file.url}`,
+        }));
+        setSlides(mapped);
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error("Error loading book pages:", err);
+      });
+  }, []);
+
+  // Загружаем архивные фотографии филиалов
+  useEffect(() => {
+    axios
+      .get(
+        `${addressServer}/api/twentyyear?populate[0]=filial&populate[1]=filial.photos`
+      )
+      .then((res) => {
+        setPhotos(res.data.data.filial || []);
       })
-  }, [])
+      .catch((err) => {
+        console.error("Error loading filial photos:", err);
+      });
+  }, []);
 
   return (
     <motion.div
@@ -71,12 +66,32 @@ export default function TwentyYears() {
     >
       <TopImage title="20 лет «МосОблЭнерго»" />
 
-      {/* шапка */}
+      {/* Шапка */}
       <Flex justify="space-between" align="center" className={styles.flex}>
         <img src={back} className={`${styles.img} ${styles.reverse}`} alt="" />
         <img src={logo} className={styles.logo} alt="20 лет МосОблЭнерго" />
         <img src={back} className={styles.img} alt="" />
-        <div className={styles.line}>20 лет во благо Подмосковья!</div>
+        {/* <div className={styles.line}>20 лет во благо Подмосковья!</div> */}
+        <div className={styles.line}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              ease: [0.16, 1, 0.3, 1], // Плавная кривая
+            }}
+            style={{
+              background: "linear-gradient(45deg, #ff8c00, #ffd700, #ff8c00)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              backgroundSize: "300% 300%",
+              animation: `${styles.gradientShift} 4s ease infinite`,
+            }}
+          >
+            20 лет во благо Подмосковья!
+          </motion.div>
+        </div>
       </Flex>
 
       {/* Памятная книга */}
@@ -94,21 +109,63 @@ export default function TwentyYears() {
           самые яркие вехи истории электросетевых предприятий легли в основу
           нашей памятной книги.
         </Paragraph>
-        {/* <Link onClick={() => setOpen(true)}>Читать онлайн</Link> */}
-        <Link onClick={() => setOpen(true)}>Читать онлайн (листалка)</Link>
 
+        {screens.md && (
+          <Link onClick={() => setOpen(true)}>Читать онлайн (листалка)</Link>
+        )}
         <Link
-          style={{ marginLeft: 24 }}
-          onClick={() => {
-            // mobile & desktop одинаково: новая вкладка/окно
-            window.open(pdfURL, "_blank", "noopener,noreferrer");
-          }}
+          style={{ marginLeft: screens.md ? 24 : 0 }}
+          onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
         >
           Читать онлайн PDF
         </Link>
       </section>
 
-      {/* Архив */}
+      {/* Оверлей-листалка */}
+      {open && (
+        <div className={styles.overlay} onClick={() => setOpen(false)}>
+          <button
+            className={styles.closeButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(false);
+            }}
+            aria-label="Закрыть"
+          >
+            ✕
+          </button>
+          <div
+            className={styles.bookWrapper}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <HTMLFlipBook
+              width={900}
+              height={1200}
+              minWidth={500}
+              maxWidth={900}
+              minHeight={600}
+              maxHeight={1200}
+              showCover
+              usePortrait
+              autoCenter
+              mobileScrollSupport
+              className={styles.book}
+            >
+              {slides.map((slide, i) => (
+                <div key={i} className={styles.page}>
+                  <img
+                    src={slide.src}
+                    alt={`Страница ${i + 1}`}
+                    className={styles.pageImg}
+                  />
+                </div>
+              ))}
+            </HTMLFlipBook>
+          </div>
+        </div>
+      )}
+
+      {/* Архивные материалы */}
       <section className={styles.bookIntro}>
         <Title level={2} className={styles.sectionTitle}>
           Архивные материалы
@@ -123,83 +180,39 @@ export default function TwentyYears() {
           которая теперь стала частью «Мособлэнерго», физически невозможно,
           поэтому мы постарались выбрать и включить в книгу основные события.
           Для всех, кто хотел бы более подробно погрузиться в историю
-          электросетей Подмосковья мы разместили здесь всю найденную информацию
+          электросетей Подмосковья мы разместили здесь всю найденную информацию.
         </Paragraph>
       </section>
 
-      {/* галереи по филиалам */}
-      {photos && photos.map((filial) => (
+      {/* Галереи по филиалам */}
+      {photos.map((filial) => (
         <section key={filial.id} className={styles.branchSection}>
           <Title level={3}>{filial.nameFilial}</Title>
           <div className={styles.gallery}>
             {filial.photos.map(({ url, name }, idx) => (
               <figure key={idx} className={styles.galleryItem}>
-                {/* <img src={src} alt={caption} /> */}
                 <img
                   src={`${addressServer}${url}`}
                   alt={name}
                   onClick={() => {
-                    setLbSlides(filial.photos.map(({ url }) => ({ src: `${addressServer}${url}` })));
+                    setLbSlides(
+                      filial.photos.map(({ url }) => ({
+                        src: `${addressServer}${url}`,
+                      }))
+                    );
                     setLbIndex(idx);
                     setLbOpen(true);
                   }}
-                  style={{ cursor: "zoom-in" }}
+                  className={styles.galleryImg}
                 />
-
-                <figcaption>{name.replace(".jpg", "").replace(".png", "")}</figcaption>
+                <figcaption>{name.replace(/\.(jpe?g|png)$/i, "")}</figcaption>
               </figure>
             ))}
           </div>
         </section>
       ))}
 
-
-      {/* overlay-книга */}
-      {open && (
-        <div className={styles.overlay} onClick={() => setOpen(false)}>
-          <div
-            className={styles.bookWrapper}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <HTMLFlipBook
-              width={700}
-              height={1000}
-              minWidth={300}
-              maxWidth={700}
-              minHeight={400}
-              maxHeight={1000}
-              showCover
-              usePortrait
-              autoCenter
-              mobileScrollSupport
-              className={styles.book}
-            >
-              {photos && photos[0].photos.map((photo,index) =>
-
-                <div key={index} className={styles.page}>
-                  <img
-                    src={`${addressServer}${photo.url}`}
-                    alt={`Страница ${index + 1}`}
-                    className={styles.pageImg}
-                  />
-                </div>
-              )}
-              {/* {Array.from({ length: PAGES }, (_, i) => (
-                <div key={i} className={styles.page}>
-                  <img
-                    src={`${addressServer}/20years/pages/page-${i + 1
-                      }.jpg`}
-                    alt={`Страница ${i + 1}`}
-                    className={styles.pageImg}
-                  />
-                </div>
-              ))} */}
-            </HTMLFlipBook>
-          </div>
-        </div>
-      )}
-
-      {/* Архив увеличение*/}
+      {/* Lightbox для архива */}
       {lbOpen && (
         <Lightbox
           open
@@ -208,25 +221,6 @@ export default function TwentyYears() {
           index={lbIndex}
         />
       )}
-
-      {/* Книга в pdf */}
-      {pdfLbOpen && (
-        <Lightbox
-          open
-          close={() => setPdfLbOpen(false)}
-          slides={[{ src: pdfFile }]}
-          render={{
-            slide: ({ slide }) => (
-              <iframe
-                src={slide.src}
-                title="Памятная книга PDF"
-                style={{ width: "100%", height: "100%", border: 0 }}
-              />
-            ),
-          }}
-        />
-      )}
     </motion.div>
   );
 }
-
