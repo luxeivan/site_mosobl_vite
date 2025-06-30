@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import TopImage from "../../components/TopImage";
 import back from "../../img/20years/back.svg";
 import logo from "../../img/20years/logo.png";
-import pdfFile from "../../img/20years/book.pdf";
 import pdfURL from "../../img/20years/book.pdf?url";
 import styles from "./TwentyYears.module.css";
 import { addressServer } from "../../config";
@@ -140,11 +139,11 @@ export default function TwentyYears() {
           >
             <HTMLFlipBook
               width={900}
-              height={1200}
-              minWidth={500}
-              maxWidth={900}
-              minHeight={600}
-              maxHeight={1200}
+              height={764}
+              // minWidth={500}
+              // maxWidth={900}
+              // minHeight={600}
+              // maxHeight={1200}
               showCover
               usePortrait
               autoCenter
@@ -189,10 +188,10 @@ export default function TwentyYears() {
         <section key={filial.id} className={styles.branchSection}>
           <Title level={3}>{filial.nameFilial}</Title>
           <div className={styles.gallery}>
-            {filial.photos.map(({ url, name }, idx) => (
+            {filial.photos.map(({ url, name, formats }, idx) => (
               <figure key={idx} className={styles.galleryItem}>
                 <img
-                  src={`${addressServer}${url}`}
+                  src={`${addressServer}${formats.thumbnail.url}`}
                   alt={name}
                   onClick={() => {
                     setLbSlides(
