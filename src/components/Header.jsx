@@ -46,8 +46,9 @@ export default function Header() {
   return (
     <header>
       <section
-        className={`page-header vg-modal-fixed ${scroll}  ${openSearchLine ? "hide-line" : ""
-          }`}
+        className={`page-header vg-modal-fixed ${scroll}  ${
+          openSearchLine ? "hide-line" : ""
+        }`}
         id="myHeader"
       >
         <div className="container">
@@ -792,7 +793,7 @@ export default function Header() {
                           display: "flex",
                           alignItems: "center",
                           gap: "20px",
-                          justifyContent: "center"
+                          justifyContent: "center",
                         }}
                       >
                         <img
@@ -873,11 +874,28 @@ export default function Header() {
                               Дополнительные услуги
                             </h3>
                             <p className="creditRating__text">
-                              Согласовать топографическую съемку для подтверждения наличия/отсутствия инженерных сетей на территории земельного участка в электронном виде Вы можете посредством сервиса «ВсеСети» на Портале государственных и муниципальных услуг Московской области.
+                              {/* Согласовать топографическую съемку для
+                              подтверждения наличия/отсутствия инженерных сетей
+                              на территории земельного участка в электронном
+                              виде Вы можете посредством сервиса «ВсеСети» на
+                              Портале государственных и муниципальных услуг
+                              Московской области. */}
+                              Согласовать топографическую съемку для
+                              подтверждения наличия/отсутствия инженерных сетей
+                              на территории земельного участка в электронном
+                              виде, рабочую и проектную документацию для
+                              строительства, реконструкции линейных объектов, а
+                              также получить технические условия на параллельное
+                              следование и пересечение Вы можете посредством
+                              сервиса «ВсеСети» на Портале государственных и
+                              муниципальных услуг Московской области.
                             </p>
                             <div className="creditRating__link-area">
-                              <a href="https://uslugi.mosreg.ru/services/20809?step=110530&target=66979&applicant=15267" target="_blank" className="creditRating__link block-btn">
-
+                              <a
+                                href="https://uslugi.mosreg.ru/services/20809?step=110530&target=66979&applicant=15267"
+                                target="_blank"
+                                className="creditRating__link block-btn"
+                              >
                                 Перейти на "ВсеСети"
                               </a>
                             </div>
