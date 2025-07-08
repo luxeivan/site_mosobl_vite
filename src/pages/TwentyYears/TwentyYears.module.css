@@ -84,11 +84,6 @@
   margin-top: 24px;
 }
 
-/* .galleryItem {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-} */
 
 .galleryItem img {
   width: 100%;
@@ -119,9 +114,7 @@
 }
 
 
-/* крупные абзацы*/
 .bigParagraph {
-  /* font-size: 18px; */
   line-height: 1.7;
 }
 
@@ -197,10 +190,6 @@
     height: 40px;
     font-size: 18px;
   }
-
-  /* .right {
-    display: none;
-  } */
 }
 
 @media (max-width: 768px) {
@@ -229,7 +218,7 @@
   }
 
     .line {
-    font-size: 16px; /* Уменьшаем размер текста */
-    padding: 0 10px; /* Добавляем отступы */
+    font-size: 16px;
+    padding: 0 10px; 
   }
 }
