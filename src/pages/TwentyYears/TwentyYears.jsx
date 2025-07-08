@@ -109,15 +109,19 @@ export default function TwentyYears() {
           нашей памятной книги.
         </Paragraph>
 
-        {screens.md && (
-          <Link onClick={() => setOpen(true)}>Читать онлайн (листалка)</Link>
-        )}
-        <Link
-          style={{ marginLeft: screens.md ? 24 : 0 }}
-          onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
-        >
-          Читать онлайн PDF
-        </Link>
+        <div className={styles.buttonRow}>
+          {screens.md && (
+            <button className={styles.flipButton} onClick={() => setOpen(true)}>
+              Читать онлайн (листалка)
+            </button>
+          )}
+          <button
+            className={styles.pdfButton}
+            onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
+          >
+            Читать онлайн PDF
+          </button>
+        </div>
       </section>
 
       {/* Оверлей-листалка */}

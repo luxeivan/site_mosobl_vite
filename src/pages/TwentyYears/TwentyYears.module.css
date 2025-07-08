@@ -121,7 +121,7 @@
 
 /* крупные абзацы*/
 .bigParagraph {
-  font-size: 18px;
+  /* font-size: 18px; */
   line-height: 1.7;
 }
 
@@ -129,6 +129,44 @@
   0% { background-position: 0% 50% }
   50% { background-position: 100% 50% }
   100% { background-position: 0% 50% }
+}
+
+.flipButton {
+  background: #ec691f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  animation: pulse 2s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.buttonRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.pdfButton {
+  background: transparent;
+  color: #ec691f;
+  border: 2px solid #ec691f;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pdfButton:hover {
+  background: #ec691f;
+  color: #fff;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(236, 105, 31, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(236, 105, 31, 0); }
 }
 
 
