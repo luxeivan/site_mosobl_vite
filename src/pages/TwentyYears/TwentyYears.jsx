@@ -92,101 +92,102 @@ export default function TwentyYears() {
           </motion.div>
         </div>
       </Flex>
+      <div className={`text-area`}>
 
-      {/* Памятная книга */}
-      <section className={styles.bookIntro}>
-        <Title level={2} className={styles.sectionTitle}>
-          Памятная книга
-        </Title>
-        <p className="bigParagraph text-area border-bottom">
-          Специально к юбилею АО «Мособлэнерго» выпустило памятную книгу,
-          посвященную истории развития компании и ее филиалов. История АО
-          «Мособлэнерго» — это гораздо больше, чем 20 лет. Электросети городов
-          Подмосковья, профессиональные коллективы которых по сей день хранят
-          уникальные воспоминания за более чем 85 лет работы, сегодня стали
-          частью нашей большой компании. Бесценные рассказы ветеранов отрасли и
-          самые яркие вехи истории электросетевых предприятий легли в основу
-          нашей памятной книги.
-        </p>
+        {/* Памятная книга */}
+        <section className={`${styles.bookIntro}`}>
+          <Title level={2} className={styles.sectionTitle}>
+            Памятная книга
+          </Title>
+          <p className="bigParagraph  border-bottom">
+            Специально к юбилею АО «Мособлэнерго» выпустило памятную книгу,
+            посвященную истории развития компании и ее филиалов. История АО
+            «Мособлэнерго» — это гораздо больше, чем 20 лет. Электросети городов
+            Подмосковья, профессиональные коллективы которых по сей день хранят
+            уникальные воспоминания за более чем 85 лет работы, сегодня стали
+            частью нашей большой компании. Бесценные рассказы ветеранов отрасли и
+            самые яркие вехи истории электросетевых предприятий легли в основу
+            нашей памятной книги.
+          </p>
 
-        <div className={styles.buttonRow}>
-          {screens.md && (
-            <button className={styles.flipButton} onClick={() => setOpen(true)}>
-              Читать онлайн (листалка)
-            </button>
-          )}
-          <button
-            className={styles.pdfButton}
-            onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
-          >
-            Читать онлайн PDF
-          </button>
-        </div>
-      </section>
-
-      {/* Оверлей-листалка */}
-      {open && (
-        <div className={styles.overlay} onClick={() => setOpen(false)}>
-          <button
-            className={styles.closeButton}
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen(false);
-            }}
-            aria-label="Закрыть"
-          >
-            ✕
-          </button>
-          <div
-            className={styles.bookWrapper}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <HTMLFlipBook
-              width={900}
-              height={764}
-              // minWidth={500}
-              // maxWidth={900}
-              // minHeight={600}
-              // maxHeight={1200}
-              showCover
-              usePortrait
-              autoCenter
-              mobileScrollSupport
-              className={styles.book}
+          <div className={styles.buttonRow}>
+            {screens.md && (
+              <button className={styles.flipButton} onClick={() => setOpen(true)}>
+                Читать онлайн (листалка)
+              </button>
+            )}
+            <button
+              className={styles.pdfButton}
+              onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
             >
-              {slides.map((slide, i) => (
-                <div key={i} className={styles.page}>
-                  <img
-                    src={slide.src}
-                    alt={`Страница ${i + 1}`}
-                    className={styles.pageImg}
-                  />
-                </div>
-              ))}
-            </HTMLFlipBook>
+              Читать онлайн PDF
+            </button>
           </div>
-        </div>
-      )}
+        </section>
 
-      {/* Архивные материалы */}
-      <section className={styles.bookIntro}>
-        <Title level={2} className={styles.sectionTitle}>
-          Архивные материалы
-        </Title>
-        <p className="bigParagraph text-area border-bottom">
-          В процессе работы над исследованием мы обнаружили уникальные архивные
-          документы первых электросетевых предприятий городов Подмосковья, в том
-          числе и довоенной эпохи – приказы, письма, распоряжения, десятки
-          фотографий и свидетельств, воспоминаний и исторических фактов,
-          свершившихся в различные периоды становления и развития отрасли. К
-          сожалению, вместить в одну книгу подробную историю каждой электросети,
-          которая теперь стала частью «Мособлэнерго», физически невозможно,
-          поэтому мы постарались выбрать и включить в книгу основные события.
-          Для всех, кто хотел бы более подробно погрузиться в историю
-          электросетей Подмосковья мы разместили здесь всю найденную информацию.
-        </p>
+        {/* Оверлей-листалка */}
+        {open && (
+          <div className={styles.overlay} onClick={() => setOpen(false)}>
+            <button
+              className={styles.closeButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+              aria-label="Закрыть"
+            >
+              ✕
+            </button>
+            <div
+              className={styles.bookWrapper}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <HTMLFlipBook
+                width={900}
+                height={764}
+                // minWidth={500}
+                // maxWidth={900}
+                // minHeight={600}
+                // maxHeight={1200}
+                showCover
+                usePortrait
+                autoCenter
+                mobileScrollSupport
+                className={styles.book}
+              >
+                {slides.map((slide, i) => (
+                  <div key={i} className={styles.page}>
+                    <img
+                      src={slide.src}
+                      alt={`Страница ${i + 1}`}
+                      className={styles.pageImg}
+                    />
+                  </div>
+                ))}
+              </HTMLFlipBook>
+            </div>
+          </div>
+        )}
 
-        {/* <Paragraph className={styles.bigParagraph}>
+        {/* Архивные материалы */}
+        <section className={styles.bookIntro}>
+          <Title level={2} className={styles.sectionTitle}>
+            Архивные материалы
+          </Title>
+          <p className="bigParagraph text-area border-bottom">
+            В процессе работы над исследованием мы обнаружили уникальные архивные
+            документы первых электросетевых предприятий городов Подмосковья, в том
+            числе и довоенной эпохи – приказы, письма, распоряжения, десятки
+            фотографий и свидетельств, воспоминаний и исторических фактов,
+            свершившихся в различные периоды становления и развития отрасли. К
+            сожалению, вместить в одну книгу подробную историю каждой электросети,
+            которая теперь стала частью «Мособлэнерго», физически невозможно,
+            поэтому мы постарались выбрать и включить в книгу основные события.
+            Для всех, кто хотел бы более подробно погрузиться в историю
+            электросетей Подмосковья мы разместили здесь всю найденную информацию.
+          </p>
+
+          {/* <Paragraph className={styles.bigParagraph}>
           В процессе работы над исследованием мы обнаружили уникальные архивные
           документы первых электросетевых предприятий городов Подмосковья, в том
           числе и довоенной эпохи – приказы, письма, распоряжения, десятки
@@ -198,36 +199,37 @@ export default function TwentyYears() {
           Для всех, кто хотел бы более подробно погрузиться в историю
           электросетей Подмосковья мы разместили здесь всю найденную информацию.
         </Paragraph> */}
-      </section>
-
-      {/* Галереи по филиалам */}
-      {photos.map((filial) => (
-        <section key={filial.id} className={styles.branchSection}>
-          <Title level={3}>{filial.nameFilial}</Title>
-          <div className={styles.gallery}>
-            {filial.photos.map(({ url, name, formats }, idx) => (
-              <figure key={idx} className={styles.galleryItem}>
-                <img
-                  src={`${addressServer}${formats.thumbnail.url}`}
-                  alt={name}
-                  onClick={() => {
-                    setLbSlides(
-                      filial.photos.map(({ url }) => ({
-                        src: `${addressServer}${url}`,
-                      }))
-                    );
-                    setLbIndex(idx);
-                    setLbOpen(true);
-                  }}
-                  className={styles.galleryImg}
-                />
-                <figcaption>{name.replace(/\.(jpe?g|png)$/i, "")}</figcaption>
-              </figure>
-            ))}
-          </div>
         </section>
-      ))}
 
+
+        {/* Галереи по филиалам */}
+        {photos.map((filial) => (
+          <section key={filial.id} className={styles.branchSection}>
+            <Title level={3}>{filial.nameFilial}</Title>
+            <div className={styles.gallery}>
+              {filial.photos.map(({ url, name, formats }, idx) => (
+                <figure key={idx} className={styles.galleryItem}>
+                  <img
+                    src={`${addressServer}${formats.thumbnail.url}`}
+                    alt={name}
+                    onClick={() => {
+                      setLbSlides(
+                        filial.photos.map(({ url }) => ({
+                          src: `${addressServer}${url}`,
+                        }))
+                      );
+                      setLbIndex(idx);
+                      setLbOpen(true);
+                    }}
+                    className={styles.galleryImg}
+                  />
+                  <p>{name.replace(/\.(jpe?g|png)$/i, "")}</p>
+                </figure>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
       {/* Lightbox для архива */}
       {lbOpen && (
         <Lightbox
