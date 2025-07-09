@@ -98,7 +98,7 @@ export default function TwentyYears() {
         <Title level={2} className={styles.sectionTitle}>
           Памятная книга
         </Title>
-        <Paragraph className={styles.bigParagraph}>
+        <p className="bigParagraph text-area border-bottom">
           Специально к юбилею АО «Мособлэнерго» выпустило памятную книгу,
           посвященную истории развития компании и ее филиалов. История АО
           «Мособлэнерго» — это гораздо больше, чем 20 лет. Электросети городов
@@ -107,17 +107,21 @@ export default function TwentyYears() {
           частью нашей большой компании. Бесценные рассказы ветеранов отрасли и
           самые яркие вехи истории электросетевых предприятий легли в основу
           нашей памятной книги.
-        </Paragraph>
+        </p>
 
-        {screens.md && (
-          <Link onClick={() => setOpen(true)}>Читать онлайн (листалка)</Link>
-        )}
-        <Link
-          style={{ marginLeft: screens.md ? 24 : 0 }}
-          onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
-        >
-          Читать онлайн PDF
-        </Link>
+        <div className={styles.buttonRow}>
+          {screens.md && (
+            <button className={styles.flipButton} onClick={() => setOpen(true)}>
+              Читать онлайн (листалка)
+            </button>
+          )}
+          <button
+            className={styles.pdfButton}
+            onClick={() => window.open(pdfURL, "_blank", "noopener,noreferrer")}
+          >
+            Читать онлайн PDF
+          </button>
+        </div>
       </section>
 
       {/* Оверлей-листалка */}
@@ -169,7 +173,7 @@ export default function TwentyYears() {
         <Title level={2} className={styles.sectionTitle}>
           Архивные материалы
         </Title>
-        <Paragraph className={styles.bigParagraph}>
+        <p className="bigParagraph text-area border-bottom">
           В процессе работы над исследованием мы обнаружили уникальные архивные
           документы первых электросетевых предприятий городов Подмосковья, в том
           числе и довоенной эпохи – приказы, письма, распоряжения, десятки
@@ -180,7 +184,20 @@ export default function TwentyYears() {
           поэтому мы постарались выбрать и включить в книгу основные события.
           Для всех, кто хотел бы более подробно погрузиться в историю
           электросетей Подмосковья мы разместили здесь всю найденную информацию.
-        </Paragraph>
+        </p>
+
+        {/* <Paragraph className={styles.bigParagraph}>
+          В процессе работы над исследованием мы обнаружили уникальные архивные
+          документы первых электросетевых предприятий городов Подмосковья, в том
+          числе и довоенной эпохи – приказы, письма, распоряжения, десятки
+          фотографий и свидетельств, воспоминаний и исторических фактов,
+          свершившихся в различные периоды становления и развития отрасли. К
+          сожалению, вместить в одну книгу подробную историю каждой электросети,
+          которая теперь стала частью «Мособлэнерго», физически невозможно,
+          поэтому мы постарались выбрать и включить в книгу основные события.
+          Для всех, кто хотел бы более подробно погрузиться в историю
+          электросетей Подмосковья мы разместили здесь всю найденную информацию.
+        </Paragraph> */}
       </section>
 
       {/* Галереи по филиалам */}
