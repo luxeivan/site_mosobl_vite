@@ -199,12 +199,16 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 932px) {
   .flex {
     flex-direction: column;
     align-items: center;
     gap: 16px;
     position: relative;
+  }
+
+  .img {
+    width: 100%;
   }
 
   .logo {
