@@ -84,7 +84,6 @@
   margin-top: 24px;
 }
 
-
 .galleryItem img {
   width: 100%;
   height: 180px;
@@ -113,15 +112,20 @@
   cursor: pointer;
 }
 
-
 .bigParagraph {
   line-height: 1.7;
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .flipButton {
@@ -158,21 +162,24 @@
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(236, 105, 31, 0.7); }
-  50% { box-shadow: 0 0 0 10px rgba(236, 105, 31, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 105, 31, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(236, 105, 31, 0);
+  }
 }
-
-
 
 @media (max-width: 1024px) {
   .flex {
-    background: linear-gradient(
+    /* background: linear-gradient(
       90deg,
       #005cb8 0%,
       #fff 40%,
       #fff 60%,
       #005cb8 100%
-    );
+    ); */
     position: relative;
   }
 
@@ -201,8 +208,11 @@
   }
 
   .logo {
-    width: 280px;
-    margin: 60px 0 40px;
+    display: none;
+  }
+
+  .reverse {
+    display: none;
   }
 
   .line {
@@ -217,8 +227,8 @@
     margin: 0;
   }
 
-    .line {
+  .line {
     font-size: 16px;
-    padding: 0 10px; 
+    padding: 0 10px;
   }
 }

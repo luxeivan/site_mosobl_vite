@@ -70,14 +70,13 @@ export default function TwentyYears() {
         <img src={back} className={`${styles.img} ${styles.reverse}`} alt="" />
         <img src={logo} className={styles.logo} alt="20 лет МосОблЭнерго" />
         <img src={back} className={styles.img} alt="" />
-        {/* <div className={styles.line}>20 лет во благо Подмосковья!</div> */}
         <div className={styles.line}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1.2,
-              ease: [0.16, 1, 0.3, 1], // Плавная кривая
+              ease: [0.16, 1, 0.3, 1],
             }}
             style={{
               background: "linear-gradient(45deg, #ff8c00, #ffd700, #ff8c00)",
@@ -145,10 +144,6 @@ export default function TwentyYears() {
               <HTMLFlipBook
                 width={900}
                 height={764}
-                // minWidth={500}
-                // maxWidth={900}
-                // minHeight={600}
-                // maxHeight={1200}
                 showCover
                 usePortrait
                 autoCenter
@@ -186,22 +181,7 @@ export default function TwentyYears() {
             Для всех, кто хотел бы более подробно погрузиться в историю
             электросетей Подмосковья мы разместили здесь всю найденную информацию.
           </p>
-
-          {/* <Paragraph className={styles.bigParagraph}>
-          В процессе работы над исследованием мы обнаружили уникальные архивные
-          документы первых электросетевых предприятий городов Подмосковья, в том
-          числе и довоенной эпохи – приказы, письма, распоряжения, десятки
-          фотографий и свидетельств, воспоминаний и исторических фактов,
-          свершившихся в различные периоды становления и развития отрасли. К
-          сожалению, вместить в одну книгу подробную историю каждой электросети,
-          которая теперь стала частью «Мособлэнерго», физически невозможно,
-          поэтому мы постарались выбрать и включить в книгу основные события.
-          Для всех, кто хотел бы более подробно погрузиться в историю
-          электросетей Подмосковья мы разместили здесь всю найденную информацию.
-        </Paragraph> */}
         </section>
-
-
         {/* Галереи по филиалам */}
         {photos.map((filial) => (
           <section key={filial.id} className={styles.branchSection}>
@@ -231,6 +211,7 @@ export default function TwentyYears() {
         ))}
       </div>
       {/* Lightbox для архива */}
+
       {lbOpen && (
         <Lightbox
           open
