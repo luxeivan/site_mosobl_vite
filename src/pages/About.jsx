@@ -94,7 +94,7 @@ export default function About() {
 
           <a
             className="doc-line"
-            href={`${addressServer}/uploads/da431a6abcbd0b2e80fb8669efc7b934_compressed_915b6278fc.pdf?updated_at=2022-10-28T09:11:34.786Z`}
+            href={`${addressServer}/uploads/Prezentacziya1_531464bc53.pptx`}
             download=""
             rel="noopener noreferrer"
             target="_blank"
