@@ -131,10 +131,10 @@ export const mainMenu = [
         title: "Специальные проекты",
         link: "/specialProjects",
       },
-      // {
-      //   title: "20 лет «Мособлэнерго»",
-      //   link: "/20years",
-      // },
+      {
+        title: "20 лет «Мособлэнерго»",
+        link: "/20years",
+      },
     ],
   },
   {

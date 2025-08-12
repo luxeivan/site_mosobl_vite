@@ -126,14 +126,10 @@ const AdditionalServices = () => {
           unit: item.unit,
           price: item.price,
           isSubSectionHeader: false,
-          rowSpanCode:
-            item.rowSpanCode !== null ? item.rowSpanCode : 1,
-          rowSpanName:
-            item.rowSpanName !== null ? item.rowSpanName : 1,
-          rowSpanUnit:
-            item.rowSpanUnit !== null ? item.rowSpanUnit : 1,
-          rowSpanPrice:
-            item.rowSpanPrice !== null ? item.rowSpanPrice : 1,
+          rowSpanCode: item.rowSpanCode !== null ? item.rowSpanCode : 1,
+          rowSpanName: item.rowSpanName !== null ? item.rowSpanName : 1,
+          rowSpanUnit: item.rowSpanUnit !== null ? item.rowSpanUnit : 1,
+          rowSpanPrice: item.rowSpanPrice !== null ? item.rowSpanPrice : 1,
         };
       }
     });
@@ -286,47 +282,71 @@ const AdditionalServices = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TopImage image={imgTop} title={"Дополнительные услуги"} more={
-        <div>
+      <TopImage
+        image={imgTop}
+        title={"Дополнительные услуги"}
+        more={
+          <div>
+            <div
+              // style={{ position: "absolute", top: -120, left: 0, zIndex: 1000, backgroundColor: "white", padding: 10, borderRadius: 10, margin: 20, }}
+              style={{
+                backgroundColor: "#fffc",
+                padding: 20,
+                borderRadius: 10,
+                // margin: "0 auto",
+                marginTop: 40,
+                marginBottom: 20,
+                // border: "1px solid #d9d9d9",
+                // maxWidth: "50%"
+              }}
+              className={styles.more}
+            >
+              <Typography.Paragraph>
+                <b>Согласовать топографическую съемку</b> для подтверждения
+                наличия/отсутствия инженерных сетей на территории земельного
+                участка в электронном виде Вы можете посредством сервиса
+                <b>«ВсеСети» на Портале государственных и муниципальных услуг
+                </b> Московской области. Консультации по поступившим заявкам в АО
+                «Мособлэнерго» посредством сервиса <b>«ВсеСети»</b> и результатам
+                рассмотрения заявок можно получить по тел. 8 (495)780-39-62 доб.
+                10-96.
+              </Typography.Paragraph>
 
-          <div
-            // style={{ position: "absolute", top: -120, left: 0, zIndex: 1000, backgroundColor: "white", padding: 10, borderRadius: 10, margin: 20, }}
-            style={{
-              backgroundColor: "#fffc",
-              padding: 20,
-              borderRadius: 10,
-              // margin: "0 auto",
-              marginTop: 40,
-              marginBottom: 20,
-              // border: "1px solid #d9d9d9",
-              // maxWidth: "50%"
-            }}
-            className={styles.more}
-          >
-            <Typography.Paragraph>
+              {/* <Typography.Paragraph>
               <b>Согласовать топографическую съемку</b> для подтверждения наличия/отсутствия инженерных сетей на территории земельного участка в электронном виде Вы можете посредством сервиса <b>«ВсеСети» на Портале государственных и муниципальных услуг</b> Московской области.
-            </Typography.Paragraph>
-            <div style={{ textAlign: "center" }}>
-              <a href="https://uslugi.mosreg.ru/services/20809?step=110530&target=66979&applicant=15267" target="_blank" className="creditRating__link block-btn">
-
-                Перейти на "ВсеСети"
-              </a>
+            </Typography.Paragraph> */}
+              <div style={{ textAlign: "center" }}>
+                <a
+                  href="https://uslugi.mosreg.ru/services/20809?step=110530&target=66979&applicant=15267"
+                  target="_blank"
+                  className="creditRating__link block-btn"
+                >
+                  Перейти на "ВсеСети"
+                </a>
+              </div>
+            </div>
+            <div
+              style={{ marginTop: 20, textAlign: "center" }}
+              className={`${styles.more} block-btn`}
+            >
+              <Link
+                className={styles.more_link}
+                style={{ width: "100%", textAlign: "center" }}
+                to={"/passportscommercialservices"}
+              >
+                Паспорта коммерческих услуг, оказываемых АО «МОСОБЛЭНЕРГО»
+              </Link>
             </div>
           </div>
-          <div style={{ marginTop: 20, textAlign: "center" }} className={`${styles.more} block-btn`}>
-            <Link className={styles.more_link} style={{ width: "100%", textAlign: "center",  }} to={"/passportscommercialservices"}>Паспорта коммерческих услуг, оказываемых АО «МОСОБЛЭНЕРГО»</Link>
-          </div>
-        </div>
-      }
+        }
         paddingTop={270}
         paddingBottom={100}
       />
       <div
         className="page-grid__content"
         id="content"
-      // style={{ position: "relative" }}
+        // style={{ position: "relative" }}
       >
-
         <Collapse
           accordion
           className={styles.accordion}
