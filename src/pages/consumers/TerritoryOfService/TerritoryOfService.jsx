@@ -173,8 +173,8 @@ export default function TerritoryOfService() {
                         }} />
                         </Flex>
                         </Flex> */}
-                <Typography.Paragraph>
-                    <span style={{ color: "red", fontSize: 16 }}>Внимание!</span> Поиск чувствителен к заглавным буквам в словах.
+                <Typography.Paragraph style={{ fontSize: 20 }}>
+                    <span className={styles.red} style={{ color: "red", fontSize: 20, marginRight: 10 }}>Внимание!</span> Поиск чувствителен к заглавным буквам в словах.
                 </Typography.Paragraph>
                 <Flex gap={10} wrap={"wrap"} style={{ marginBottom: 20 }}>
 
@@ -200,12 +200,14 @@ export default function TerritoryOfService() {
                             current: pagination?.current,
                             pageSize: pagination?.pageSize,
                             total: total || 0,
-                            showSizeChanger: { options: [
-                                { value: 10, label: "10/стр." }, 
-                                { value: 25, label: "25/стр." }, 
-                                { value: 50, label: "50/стр." }, 
-                                { value: 100, label: "100/стр." }
-                            ] },
+                            showSizeChanger: {
+                                options: [
+                                    { value: 10, label: "10/стр." },
+                                    { value: 25, label: "25/стр." },
+                                    { value: 50, label: "50/стр." },
+                                    { value: 100, label: "100/стр." }
+                                ]
+                            },
                             // pageSizeOptions: ["10", "25", "50", "100"],
                             showTotal: (total, range) =>
                                 `${range[0]}-${range[1]} из ${total} всего`,
@@ -268,7 +270,7 @@ export default function TerritoryOfService() {
                     ]} />
                 }
 
-                {currentTerritory?.listFiasHouse?.length > 0 &&
+                {/* {currentTerritory?.listFiasHouse?.length > 0 &&
                     (() => {
                         let latitude = 55.754475
                         let longitude = 37.621869
@@ -337,7 +339,7 @@ export default function TerritoryOfService() {
                         }
 
                     })()
-                }
+                } */}
                 {currentFilial &&
                     <Flex style={{ margin: 20 }} align='center' justify='center'>
 

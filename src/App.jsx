@@ -104,7 +104,7 @@ function App() {
           <Route path="/additionalServices" element={<AdditionalServices />} />
           <Route path="/passportscommercialservices" element={<PassportsCommercialServices />} />
           <Route path="/servicePassports" element={<ServicePassports />} />
-          <Route path="/territory" element={<Territory />} />
+          <Route path="/territory" element={<TerritoryOfService />} />
           <Route path="/territoryOfService" element={<TerritoryOfService />} />
           <Route
             path="/technologicalConnection"
