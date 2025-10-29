@@ -154,26 +154,52 @@ export default function Vacancies() {
             </div>
           </div>
           <div className="vacancies-main__item targeted-training">
-            <h2 className="vacancies-main__title branch-post__caption">
-              ЦЕЛЕВОЕ ОБУЧЕНИЕ
-            </h2>
-            <p className="targeted-training__title">
-              <strong>Работа – это не только зарплата, но и:</strong>
-            </p>
-            <ul className="vacancies-main__list">
-              <li className="vacancies-main__list-item targeted-training__item">
-                Применение своих знаний и навыков;
-              </li>
-              <li className="vacancies-main__list-item targeted-training__item">
-                Приобретение профессионального и жизненного опыта;
-              </li>
-              <li className="vacancies-main__list-item targeted-training__item">
-                Возможность личностного роста и самореализации;
-              </li>
-              <li className="vacancies-main__list-item targeted-training__item">
-                Возможность узнать новое и расширить круг интересов.
-              </li>
-            </ul>
+            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
+              <div>
+
+
+                <h2 className="vacancies-main__title branch-post__caption">
+                  ЦЕЛЕВОЕ ОБУЧЕНИЕ
+                </h2>
+                <p className="targeted-training__title">
+                  <strong>Работа – это не только зарплата, но и:</strong>
+                </p>
+                <ul className="vacancies-main__list">
+                  <li className="vacancies-main__list-item targeted-training__item">
+                    Применение своих знаний и навыков;
+                  </li>
+                  <li className="vacancies-main__list-item targeted-training__item">
+                    Приобретение профессионального и жизненного опыта;
+                  </li>
+                  <li className="vacancies-main__list-item targeted-training__item">
+                    Возможность личностного роста и самореализации;
+                  </li>
+                  <li className="vacancies-main__list-item targeted-training__item">
+                    Возможность узнать новое и расширить круг интересов.
+                  </li>
+                </ul>
+              </div>
+              <div style={{ flex: "1", display: "flex", justifyContent: "center", alignItems: "center", gap: "20px", flexDirection: "column" }}>
+                <a
+                  href="https://energyinstitute.ru"
+                  // rel="noopener noreferrer"
+                  target="_blank"
+                  className="open-map__button"
+                  style={{ maxWidth: "200px", color: "white", lineHeight: 1.5 }}
+                >
+                  Энергетический институт повышения квалификации АО «Мособлэнерго»
+                </a>
+                <a
+                  href="https://mcoq.ru"
+                  // rel="noopener noreferrer"
+                  target="_blank"
+                  className="open-map__button"
+                  style={{ maxWidth: "200px", color: "white", lineHeight: 1.5 }}
+                >
+                  Центр оценки квалификации электроэнергетики
+                </a>
+              </div>
+            </div>
           </div>
           <div className="vacancies-main__item">
             <h2 className="vacancies-main__title branch-post__caption">
