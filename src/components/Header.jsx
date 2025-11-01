@@ -16,7 +16,7 @@ import img7ad387832d629a52c87195d9cb795e3c from "../img/7ad387832d629a52c87195d9
 import img639bae9c47ff56a3f33bc8f8b49a4e9b from "../img/639bae9c47ff56a3f33bc8f8b49a4e9b.svg";
 import img629d5332fa7791fcb59127d93f320c66 from "../img/629d5332fa7791fcb59127d93f320c66.jpg";
 import { Link } from "react-router-dom";
-import { Flex, Typography } from "antd";
+import { Button, Dropdown, Flex, Typography } from "antd";
 
 export default function Header() {
   const [scroll, setScroll] = useState();
@@ -46,9 +46,8 @@ export default function Header() {
   return (
     <header>
       <section
-        className={`page-header vg-modal-fixed ${scroll}  ${
-          openSearchLine ? "hide-line" : ""
-        }`}
+        className={`page-header vg-modal-fixed ${scroll}  ${openSearchLine ? "hide-line" : ""
+          }`}
         id="myHeader"
       >
         <div className="container">
@@ -167,47 +166,74 @@ export default function Header() {
                   </div>
                 </div>
                 <div className="page-header__right">
-                  <a
-                    className="wrap-link wrap-link_portal"
-                    href="https://moetp.ru/"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <div className="wrap-link__wrap-icon">
-                      <svg
-                        className="wrap-link__icon wrap-link_portal__icon"
-                        viewBox="0 0 16 24"
-                        height="24"
-                        fill="none"
-                        width="16"
-                      >
-                        <path
-                          d="M12.2 20.7143C13.7127 20.7143 15 19.3639 15 18.0857V12.1715C15 10.0009 10.4318 8.88574 8 8.88574C5.5682 8.88574 1 10.0003 1 12.1715V18.0857C1 19.3639 2.2873 20.7143 3.8 20.7143"
-                          strokeWidth="2"
-                          strokeMiterlimit="10"
-                          strokeLinejoin="round"
-                        ></path>
-                        <path
-                          d="M7.99995 6.91429C9.63165 6.91429 10.8 5.94828 10.8 4.54857V3.36572C10.8 1.966 9.63165 1 7.99995 1C6.36825 1 5.19995 1.966 5.19995 3.36572V4.54923C5.19995 5.94829 6.36825 6.91429 7.99995 6.91429Z"
-                          strokeWidth="2"
-                          strokeMiterlimit="10"
-                        ></path>
-                        <path
-                          d="M12 24.0001V13.4858"
-                          strokeWidth="2"
-                          strokeMiterlimit="10"
-                        ></path>
-                        <path
-                          d="M4 13.4858V24.0001"
-                          strokeWidth="2"
-                          strokeMiterlimit="10"
-                        ></path>
-                      </svg>
-                    </div>
-                    <span className="wrap-link__text">
-                      Перейти на портал потребителя
-                    </span>
-                  </a>
+                  <Dropdown menu={{
+                    items: [
+                      {
+                        label: (
+                          <a href="https://moetp.ru/" target="_blank" rel="noopener noreferrer">
+                            Действующий портал
+                          </a>
+                        ),
+                        key: '0',
+                        // style:{backgroundColor:"#ffccccff"}
+                      },
+                      {
+                        label: (
+                          <a href="https://portal.mosoblenergo.ru/" target="_blank" rel="noopener noreferrer">
+                            Новый портал (бета версия)
+                          </a>
+                        ),
+                        key: '1',
+                        // style:{backgroundColor:"#ccffccff"}
+                      },
+                    ]
+                  }} trigger={['click']}>
+                    {/* <Button>Перейти на портал</Button> */}
+
+                    <a
+                      className="wrap-link wrap-link_portal"
+                      href="https://moetp.ru/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      onClick={e => e.preventDefault()}
+                    >
+                      <div className="wrap-link__wrap-icon">
+                        <svg
+                          className="wrap-link__icon wrap-link_portal__icon"
+                          viewBox="0 0 16 24"
+                          height="24"
+                          fill="none"
+                          width="16"
+                        >
+                          <path
+                            d="M12.2 20.7143C13.7127 20.7143 15 19.3639 15 18.0857V12.1715C15 10.0009 10.4318 8.88574 8 8.88574C5.5682 8.88574 1 10.0003 1 12.1715V18.0857C1 19.3639 2.2873 20.7143 3.8 20.7143"
+                            strokeWidth="2"
+                            strokeMiterlimit="10"
+                            strokeLinejoin="round"
+                          ></path>
+                          <path
+                            d="M7.99995 6.91429C9.63165 6.91429 10.8 5.94828 10.8 4.54857V3.36572C10.8 1.966 9.63165 1 7.99995 1C6.36825 1 5.19995 1.966 5.19995 3.36572V4.54923C5.19995 5.94829 6.36825 6.91429 7.99995 6.91429Z"
+                            strokeWidth="2"
+                            strokeMiterlimit="10"
+                          ></path>
+                          <path
+                            d="M12 24.0001V13.4858"
+                            strokeWidth="2"
+                            strokeMiterlimit="10"
+                          ></path>
+                          <path
+                            d="M4 13.4858V24.0001"
+                            strokeWidth="2"
+                            strokeMiterlimit="10"
+                          ></path>
+                        </svg>
+                      </div>
+                      <span className="wrap-link__text">
+                        Перейти на портал потребителя
+                      </span>
+                    </a>
+
+                  </Dropdown>
                   <Link className="wrap-link" to="/plannedOutages">
                     {" "}
                     <div className="wrap-link__wrap-icon">
@@ -733,22 +759,50 @@ export default function Header() {
           <div className="mob-menu-down__down">
             <div className="container">
               <div className="mob-menu-down__wrapper">
-                <a className="mob-menu-down__wrap" href="https://moetp.ru/">
-                  <div className="mob-menu-down__wrap-icon">
-                    <svg
-                      className="mob-menu-down__icon"
-                      viewBox="0 0 16 24"
-                      height="24"
-                      width="16"
-                      fill="none"
-                    >
-                      <use href="/local/templates/vg/assets/img/consumer.svg#consumer"></use>
-                    </svg>
-                  </div>
-                  <span className="mob-menu-down__text">
-                    Перейти на портал потребителя
-                  </span>
-                </a>
+                <Dropdown menu={{
+                  items: [
+                    {
+                      label: (
+                        <a href="https://moetp.ru/" target="_blank" rel="noopener noreferrer">
+                          Действующий портал
+                        </a>
+                      ),
+                      key: '0',
+                      // style:{backgroundColor:"#ffccccff"}
+                    },
+                    {
+                      label: (
+                        <a href="https://portal.mosoblenergo.ru/" target="_blank" rel="noopener noreferrer">
+                          Новый портал (бета версия)
+                        </a>
+                      ),
+                      key: '1',
+                      // style:{backgroundColor:"#ccffccff"}
+                    },
+                  ]
+                }} trigger={['click']}>
+
+                  <a
+                    className="mob-menu-down__wrap"
+                    href="https://moetp.ru/"
+                    onClick={e => e.preventDefault()}
+                  >
+                    <div className="mob-menu-down__wrap-icon">
+                      <svg
+                        className="mob-menu-down__icon"
+                        viewBox="0 0 16 24"
+                        height="24"
+                        width="16"
+                        fill="none"
+                      >
+                        <use href="/local/templates/vg/assets/img/consumer.svg#consumer"></use>
+                      </svg>
+                    </div>
+                    <span className="mob-menu-down__text">
+                      Перейти на портал потребителя
+                    </span>
+                  </a>
+                </Dropdown>
                 <Link className="mob-menu-down__wrap" to="/plannedOutages">
                   {" "}
                   <div className="mob-menu-down__wrap-icon">
