@@ -18,6 +18,8 @@ import img629d5332fa7791fcb59127d93f320c66 from "../img/629d5332fa7791fcb59127d9
 import { Link } from "react-router-dom";
 import { Button, Dropdown, Flex, Typography } from "antd";
 
+import styles from './Header.module.css'
+
 export default function Header() {
   const [scroll, setScroll] = useState();
   const [openMobMenu, setOpenMobMenu] = useState(false);
@@ -856,84 +858,20 @@ export default function Header() {
                           alt="logo"
                           style={{ marginTop: 100 }}
                         />
-                        {/* <img
-                          className="pobeda"
-                          src={pobeda}
-                          alt="80 лет Победа!"
-                          style={{
-                            width: "200px",
-                            zIndex: 10,
-                            marginLeft: "-10px",
-                            marginBottom: "-25px",
-                            height: "auto",
-                            maxWidth: "100%", 
-                          }}
-                        /> */}
+
                       </div>
                       <br />
                       {/* ------------------------------------------------------ */}
-                      <Flex wrap={"wrap"} className="creditRatingFlex" gap={20}>
-                        <div className="creditRating">
-                          {/* <img className="creditRating__img" src={creditRating} alt="logo" /> */}
-                          <div className="creditRating__desc">
-                            <h3 className="creditRating__title">
-                              Внеплановые отключения
-                            </h3>
-                            <p className="creditRating__text">
-                              АО «Мособлэнерго» предлагает воспользоваться
-                              сервисом информирования населения о перерывах
-                              электроснабжения – плановых работах и
-                              технологических нарушениях в сетях(внеплановых
-                              отключениях). Получить информацию об отключениях
-                              можно, перейдя по кнопке в верхнем правом углу
-                              сайта «Узнать об отключениях» или по кнопке ниже.
-                            </p>
-                            <div className="creditRating__link-area">
-                              <Link
-                                className="creditRating__link block-btn"
-                                to="/plannedOutages"
-                              >
-                                Узнать об отключениях
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="creditRating">
-                          {/* <img className="creditRating__img" src={creditRating} alt="logo" /> */}
-                          <div className="creditRating__desc">
-                            <h3
-                              className="creditRating__title"
-                              style={{ color: "red", textAlign: "center" }}
-                            >
-                              ВНИМАНИЕ МОШЕННИКИ!!!
-                            </h3>
-                            <p className="creditRating__text">
-                              Работники АО «Мособлэнерго» и наши представители
-                              НИКОГДА не запрашивают персональные данные (номер
-                              паспорта, СНИЛС и т.д.) по телефону.
-                            </p>
-                            <p className="creditRating__text">
-                              Передача персональных данных возможна только в
-                              личном кабинете или в офисе при подаче заявок.
-                            </p>
-                            <p className="creditRating__text">
-                              Берегите себя и своих близких!
-                            </p>
-                          </div>
-                        </div>
-                        <div className="creditRating">
-                          {/* <img className="creditRating__img" src={creditRating} alt="logo" /> */}
+                      <Flex justify="center" gap={20} wrap={"wrap"}>
+
+
+                        <div className={`${styles.creditRating} ${styles.creditRatingLeft}`}>
                           <div className="creditRating__desc">
                             <h3 className="creditRating__title">
                               Дополнительные услуги
                             </h3>
                             <p className="creditRating__text">
-                              {/* Согласовать топографическую съемку для
-                              подтверждения наличия/отсутствия инженерных сетей
-                              на территории земельного участка в электронном
-                              виде Вы можете посредством сервиса «ВсеСети» на
-                              Портале государственных и муниципальных услуг
-                              Московской области. */}
+
                               Согласовать топографическую съемку для
                               подтверждения наличия/отсутствия инженерных сетей
                               на территории земельного участка в электронном
@@ -953,8 +891,78 @@ export default function Header() {
                                 Перейти на "ВсеСети"
                               </a>
                             </div>
+
+                            </div>
+                            <div className="creditRating__desc">
+                              <p className="creditRating__text">
+                                Требования к организациям по защите объектов электросетевого хозяйства
+                                АО «Мособлэнерго» от механических повреждений при
+                                пересечении/параллельном следовании со строящимися объектами
+                                Заинтересованных лиц
+                              </p>
+                              <div className="creditRating__link-area">
+                                <a
+                                  href="https://mosoblenergo.ru/back/uploads/123_b62382d23f.pdf"
+                                  target="_blank"
+                                  className="creditRating__link block-btn"
+                                >
+                                  Посмотреть
+                                </a>
+                              </div>
+
                           </div>
                         </div>
+                        <Flex vertical justify="space-around" gap={20} className={styles.creditRatingLeft}>
+                          <div className={styles.creditRating}>
+                            {/* <img className="creditRating__img" src={creditRating} alt="logo" /> */}
+                            <div className="creditRating__desc">
+                              <h3 className="creditRating__title">
+                                Внеплановые отключения
+                              </h3>
+                              <p className="creditRating__text">
+                                АО «Мособлэнерго» предлагает воспользоваться
+                                сервисом информирования населения о перерывах
+                                электроснабжения – плановых работах и
+                                технологических нарушениях в сетях(внеплановых
+                                отключениях). Получить информацию об отключениях
+                                можно, перейдя по кнопке в верхнем правом углу
+                                сайта «Узнать об отключениях» или по кнопке ниже.
+                              </p>
+                              <div className="creditRating__link-area">
+                                <Link
+                                  className="creditRating__link block-btn"
+                                  to="/plannedOutages"
+                                >
+                                  Узнать об отключениях
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={styles.creditRating}>
+                            {/* <img className="creditRating__img" src={creditRating} alt="logo" /> */}
+                            <div className="creditRating__desc">
+                              <h3
+                                className="creditRating__title"
+                                style={{ color: "red", textAlign: "center" }}
+                              >
+                                ВНИМАНИЕ МОШЕННИКИ!!!
+                              </h3>
+                              <p className="creditRating__text">
+                                Работники АО «Мособлэнерго» и наши представители
+                                НИКОГДА не запрашивают персональные данные (номер
+                                паспорта, СНИЛС и т.д.) по телефону.
+                              </p>
+                              <p className="creditRating__text">
+                                Передача персональных данных возможна только в
+                                личном кабинете или в офисе при подаче заявок.
+                              </p>
+                              <p className="creditRating__text">
+                                Берегите себя и своих близких!
+                              </p>
+                            </div>
+                          </div>
+                        </Flex>
+
                       </Flex>
                     </div>
                   </div>
