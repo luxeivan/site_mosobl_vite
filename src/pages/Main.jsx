@@ -4,6 +4,13 @@ import pobeda from "../img/Pobeda80_logo_main.png";
 import { addressServer } from "../config";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Flex, Card, Typography, Image, Button } from "antd";
+import Container1600 from "../components/Container1600";
+import styles from "./Main.module.css"
+import disconnect from "../img/main/disconnect.png"
+import newPortal from "../img/main/newPortal.png"
+import moreServices from "../img/main/moreServices.png"
+import scammers from "../img/main/scammers.png"
 
 export default function Main() {
   const [publication, setPublication] = useState([]);
@@ -16,8 +23,73 @@ export default function Main() {
         setPublication([]);
       });
   }, []);
+  const mainCardList = [
+    {
+      title: "Новый портал потребителя",
+      text: "Заработал новый портал потребителя на котором можно ознакомится с нашими услугами а так же подать заявку на их получение.",
+      image: newPortal,
+      backgroundColor: "#D0DCF4",
+      buttonName: "Перейти на портал",
+      url: "https://portal.mosoblenergo.ru",
+      urlBlank: true,
+    },
+    {
+      title: "Внеплановые отключения",
+      text: "Cервис информирования населения о перерывах электроснабжения – плановых работах и технологических нарушениях в сетях (внеплановых отключениях).",
+      image: disconnect,
+      backgroundColor: "#EDE8F6",
+      buttonName: "Узнать об отключениях",
+      url: "/plannedOutages",
+      urlBlank: false,
+    },
+    {
+      title: "Дополнительные услуги",
+      text: "Согласовать топосъемку Согласовать рабочую и проектную документацию Получить технические условия на параллельное следование и пересечение ",
+      image: moreServices,
+      backgroundColor: "#E2E8F0",
+      buttonName: "Подробнее",
+      url: "https://uslugi.mosreg.ru/services/20809?step=110530&target=66979&applicant=15267",
+      urlBlank: true,
+    },
+    {
+      title: "Случаи мошенничества",
+      text: "Мы никогда не запрашиваем  персональные данные по телефону. Передача персональных данных возможна только в личном кабинете или в офисе при подаче заявок.",
+      image: scammers,
+      backgroundColor: "#D0F4F2",
+      buttonName: false,
+      url: "/",
+      urlBlank: false,
+    },
+  ]
   return (
     <>
+      <Container1600>
+        <Flex gap={20} justify="center" style={{ margin: "20px 0" }} wrap={"wrap"}>
+          {mainCardList.map((item, index) =>
+            <Card
+              className={styles.card}
+              style={{ backgroundColor: item.backgroundColor }}
+              key={index}
+            >
+              <Flex vertical style={{ height: "100%" }}>
+                <Typography.Title level={4}>{item.title}</Typography.Title>
+                <Typography.Paragraph>{item.text}</Typography.Paragraph>
+                <Flex style={{ flex: 1 }} vertical justify="flex-end">
+                  <Image style={{ flex: 1 }} preview={false} src={item.image} />
+                  {item.buttonName &&
+                    <Flex justify="center" style={{ marginTop: 10 }}>
+                      <Link to={item.url} target={item.urlBlank ? "_blank" : undefined}>
+                        <Button style={{ backgroundColor: "#e37021" }}><Typography.Text style={{ color: "white" }}>{item.buttonName}</Typography.Text></Button>
+                      </Link>
+                    </Flex>
+                  }
+                </Flex>
+              </Flex>
+            </Card>
+          )}
+
+        </Flex>
+      </Container1600>
       <div
         className="marquee-line marquee3k is-init"
         style={{ backgroundColor: "#E37021" }}
