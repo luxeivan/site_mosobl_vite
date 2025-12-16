@@ -229,58 +229,87 @@ export default function InformationDisclosureTest() {
         title="Раскрытие информации"
       />
 
-<div style={{ background: "#faf9f7" }}>
-  <div
-    style={{
-      textAlign: "center",
-      padding: "24px 0 8px 0",
-      borderBottom: "none", // убираем границу!
-    }}
-  >
-    <Link
-      to="/informationDisclosures/companyratings"
-      className="planned-notification__link"
-      style={{
-        border: "1px solid rgb(227, 112, 33)",
-        boxShadow: "0 2px 8px rgba(227,112,33,0.08)",
-        padding: "10px 20px",
-        borderRadius: 8,
-        display: "inline-block",
-        textDecoration: "none",
-        marginBottom: 8,
-        fontWeight: 500,
-        color: "#222",
-        background: "#fff",
-        transition: "box-shadow 0.2s",
-      }}
-    >
-      Рейтинги Компании
-    </Link>
-    <br />
-    <a
-      className="planned-notification__link"
-      href="https://www.e-disclosure.ru/portal/company.aspx?id=15188"
-      rel="noopener noreferrer"
-      target="_blank"
-      style={{
-        border: "1px solid #2477c6",
-        color: "#2477c6",
-        boxShadow: "0 2px 8px rgba(36,119,198,0.08)",
-        padding: "10px 20px",
-        borderRadius: 8,
-        display: "inline-block",
-        textDecoration: "none",
-        marginTop: 12,
-        fontWeight: 500,
-        background: "#faf9f7",
-        transition: "box-shadow 0.2s",
-      }}
-    >
-      Карточка компании АО "Мособлэнерго" на сайте центра раскрытия корпоративной информации
-    </a>
-  </div>
-</div>
+      <div style={{ background: "#faf9f7" }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: "24px 0 8px 0",
+            borderBottom: "none", // убираем границу!
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 16,
+              flexWrap: "wrap",
+            }}
+          >
+            <Link
+              to="/informationDisclosures/companyratings"
+              className="planned-notification__link"
+              style={{
+                border: "1px solid rgb(227, 112, 33)",
+                boxShadow: "0 2px 8px rgba(227,112,33,0.08)",
+                padding: "10px 20px",
+                borderRadius: 8,
+                display: "inline-block",
+                textDecoration: "none",
+                marginBottom: 8,
+                fontWeight: 500,
+                color: "#222",
+                background: "#fff",
+                transition: "box-shadow 0.2s",
+              }}
+            >
+              Рейтинговое агентство АКРА
+            </Link>
 
+            <Link
+              to="/informationDisclosures/companyratings/expert"
+              className="planned-notification__link"
+              style={{
+                border: "1px solid rgb(227, 112, 33)",
+                boxShadow: "0 2px 8px rgba(227,112,33,0.08)",
+                padding: "10px 20px",
+                borderRadius: 8,
+                display: "inline-block",
+                textDecoration: "none",
+                marginBottom: 8,
+                fontWeight: 500,
+                color: "#222",
+                background: "#fff",
+                transition: "box-shadow 0.2s",
+              }}
+            >
+              Рейтинговое агентство АО «Эксперт РА»
+            </Link>
+          </div>
+          <br />
+          <a
+            className="planned-notification__link"
+            href="https://www.e-disclosure.ru/portal/company.aspx?id=15188"
+            rel="noopener noreferrer"
+            target="_blank"
+            style={{
+              border: "1px solid #2477c6",
+              color: "#2477c6",
+              boxShadow: "0 2px 8px rgba(36,119,198,0.08)",
+              padding: "10px 20px",
+              borderRadius: 8,
+              display: "inline-block",
+              textDecoration: "none",
+              marginTop: 12,
+              fontWeight: 500,
+              background: "#faf9f7",
+              transition: "box-shadow 0.2s",
+            }}
+          >
+            Карточка компании АО "Мособлэнерго" на сайте центра раскрытия
+            корпоративной информации
+          </a>
+        </div>
+      </div>
 
       <Layout style={{ minHeight: "calc(100vh - 300px)" }}>
         {isMobile && (

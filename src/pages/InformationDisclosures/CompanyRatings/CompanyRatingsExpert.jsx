@@ -20,11 +20,11 @@ const type = {
   jpg,
 };
 
-export default function CompanyRatings() {
+export default function CompanyRatingsExpert() {
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
-    fetch(`${addressServer}/api/rejtingi-kompaniis?populate=files`)
+    fetch(`${addressServer}/api/rejtingovoe-agentstvo-ao-ekspert-ras?populate=files`)
       .then((response) => response.json())
       .then((data) => {
         const sortedData = data.data.sort(
@@ -46,7 +46,7 @@ export default function CompanyRatings() {
     >
       <TopImage
         image={imgb04877a3110d6b586d064fc3a2853c70}
-        title={"Рейтинговое агентство АКРА"}
+        title={"Рейтинговое агентство АО «Эксперт РА»"}
       />
       <div className="page-grid__content" id="content">
         <ul>

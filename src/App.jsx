@@ -47,6 +47,7 @@ import Vacancies from "./pages/Vacancy/Vacancies";
 import Investors from "./pages/Investors/Investors";
 import InvestorDetail from "./pages/Investors/InvestorDetail";
 import CompanyRatings from "./pages/InformationDisclosures/CompanyRatings/CompanyRatings";
+import CompanyRatingsExpert from "./pages/InformationDisclosures/CompanyRatings/CompanyRatingsExpert";
 import Universities from "./pages/Vacancy/Practice/Universities";
 import VacanciesTwo from "./pages/Vacancy/VacanciesTwo";
 import ProductionPrograms2025 from "./pages/consumers/ProductionPrograms2025";
@@ -72,13 +73,15 @@ function App() {
             element={<InformationDisclosuresItem />}
           />
           {/* Новое раскрытие информации */}
-          <Route
-            path="/informationDisclosures"
-            element={<Test />}
-          />
+          <Route path="/informationDisclosures" element={<Test />} />
           <Route
             path="/informationDisclosures/companyratings"
             element={<CompanyRatings />}
+          />
+
+          <Route
+            path="/informationDisclosures/companyratings/expert"
+            element={<CompanyRatingsExpert />}
           />
           <Route path="/filials" element={<Filials />} />
 
@@ -102,7 +105,10 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/consumers" element={<Consumers />} />
           <Route path="/additionalServices" element={<AdditionalServices />} />
-          <Route path="/passportscommercialservices" element={<PassportsCommercialServices />} />
+          <Route
+            path="/passportscommercialservices"
+            element={<PassportsCommercialServices />}
+          />
           <Route path="/servicePassports" element={<ServicePassports />} />
           <Route path="/territory" element={<TerritoryOfService />} />
           <Route path="/territoryOfService" element={<TerritoryOfService />} />
