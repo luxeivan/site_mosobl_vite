@@ -54,8 +54,10 @@ export default function Header() {
           top: 0,
           left: 0,
           width: "100%",
-          zIndex: 1000,
+          height: window.innerWidth <= 768 ? "29px" : "20px",
+          zIndex: 999999,
           pointerEvents: "none",
+          objectFit: "cover",
         }}
       />
       <header>

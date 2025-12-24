@@ -12,6 +12,20 @@
 .creditRatingLeft{
     max-width: 48%;
 }
+
+/* гирлянда */
+.header-garland {
+  transform-origin: top center;
+}
+
+/* ТОЛЬКО мобильная версия */
+@media (max-width: 768px) {
+  .header-garland {
+    transform: scaleY(2.5);
+  }
+}
+
+
 @media(max-width:1024px){
     .creditRating {
         max-width: 100%;
