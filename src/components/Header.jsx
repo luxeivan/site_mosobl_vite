@@ -53,11 +53,14 @@ export default function Header() {
           position: "fixed",
           top: 0,
           left: 0,
-          width: "100%",
-          height: window.innerWidth <= 768 ? "29px" : "20px",
+          width: "100vw",
+          height: window.innerWidth <= 768 ? "28px" : "42px",
           zIndex: 999999,
           pointerEvents: "none",
           objectFit: "cover",
+          objectPosition: "center top",
+          transform: window.innerWidth <= 768 ? "scaleY(1.4)" : "scaleY(1.1)",
+          transformOrigin: "top center",
         }}
       />
       <header>
