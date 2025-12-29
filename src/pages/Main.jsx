@@ -92,14 +92,14 @@ export default function Main() {
                 Для физических лиц до 15 кВт по 3 категории(быт) плата составит
               </div>
               <div className={styles.bigText} >
-                23 859,53*₽ за 1кВт
+                23 859,53*₽ за 1 кВт
               </div>
                 <div className={styles.standartText} >с НДС (в случае наличия работ «последней мили» со стороны сетевой организации)</div>
               {/* <Paragraph className={styles.standartText} style={{marginBottom:10}}>
                 
               </Paragraph> */}
               <div className={styles.bigText}>
-                357 892,95₽ за 15кВт
+                357 892,95₽ за 15 кВт
               </div>
                 <div className={styles.standartText}>с НДС</div>
               {/* <Paragraph className={styles.standartText} style={{marginBottom:5}}>
