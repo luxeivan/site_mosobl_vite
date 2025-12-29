@@ -1,0 +1,75 @@
+.containeruptarif {
+    padding: 20px;
+    background-color: #0061AA;
+    background: linear-gradient(138deg, #0061AA 0%, #008ED4 50%, #0061AA 100%);
+}
+
+.titleText {
+    font-weight: 700;
+    color: white;
+    font-size: 48px;
+    margin-bottom: 5px;
+    /* text-transform: uppercase; */
+    font-family: "Oswald", sans-serif;
+}
+
+.bigText {
+    font-weight: 700;
+    color: white;
+    font-size: 48px;
+    margin-bottom: 0px;
+    /* margin-bottom: 5px; */
+}
+
+.standartText {
+    font-weight: 700;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.smallText {
+    font-weight: 700;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.item1 {
+    flex: 1 1 calc(40% - 20px);
+}
+
+.item2 {
+    flex: 1 1 calc(60% - 20px);
+}
+
+@media (max-width: 900px) {
+    .item1 {
+        flex: 1 1 100%;
+        /* На маленьких экранах — полная ширина */
+    }
+    
+    .item2 {
+        flex: 1 1 100%;
+        /* На маленьких экранах — полная ширина */
+    }
+    
+    .titleText {
+        font-size: 36px;
+    }
+    
+    .bigText {
+        font-size: 32px;
+        line-height: 36px;
+        /* margin-bottom: 30px; */
+        /* margin-bottom: 10px; */
+    }
+    .standartText {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .smallText {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

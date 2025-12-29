@@ -4,6 +4,11 @@ import pobeda from "../img/Pobeda80_logo_main.png";
 import { addressServer } from "../config";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Flex, Image, Typography } from "antd";
+import upTarif from '../img/main/upTarif.png'
+import styles from './main.module.css'
+
+const { Title, Text, Paragraph } = Typography
 
 export default function Main() {
   const [publication, setPublication] = useState([]);
@@ -20,7 +25,7 @@ export default function Main() {
     <>
       <div
         className="marquee-line marquee3k is-init"
-        style={{ backgroundColor: "#E37021" }}
+        style={{ backgroundColor: "#E37021",marginBottom:0 }}
         data-speed="1"
       >
 
@@ -59,6 +64,53 @@ export default function Main() {
               страны Европейского союза - gmail.com, outlook.com, yahoo.com.
             </span>
           </div>
+        </div>
+      </div>
+      <div 
+      className={styles.containeruptarif}
+      // style={{
+      //   // backgroundColor: "blue", 
+      //   color: "white", 
+      //   padding: 20,
+      //   // background: "linear-gradient(138deg,#0061aa 0%, #008ed4 50%, #0061aa 100%)" 
+      //   background: "#0061AA",
+      //   background: "linear-gradient(138deg, #0061AA 0 %, #008ED4 50 %, #0061AA 100 %)"
+      //   // background:"linear-gradient(138.4deg, #38bafe 26.49%, #2d73bc 79.45%)" 
+      // }}
+      >
+        <div className="container">
+          <div level={3} style={{ color: "white",  textAlign: "center" }} className={styles.titleText}>Повышение тарифов с 1 января 2026 года</div>
+          <Flex wrap="wrap" gap={40} justify="center" align="center">
+            <Flex justify="center" align="center" className={styles.item} >
+              <Image src={upTarif} preview={false} style={{ maxWidth: 300 }} />
+            </Flex>
+            <div className={styles.item}>
+              <div className={styles.standartText} >
+                Стоимость технологического присоединения к электрическим сетям в 2026 году:
+              </div>
+              <div className={styles.standartText} >
+                Для физических лиц до 15 кВт по 3 категории(быт) плата составит
+              </div>
+              <div className={styles.bigText} >
+                23 859,53*₽ за 1кВт
+              </div>
+                <div className={styles.standartText} >с НДС (в случае наличия работ «последней мили» со стороны сетевой организации)</div>
+              {/* <Paragraph className={styles.standartText} style={{marginBottom:10}}>
+                
+              </Paragraph> */}
+              <div className={styles.bigText}>
+                357 892,95₽ за 15кВт
+              </div>
+                <div className={styles.standartText}>с НДС</div>
+              {/* <Paragraph className={styles.standartText} style={{marginBottom:5}}>
+                
+              </Paragraph> */}
+            </div>
+          <div className={styles.smallText}>
+            Оцените свои финансовые возможности. Подайте заявку на технологическое присоединение только убедившись в наличии необходимых средств.<br />
+            *Согласно Распоряжения Комитета по ценам и тарифам Московской области №300-Р от 28.11.2025
+          </div>
+          </Flex>
         </div>
       </div>
 
