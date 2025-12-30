@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Collapse, Table, Button } from "antd";
+import { Typography, Collapse, Table, Button, Result } from "antd";
 import axios from "axios";
 import pdfIcon from "../../../img/pdf.svg";
 import docxIcon from "../../../img/docx.svg";
@@ -302,14 +302,16 @@ const AdditionalServices = () => {
               className={styles.more}
             >
               <Typography.Paragraph>
-                <b>Согласовать топографическую съемку</b> для подтверждения
+                <b>Согласовать топографическую съемку!!!</b> для подтверждения
                 наличия/отсутствия инженерных сетей на территории земельного
                 участка в электронном виде Вы можете посредством сервиса
-                <b>«ВсеСети» на Портале государственных и муниципальных услуг
-                </b> Московской области. Консультации по поступившим заявкам в АО
-                «Мособлэнерго» посредством сервиса <b>«ВсеСети»</b> и результатам
-                рассмотрения заявок можно получить по тел. 8 (495)780-39-62 доб.
-                10-96.
+                <b>
+                  «ВсеСети» на Портале государственных и муниципальных услуг
+                </b>{" "}
+                Московской области. Консультации по поступившим заявкам в АО
+                «Мособлэнерго» посредством сервиса <b>«ВсеСети»</b> и
+                результатам рассмотрения заявок можно получить по тел. 8
+                (495)780-39-62 доб. 10-96.
               </Typography.Paragraph>
 
               {/* <Typography.Paragraph>
@@ -342,10 +344,16 @@ const AdditionalServices = () => {
         paddingTop={270}
         paddingBottom={100}
       />
-      <div
+
+      <Result
+        status="info"
+        title="Раздел временно обновляется"
+        subTitle="Сейчас идёт техническое обновление страницы дополнительных услуг. Уже совсем скоро вы сможете увидеть расширенный перечень наших услуг. Благодарим за понимание!"
+      />
+
+      {/* <div
         className="page-grid__content"
         id="content"
-        // style={{ position: "relative" }}
       >
         <Collapse
           accordion
@@ -354,15 +362,12 @@ const AdditionalServices = () => {
           expandIcon={() => null}
         />
 
-        {/* Описание внизу страницы */}
-
         {description && (
           <div className={styles.description}>
             <MarkDownText>{description}</MarkDownText>
           </div>
         )}
 
-        {/* Ссылка на скачивание прейскуранта */}
         {priceFileData && (
           <div className="row-docs-age">
             <a
@@ -387,7 +392,7 @@ const AdditionalServices = () => {
             </a>
           </div>
         )}
-      </div>
+      </div> */}
     </motion.div>
   );
 };
