@@ -345,11 +345,27 @@ const AdditionalServices = () => {
         paddingBottom={100}
       />
 
-      <Result
-        status="info"
-        title="Раздел временно обновляется"
-        subTitle="Сейчас идёт техническое обновление страницы дополнительных услуг. Уже совсем скоро вы сможете увидеть расширенный перечень наших услуг. Благодарим за понимание!"
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "80px 0",
+        }}
+      >
+        <Result
+          style={{ maxWidth: 600 }}
+          icon={
+            <img
+              src="https://itdconsulting.com/wp-content/uploads/2024/10/itd-consulting-backup-acronis-vds-vps-ciberseguridad-microsoft-365-active-directory-uopdating.webp"
+              alt="Обновление раздела"
+              style={{ width: 120, margin: "0 auto", display: "block" }}
+            />
+          }
+          title="Раздел временно обновляется"
+          subTitle="Сейчас идёт техническое обновление страницы дополнительных услуг. Уже совсем скоро вы сможете увидеть расширенный перечень наших услуг. Благодарим за понимание!"
+        />
+      </div>
 
       {/* <div
         className="page-grid__content"
