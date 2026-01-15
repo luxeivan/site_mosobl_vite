@@ -345,7 +345,7 @@ const AdditionalServices = () => {
         paddingBottom={100}
       />
 
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -365,9 +365,9 @@ const AdditionalServices = () => {
           title="Раздел временно обновляется"
           subTitle="Сейчас идёт техническое обновление страницы дополнительных услуг. Уже совсем скоро вы сможете увидеть расширенный перечень наших услуг. Благодарим за понимание!"
         />
-      </div>
+      </div> */}
 
-      {/* <div
+      <div
         className="page-grid__content"
         id="content"
       >
@@ -408,7 +408,7 @@ const AdditionalServices = () => {
             </a>
           </div>
         )}
-      </div> */}
+      </div>
     </motion.div>
   );
 };
