@@ -47,7 +47,8 @@ export default function Header() {
   }, [location]);
   return (
     <>
-      <img
+      {/* Новогодняя гирлянда */}
+      {/* <img
         src="https://werstakoff.ru/test/garland.svg"
         style={{
           position: "fixed",
@@ -62,7 +63,7 @@ export default function Header() {
           transform: window.innerWidth <= 768 ? "scaleY(1.4)" : "scaleY(1.1)",
           transformOrigin: "top center",
         }}
-      />
+      /> */}
       <header>
         <section
           className={`page-header vg-modal-fixed ${scroll}  ${
