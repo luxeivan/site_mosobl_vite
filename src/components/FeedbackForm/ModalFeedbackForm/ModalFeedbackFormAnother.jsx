@@ -60,7 +60,7 @@ export default function ModalFeedbackFormAnother({ onClose }) {
                 </option>
               ))}
             </select>
-            {selectTheme !== false && (
+            {selectTheme !== false && selectTheme != 4 && (
               <>
                 <TextInput required name={"ФИО заявителя"} desc={""} />
                 <TextInput
@@ -113,7 +113,17 @@ export default function ModalFeedbackFormAnother({ onClose }) {
               <TextAreaInput
                 name={"Комментарий"}
                 desc={""}
-                required={![0, 1, 2, 5].includes(Number(selectTheme))}
+                required={
+                  ![0, 1, 2, 5].includes(Number(selectTheme)) &&
+                  Number(selectTheme) !== 4
+                }
+              />
+            )}
+            {selectTheme !== false && selectTheme == 4 && (
+              <TextInput
+                required={false}
+                name={"Адрес электронной почты для обратной связи"}
+                desc={""}
               />
             )}
             {selectTheme !== false && selectTheme == 4 && (
@@ -178,18 +188,20 @@ export default function ModalFeedbackFormAnother({ onClose }) {
                 </p>
               </>
             )}
-            <label className={style.checkboxContainer__feedback}>
-              <input
-                className={style.input__feedback}
-                type="checkbox"
-                required
-              />
-              <span className={style.checkboxText__feedback}>
-                Отправляя письмо, я даю согласие на обработку персональных
-                данных, а также несу ответственность за полноту и достоверность
-                предоставленной информации.
-              </span>
-            </label>
+            {selectTheme !== false && selectTheme != 4 && (
+              <label className={style.checkboxContainer__feedback}>
+                <input
+                  className={style.input__feedback}
+                  type="checkbox"
+                  required
+                />
+                <span className={style.checkboxText__feedback}>
+                  Отправляя письмо, я даю согласие на обработку персональных
+                  данных, а также несу ответственность за полноту и достоверность
+                  предоставленной информации.
+                </span>
+              </label>
+            )}
             <button
               type="submit"
               className={style.feedback__button}
