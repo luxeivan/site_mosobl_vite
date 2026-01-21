@@ -126,12 +126,12 @@ export default function ModalFeedbackFormAnother({ onClose }) {
                 desc={""}
               />
             )}
-            {selectTheme !== false && selectTheme == 4 && (
+            {/* {selectTheme !== false && selectTheme == 4 && (
               <p className={style.photoReminder}>
                 Если у Вас есть фото неисправностей линий электропередач,
                 пожалуйста, приложите их при отправке письма.
               </p>
-            )}
+            )} */}
             {selectTheme !== false && selectTheme == 5 && (
               <>
                 <p className={style.dopinformation__six__form}>
