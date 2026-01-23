@@ -78,7 +78,7 @@ export default function Main() {
       //   // background:"linear-gradient(138.4deg, #38bafe 26.49%, #2d73bc 79.45%)" 
       // }}
       >
-        <div className="container">
+        {/* <div className="container">
           <div level={3} style={{ color: "white",  textAlign: "center" }} className={styles.titleText}>Повышение тарифов с 1 января 2026 года</div>
           <Flex wrap="wrap" gap={40} justify="center" align="center">
             <Flex justify="center" align="center" className={styles.item} >
@@ -95,23 +95,19 @@ export default function Main() {
                 23 859,53*₽ за 1 кВт
               </div>
                 <div className={styles.standartText} >с НДС (в случае наличия работ «последней мили» со стороны сетевой организации)</div>
-              {/* <Paragraph className={styles.standartText} style={{marginBottom:10}}>
-                
-              </Paragraph> */}
+
               <div className={styles.bigText}>
                 357 892,95₽ за 15 кВт
               </div>
                 <div className={styles.standartText}>с НДС</div>
-              {/* <Paragraph className={styles.standartText} style={{marginBottom:5}}>
-                
-              </Paragraph> */}
+
             </div>
           <div className={styles.smallText}>
             Оцените свои финансовые возможности. Подайте заявку на технологическое присоединение только убедившись в наличии необходимых средств.<br />
             *Согласно Распоряжения Комитета по ценам и тарифам Московской области №300-Р от 28.11.2025
           </div>
           </Flex>
-        </div>
+        </div> */}
       </div>
 
       <motion.main
