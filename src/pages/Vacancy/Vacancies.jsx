@@ -121,7 +121,7 @@ export default function Vacancies() {
 
             <div className="main-info__item">
               <div className="main-info__col-left">
-                <p className="main-info__filialcount">11</p>
+                <p className="main-info__filialcount">10</p>
                 <p className="main-info__filialcount-info">
                   УКРУПНЕННЫХ ФИЛИАЛОВ
                 </p>
