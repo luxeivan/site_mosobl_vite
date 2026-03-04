@@ -7,6 +7,7 @@ import { chargingAddressServer } from "../config";
 import chargingIco from "../img/Chargingico.png";
 import chargingIco22 from "../img/Chargingico22.png";
 import chargingIco150 from "../img/Chargingico150.png";
+import chargingIco200 from "../img/Chargingico200.png";
 import chargingIco_dis from "../img/Chargingico_dis.png";
 import qrPlaymarket from "../img/qr_plugme_playmarket.svg";
 import qrAppstore from "../img/qr_plugme_appstore.svg";
@@ -32,6 +33,7 @@ export default React.memo(function ElectricChargingStations() {
     power3_5: true,
     power22: true,
     power150: true,
+    power200: true,
     unavailable: true,
   });
   // function getStation(page = 1) {
@@ -274,6 +276,9 @@ export default React.memo(function ElectricChargingStations() {
   const changePower150 = (event) => {
     setFilter({ ...filter, power150: !filter.power150 });
   };
+  const changePower200 = (event) => {
+    setFilter({ ...filter, power200: !filter.power200 });
+  };
   const changeUnavailable = (event) => {
     setFilter({ ...filter, unavailable: !filter.unavailable });
   };
@@ -427,6 +432,35 @@ export default React.memo(function ElectricChargingStations() {
               <input
                 className="form-check-input"
                 type="checkbox"
+                onChange={changePower200}
+                checked={filter.power200}
+                id="power200"
+                style={{ width: "20px", height: "20px", marginRight: "10px" }}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="power200"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <h4 style={{ marginBottom: "0" }}>- 200 кВт: </h4>
+                <img
+                  style={{ width: `25px` }}
+                  src={chargingIco200}
+                  alt="текст"
+                />
+              </label>
+            </div>
+            <div
+              className="form-check"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "20px",
+              }}
+            >
+              <input
+                className="form-check-input"
+                type="checkbox"
                 onChange={changeUnavailable}
                 checked={filter.unavailable}
                 id="unavailable"
@@ -468,6 +502,8 @@ export default React.memo(function ElectricChargingStations() {
                   if (item.attributes.power == 3.5 && filter.power3_5)
                     return true;
                   if (item.attributes.power == 150 && filter.power150)
+                    return true;
+                  if (item.attributes.power == 200 && filter.power200)
                     return true;
                   return false;
                 })
@@ -532,11 +568,13 @@ export default React.memo(function ElectricChargingStations() {
                         iconImageHref: (() => {
                           if (item.attributes.disabled || item.statecode != "available") {
                             return chargingIco_dis
-                          }else if(item.attributes.power == 22){
+                          } else if (item.attributes.power == 22) {
                             return chargingIco22
-                          }else if(item.attributes.power == 150){
+                          } else if (item.attributes.power == 150) {
                             return chargingIco150
-                          }else {
+                          } else if (item.attributes.power == 200) {
+                            return chargingIco200
+                          } else {
                             return chargingIco
                           }
                         })(),
@@ -651,6 +689,12 @@ export default React.memo(function ElectricChargingStations() {
                               } else if (item.attributes.power == 150) {
                                 return {
                                   backgroundColor: "rgba(218,132,64,1)",
+                                  color: "#000",
+                                  textAlign: "center",
+                                }
+                              } else if (item.attributes.power == 200) {
+                                return {
+                                  backgroundColor: "rgb(218, 64, 64)",
                                   color: "#000",
                                   textAlign: "center",
                                 }
@@ -790,17 +834,19 @@ export default React.memo(function ElectricChargingStations() {
                               options={{
                                 iconLayout: "default#image",
                                 // Своё изображение иконки метки.
-                                 iconImageHref: (() => {
-                          if (item.attributes.disabled || item.statecode != "available") {
-                            return chargingIco_dis
-                          }else if(item.attributes.power == 22){
-                            return chargingIco22
-                          }else if(item.attributes.power == 150){
-                            return chargingIco150
-                          }else {
-                            return chargingIco
-                          }
-                        })(),
+                                iconImageHref: (() => {
+                                  if (item.attributes.disabled || item.statecode != "available") {
+                                    return chargingIco_dis
+                                  } else if (item.attributes.power == 22) {
+                                    return chargingIco22
+                                  } else if (item.attributes.power == 150) {
+                                    return chargingIco150
+                                  } else if (item.attributes.power == 200) {
+                                    return chargingIco200
+                                  } else {
+                                    return chargingIco
+                                  }
+                                })(),
                                 // Размеры метки.
                                 iconImageSize,
                                 // Смещение левого верхнего угла иконки относительно
