@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHref, useLocation, useNavigate } from "react-router";
 import { mainMenu } from "../store/menu";
-import logo from "../img/header/logo_20yearold_3.png";
-import logo2 from "../img/header/logo_20yearold_1.png";
-import logoTwo from "../img/header/logo_20yearold_1.png";
-// import logo from "../img/logo.svg";
-// import logo2 from "../img/logo2.svg";
-// import logoTwo from "../img/logo-two.svg";
+// import logo from "../img/header/logo_20yearold_3.png";
+// import logo2 from "../img/header/logo_20yearold_1.png";
+// import logoTwo from "../img/header/logo_20yearold_1.png";
+import logo from "../img/logo.svg";
+import logo2 from "../img/logo2.svg";
+import logoTwo from "../img/logo-two.svg";
 // import pobeda from "../img/Pobeda80_logo_main.png";
 // import firstScreenLogo from "../img/header/logo_20yearold_2.png";
 import searchIcon2 from "../img/search-icon2.svg";
@@ -14,6 +14,7 @@ import firstScreenLogo from "../img/first-screen-logo.svg";
 import img34512673ce61b0db299f7e2405ac60e9 from "../img/34512673ce61b0db299f7e2405ac60e9.svg";
 import img7ad387832d629a52c87195d9cb795e3c from "../img/7ad387832d629a52c87195d9cb795e3c.svg";
 import img639bae9c47ff56a3f33bc8f8b49a4e9b from "../img/639bae9c47ff56a3f33bc8f8b49a4e9b.svg";
+import max_white from "../img/max_white.svg";
 import img629d5332fa7791fcb59127d93f320c66 from "../img/629d5332fa7791fcb59127d93f320c66.jpg";
 import { Link } from "react-router-dom";
 import { Button, Dropdown, Flex, Typography } from "antd";
@@ -102,7 +103,7 @@ export default function Header() {
                     >
                       <div className="page-header__wrap">
                         <span className="page-header__text">
-                          Горячая линия «Мособлэнерго»
+                          Горячая линия
                         </span>
                         <div className="page-header__row">
                           <div className="circle-hint">
@@ -348,6 +349,21 @@ export default function Header() {
                             className="social-list__icon"
                             src={img639bae9c47ff56a3f33bc8f8b49a4e9b}
                             alt="Telegram"
+                          />
+                        </a>
+                      </li>
+                      <li className="social-list__item">
+                        <a
+                          className="social-list__link"
+                          href="https://web.max.ru/-70667119585929"
+                          title="Max"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          <img
+                            className="social-list__icon"
+                            src={max_white}
+                            alt="Max"
                           />
                         </a>
                       </li>
@@ -934,7 +950,7 @@ export default function Header() {
                                   target="_blank"
                                   className="creditRating__link block-btn"
                                 >
-                                  Перейти на "ВсеСети"
+                                  Перейти на «ВсеСети»
                                 </a>
                               </div>
                             </div>

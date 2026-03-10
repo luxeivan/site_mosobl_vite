@@ -5,6 +5,7 @@ import gerb from "../img/gerb.svg";
 import img34512673ce61b0db299f7e2405ac60e9 from "../img/34512673ce61b0db299f7e2405ac60e9.svg";
 import img7ad387832d629a52c87195d9cb795e3c from "../img/7ad387832d629a52c87195d9cb795e3c.svg";
 import img639bae9c47ff56a3f33bc8f8b49a4e9b from "../img/639bae9c47ff56a3f33bc8f8b49a4e9b.svg";
+import max_white from "../img/max_white.svg";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -219,6 +220,21 @@ export default function Footer() {
                         className="social__icon"
                         src={img639bae9c47ff56a3f33bc8f8b49a4e9b}
                         alt="Telegram"
+                      />
+                    </a>
+                  </li>
+                  <li className="social-list__item">
+                    <a
+                      className="social-list__link"
+                      href="https://web.max.ru/-70667119585929"
+                      title="Max"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <img
+                        className="social-list__icon"
+                        src={max_white}
+                        alt="Max"
                       />
                     </a>
                   </li>
