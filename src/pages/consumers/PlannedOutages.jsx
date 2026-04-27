@@ -4,6 +4,7 @@ import Disconnect from "../../components/Disconnect/Disconnect";
 import TopImage from "../../components/TopImage";
 import { DateTime } from "luxon";
 import telegramQR from "../../img/planned/YQR.svg";
+import maxQR from "../../img/planned/maxQR.svg";
 import alarm from "../../img/planned/alarm_alert_bell.svg";
 import axios from "axios";
 import './PlannedOutages.css';
@@ -175,6 +176,23 @@ console.log(disconnects);
                   target="_blank" rel="noreferrer"
                 >
                   Перейти в Telegram
+                </a>
+              </div>
+            </div>
+            <div className="planned-notification__area">
+              <div className="planned-notification__link-area">
+                <img
+                  src={maxQR}
+                  alt="qr"
+                  className="planned-notification__qr"
+                />
+                <a
+                  type="button"
+                  className="planned-notification__link"
+                  href="https://max.ru/mosoblenergo24"
+                  target="_blank" rel="noreferrer"
+                >
+                  Перейти в MAX
                 </a>
               </div>
             </div>
