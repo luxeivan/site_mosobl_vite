@@ -206,6 +206,15 @@ console.log(disconnects);
             <ul>
               <li>
                 <a
+                  href="https://max.ru/mosoblenergo24"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  https://max.ru/mosoblenergo24
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://vk.com/mosoblenergo24"
                   rel="noopener noreferrer"
                   target="_blank"
