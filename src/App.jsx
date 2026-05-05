@@ -55,6 +55,8 @@ import Test from "./pages/Test/Test";
 import TwentyYears from "./pages/TwentyYears/TwentyYears";
 import TerritoryOfService from "./pages/consumers/TerritoryOfService/TerritoryOfService";
 import PassportsCommercialServices from "./pages/consumers/AdditionalServices/PassportsCommercialServices";
+import Cookie from "./components/Cookie";
+import { CookiesProvider, useCookies } from 'react-cookie'
 
 function App() {
   useEffect(() => {
@@ -63,101 +65,106 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/informationDisclosures/:id"
-            element={<InformationDisclosuresItem />}
-          />
-          {/* Новое раскрытие информации */}
-          <Route path="/informationDisclosures" element={<Test />} />
-          <Route
-            path="/informationDisclosures/companyratings"
-            element={<CompanyRatings />}
-          />
+      <CookiesProvider>
 
-          <Route
-            path="/informationDisclosures/companyratings/expert"
-            element={<CompanyRatingsExpert />}
-          />
-          <Route path="/filials" element={<Filials />} />
 
-          <Route path="/investors" element={<Investors />} />
-          <Route path="/investors/:id" element={<InvestorDetail />} />
+        <Cookie />
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/informationDisclosures/:id"
+              element={<InformationDisclosuresItem />}
+            />
+            {/* Новое раскрытие информации */}
+            <Route path="/informationDisclosures" element={<Test />} />
+            <Route
+              path="/informationDisclosures/companyratings"
+              element={<CompanyRatings />}
+            />
 
-          <Route path="/filials/:id" element={<Filial />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/goals" element={<Goals />} />
-          <Route path="/mainDirection" element={<MainDirections />} />
-          <Route path="/requisites" element={<Recuisites />} />
-          <Route path="/mycareer" element={<Vacancies />} />
-          <Route path="/antiCorruption" element={<AntiCorruption />} />
-          <Route path="/certs" element={<Certs />} />
-          <Route path="/informationOnBonds" element={<InformationOnBonds />} />
-          <Route path="/gardeners" element={<Gardeners />} />
-          <Route path="/contactForMedia" element={<ContactForMedia />} />
-          <Route path="/specialProjects" element={<SpecialProjects />} />
-          <Route path="/specialProjects/:id" element={<EventDetails />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/consumers" element={<Consumers />} />
-          <Route path="/additionalServices" element={<AdditionalServices />} />
-          <Route
-            path="/passportscommercialservices"
-            element={<PassportsCommercialServices />}
-          />
-          <Route path="/servicePassports" element={<ServicePassports />} />
-          <Route path="/territory" element={<TerritoryOfService />} />
-          <Route path="/territoryOfService" element={<TerritoryOfService />} />
-          <Route
-            path="/technologicalConnection"
-            element={<TechnologicalConnection />}
-          />
-          <Route
-            path="/electricityAccounting"
-            element={<ElectricityAccounting />}
-          />
-          <Route
-            path="/regulatoryLegalActs"
-            element={<RegulatoryLegalActs />}
-          />
-          <Route path="/customerService" element={<CustomerService />} />
-          <Route path="/plannedOutages" element={<PlannedOutages />} />
-          <Route
-            path="/consumer/planovye-raboty/planovye-otklyucheniya"
-            element={<PlannedOutages />}
-          />
-          <Route
-            path="/consolidationOfElectric"
-            element={<ConsolidationOfElectric />}
-          />
-          <Route path="/chargingStations" element={<ChargingStations />} />
-          <Route path="/saleOfItems" element={<SaleOfItems />} />
-          <Route path="/attentionFraud" element={<AttentionFraud />} />
-          <Route
-            path="/productionPrograms2024"
-            element={<ProductionPrograms />}
-          />
-          <Route
-            path="/productionPrograms2025"
-            element={<ProductionPrograms2025 />}
-          />
-          <Route path="/plugme" element={<Plugme />} />
-          <Route path="/creditRating" element={<CreditRating />} />
-          <Route path="/secret" element={<SecretDisconnect />} />
-          <Route path="/secrethr" element={<VacanciesTwo />} />
-          {/* Старое Раскрытие информации */}
-          <Route path="/test" element={<Test />} />
-          <Route path="/20years" element={<TwentyYears />} />
-          <Route path="/universities" element={<Universities />} />
-          <Route path="/*" element={<Page404 />} />
-        </Routes>
-        <GosuslugiBanner />
-        <Footer />
-      </BrowserRouter>
+            <Route
+              path="/informationDisclosures/companyratings/expert"
+              element={<CompanyRatingsExpert />}
+            />
+            <Route path="/filials" element={<Filials />} />
+
+            <Route path="/investors" element={<Investors />} />
+            <Route path="/investors/:id" element={<InvestorDetail />} />
+
+            <Route path="/filials/:id" element={<Filial />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/goals" element={<Goals />} />
+            <Route path="/mainDirection" element={<MainDirections />} />
+            <Route path="/requisites" element={<Recuisites />} />
+            <Route path="/mycareer" element={<Vacancies />} />
+            <Route path="/antiCorruption" element={<AntiCorruption />} />
+            <Route path="/certs" element={<Certs />} />
+            <Route path="/informationOnBonds" element={<InformationOnBonds />} />
+            <Route path="/gardeners" element={<Gardeners />} />
+            <Route path="/contactForMedia" element={<ContactForMedia />} />
+            <Route path="/specialProjects" element={<SpecialProjects />} />
+            <Route path="/specialProjects/:id" element={<EventDetails />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/consumers" element={<Consumers />} />
+            <Route path="/additionalServices" element={<AdditionalServices />} />
+            <Route
+              path="/passportscommercialservices"
+              element={<PassportsCommercialServices />}
+            />
+            <Route path="/servicePassports" element={<ServicePassports />} />
+            <Route path="/territory" element={<TerritoryOfService />} />
+            <Route path="/territoryOfService" element={<TerritoryOfService />} />
+            <Route
+              path="/technologicalConnection"
+              element={<TechnologicalConnection />}
+            />
+            <Route
+              path="/electricityAccounting"
+              element={<ElectricityAccounting />}
+            />
+            <Route
+              path="/regulatoryLegalActs"
+              element={<RegulatoryLegalActs />}
+            />
+            <Route path="/customerService" element={<CustomerService />} />
+            <Route path="/plannedOutages" element={<PlannedOutages />} />
+            <Route
+              path="/consumer/planovye-raboty/planovye-otklyucheniya"
+              element={<PlannedOutages />}
+            />
+            <Route
+              path="/consolidationOfElectric"
+              element={<ConsolidationOfElectric />}
+            />
+            <Route path="/chargingStations" element={<ChargingStations />} />
+            <Route path="/saleOfItems" element={<SaleOfItems />} />
+            <Route path="/attentionFraud" element={<AttentionFraud />} />
+            <Route
+              path="/productionPrograms2024"
+              element={<ProductionPrograms />}
+            />
+            <Route
+              path="/productionPrograms2025"
+              element={<ProductionPrograms2025 />}
+            />
+            <Route path="/plugme" element={<Plugme />} />
+            <Route path="/creditRating" element={<CreditRating />} />
+            <Route path="/secret" element={<SecretDisconnect />} />
+            <Route path="/secrethr" element={<VacanciesTwo />} />
+            {/* Старое Раскрытие информации */}
+            <Route path="/test" element={<Test />} />
+            <Route path="/20years" element={<TwentyYears />} />
+            <Route path="/universities" element={<Universities />} />
+            <Route path="/*" element={<Page404 />} />
+          </Routes>
+          <GosuslugiBanner />
+          <Footer />
+        </BrowserRouter>
+      </CookiesProvider>
     </div>
   );
 }
