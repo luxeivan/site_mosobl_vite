@@ -200,28 +200,28 @@ export default function Header() {
                           {
                             label: (
                               <a
-                                href="https://moetp.ru/"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                              href="https://portal.mosoblenergo.ru/"
+                              target="_blank"
+                              rel="noopener noreferrer"
                               >
-                                Действующий портал
-                              </a>
-                            ),
-                            key: "0",
-                            // style:{backgroundColor:"#ffccccff"}
-                          },
-                          {
-                            label: (
-                              <a
-                                href="https://portal.mosoblenergo.ru/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                Новый портал (бета версия)
+                                Портал цифровых услуг  (новая версия) 
                               </a>
                             ),
                             key: "1",
                             // style:{backgroundColor:"#ccffccff"}
+                          },
+                          {
+                            label: (
+                              <a
+                                href="https://moetp.ru/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Портал потребителя (moetp.ru)
+                              </a>
+                            ),
+                            key: "0",
+                            // style:{backgroundColor:"#ffccccff"}
                           },
                         ],
                       }}
@@ -268,7 +268,7 @@ export default function Header() {
                           </svg>
                         </div>
                         <span className="wrap-link__text">
-                          Перейти на портал потребителя
+                          Услуги
                         </span>
                       </a>
                     </Dropdown>
@@ -300,7 +300,7 @@ export default function Header() {
                         </svg>
                       </div>
                       <span className="wrap-link__text">
-                        Узнать об отключениях
+                        Отключения
                       </span>
                     </Link>
                     <ul
@@ -820,28 +820,28 @@ export default function Header() {
                         {
                           label: (
                             <a
-                              href="https://moetp.ru/"
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            href="https://portal.mosoblenergo.ru/"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             >
-                              Действующий портал
-                            </a>
-                          ),
-                          key: "0",
-                          // style:{backgroundColor:"#ffccccff"}
-                        },
-                        {
-                          label: (
-                            <a
-                              href="https://portal.mosoblenergo.ru/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Новый портал (бета версия)
+                              Портал цифровых услуг (новая версия)
                             </a>
                           ),
                           key: "1",
                           // style:{backgroundColor:"#ccffccff"}
+                        },
+                        {
+                          label: (
+                            <a
+                              href="https://moetp.ru/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Портал потребителя (moetp.ru)
+                            </a>
+                          ),
+                          key: "0",
+                          // style:{backgroundColor:"#ffccccff"}
                         },
                       ],
                     }}
@@ -864,7 +864,7 @@ export default function Header() {
                         </svg>
                       </div>
                       <span className="mob-menu-down__text">
-                        Перейти на портал потребителя
+                        Услуги
                       </span>
                     </a>
                   </Dropdown>
@@ -882,7 +882,7 @@ export default function Header() {
                       </svg>
                     </div>
                     <span className="mob-menu-down__text">
-                      Узнать об отключениях
+                      Отключения
                     </span>
                   </Link>
                 </div>
