@@ -142,7 +142,7 @@ export default function Vacancies() {
                   </div>
                   <div className="main-info__col">
                     <p>16,3</p>
-                    <p>млрд переданной электроэнергии за 2025 год</p>
+                    <p>Объем переданной электроэнергии в 2025 году (млрд. киловатт-часов)</p>
                   </div>
                 </div>
               </div>
