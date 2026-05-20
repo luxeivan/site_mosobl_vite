@@ -59,7 +59,6 @@
 //   );
 // }
 
-
 //Старый вариант
 import React from "react";
 import { motion } from "framer-motion";
@@ -69,7 +68,6 @@ import qr_rabota_ru from "../../img/QR_HH.png";
 import { Link } from "react-router-dom";
 
 export default function Vacancies() {
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -129,35 +127,36 @@ export default function Vacancies() {
               <div className="main-info__col-right">
                 <div className="main-info__row">
                   <div className="main-info__col">
-                    <p>6 408</p>
+                    <p>6 005</p>
                     <p>Специалистов в коллективе</p>
                   </div>
                   <div className="main-info__col">
-                    <p>54 000</p>
+                    <p>56 383</p>
                     <p>Кабельные и воздушные линии (км)</p>
                   </div>
                 </div>
                 <div className="main-info__row">
                   <div className="main-info__col">
-                    <p>15 000</p>
+                    <p>15 297</p>
                     <p>ТП, РП (шт)</p>
                   </div>
                   <div className="main-info__col">
-                    <p>15,9</p>
-                    <p>
-                      Объем переданной электроэнергии в 2024 г. (млрд.
-                      киловатт-часов)
-                    </p>
+                    <p>16,3</p>
+                    <p>млрд переданной электроэнергии за 2025 год</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="vacancies-main__item targeted-training">
-            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+              }}
+            >
               <div>
-
-
                 <h2 className="vacancies-main__title branch-post__caption">
                   ЦЕЛЕВОЕ ОБУЧЕНИЕ
                 </h2>
@@ -179,7 +178,16 @@ export default function Vacancies() {
                   </li>
                 </ul>
               </div>
-              <div style={{ flex: "1", display: "flex", justifyContent: "center", alignItems: "center", gap: "20px", flexDirection: "column" }}>
+              <div
+                style={{
+                  flex: "1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "20px",
+                  flexDirection: "column",
+                }}
+              >
                 <a
                   href="https://energyinstitute.ru"
                   // rel="noopener noreferrer"
@@ -187,7 +195,8 @@ export default function Vacancies() {
                   className="open-map__button"
                   style={{ maxWidth: "200px", color: "white", lineHeight: 1.5 }}
                 >
-                  Энергетический институт повышения квалификации АО «Мособлэнерго»
+                  Энергетический институт повышения квалификации АО
+                  «Мособлэнерго»
                 </a>
                 <a
                   href="https://mcoq.ru"
@@ -280,6 +289,22 @@ export default function Vacancies() {
                     1 января 2019 года проведена оптимизация структуры компании.
                     Было образовано 10 укрупненных филиалов, в которые вошли
                     подразделения в городах Подмосковья.
+                  </p>
+                </div>
+              </li>
+              <li className="vacancies-main__list-item">
+                <div>
+                  <div className="development__year-area">
+                    <p className="development__year">2025</p>
+                  </div>
+                </div>
+                <div>
+                  <h3>20 лет во благо Подмосковья!</h3>
+                  <p>
+                    19 июля 2025 года АО «Мособлэнерго» исполнилось 20 лет со
+                    дня основания компании. Мы прошли путь от небольшой
+                    электросетевой компании до крупнейшего предприятия ТЭК
+                    региона.
                   </p>
                 </div>
               </li>
