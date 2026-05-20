@@ -96,7 +96,7 @@ function App() {
 
             <Route path="/filials/:id" element={<Filial />} />
             <Route path="/about" element={<About />} />
-            <Route path="/history" element={<History />} />
+            <Route path="/mission" element={<History />} />
             <Route path="/goals" element={<Goals />} />
             <Route path="/mainDirection" element={<MainDirections />} />
             <Route path="/requisites" element={<Recuisites />} />

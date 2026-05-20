@@ -20,7 +20,7 @@ export default function History() {
     >
       <TopImage
         image={img368a30788385c0bb5f5fef6f72128109}
-        title={"История компании"}
+        title={"Миссия компании"}
       />
       <div className="page-grid__content" id="content">
         <div className="text-area">

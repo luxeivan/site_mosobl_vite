@@ -8,8 +8,8 @@ export const mainMenu = [
         link: "/about",
       },
       {
-        title: "История",
-        link: "/history",
+        title: "Миссия",
+        link: "/mission",
       },
       {
         title: "Цели и задачи",
