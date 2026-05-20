@@ -9,13 +9,19 @@ import alarm from "../../img/planned/alarm_alert_bell.svg";
 import axios from "axios";
 import './PlannedOutages.css';
 
+const emergencyOutagesUrl =
+  import.meta.env.VITE_JTN_EMERGENCY_OUTAGES_URL ||
+  "https://jtv.mosoblenergo.ru/services/site/emergency-outages";
+
+const COLLAPSED_ADDRESS_LIMIT = 260;
 
 export default function PlannedOutages() {
   const [disconnects, setDisconnects] = useState([]);
   const [countSubscriber, setCountSubscriber] = useState(null);
+  const [expandedAddresses, setExpandedAddresses] = useState({});
 
   useEffect(() => {
-    axios.get('https://nopowersupply.mosoblenergo.ru/station/api/avarijnye-otklyucheniyas')
+    axios.get(emergencyOutagesUrl)
       .then(res => setDisconnects(res.data.data))
       .catch(err => console.log(err));
 
@@ -24,6 +30,13 @@ export default function PlannedOutages() {
       .catch(err => console.log(err));
   }, []);
 console.log(disconnects);
+
+  const toggleAddress = (key) => {
+    setExpandedAddresses((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   return (
     <motion.div
@@ -114,7 +127,24 @@ console.log(disconnects);
                   }).map((item, index) =>
                     <tr key={index}>
                       <td style={{ textAlign: "center", padding: "10px" }}>{item.attributes.go}</td>
-                      <td style={{ textAlign: "center", padding: "10px" }}>{item.attributes.addressDisconnected}</td>
+                      <td style={{ textAlign: "center", padding: "10px" }}>
+                        {String(item.attributes.addressDisconnected || "").length > COLLAPSED_ADDRESS_LIMIT ? (
+                          <div className="outage-address">
+                            <div className={expandedAddresses[index] ? "outage-address__text" : "outage-address__text outage-address__text_collapsed"}>
+                              {item.attributes.addressDisconnected}
+                            </div>
+                            <button
+                              type="button"
+                              className="outage-address__button"
+                              onClick={() => toggleAddress(index)}
+                            >
+                              {expandedAddresses[index] ? "Свернуть" : "Показать полностью"}
+                            </button>
+                          </div>
+                        ) : (
+                          item.attributes.addressDisconnected
+                        )}
+                      </td>
                       <td style={{ textAlign: "center", padding: "10px" }}>{DateTime.fromISO(item.attributes.dateDisconnected).toLocaleString(DateTime.DATETIME_SHORT)}</td>
                       <td style={{ textAlign: "center", padding: "10px" }}>{item.attributes.durationSolution}</td>
                     </tr>
@@ -247,4 +277,3 @@ console.log(disconnects);
     </motion.div>
   );
 }
-
