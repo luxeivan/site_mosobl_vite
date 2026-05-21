@@ -95,12 +95,8 @@ export const mainMenu = [
         link: "/attentionFraud",
       },
       {
-        title: "Производственные программы на 2024 год",
-        link: "/productionPrograms2024",
-      },
-      {
-        title: "Производственные программы на 2025 год",
-        link: "/productionPrograms2025",
+        title: "Программа повышения надёжности электроснабжения",
+        link: "/productionPrograms",
       },
 
     ],

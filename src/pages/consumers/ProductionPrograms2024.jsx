@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import TopImage from "../../components/TopImage";
 import img37550ba6c53ac1236dc634e6c4f22cc1 from "../../img/37550ba6c53ac1236dc634e6c4f22cc1.jpg";
 import { addressServer } from "../../config";
 
-export default function ProductionPrograms() {
+export default function ProductionPrograms2024() {
   const [productionPrograms, setProductionPrograms] = useState([]);
 
   useEffect(() => {
     fetch(
-      `${addressServer}/api/programma-povysheniya-nadyozhnosti-elektrosnabzheniyas?populate=*&pagination[pageSize]=100`
+      `${addressServer}/api/proizvodstvennye-programmies?populate=*&pagination[pageSize]=100`
     )
       .then((response) => {
         return response.json();
@@ -35,6 +34,7 @@ export default function ProductionPrograms() {
         setProductionPrograms([]);
       });
   }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ export default function ProductionPrograms() {
     >
       <TopImage
         image={img37550ba6c53ac1236dc634e6c4f22cc1}
-        title={"Программа повышения надёжности электроснабжения"}
+        title={"Производственные программы на 2024 год"}
       />
       <div className="page-grid__content" id="content">
         <div className="text-area">
@@ -103,50 +103,6 @@ export default function ProductionPrograms() {
               </li>
             ))}
           </ul>
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              marginTop: "30px",
-            }}
-          >
-            <Link
-              to="/productionPrograms2024"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "180px",
-                padding: "12px 20px",
-                border: "1px solid #0061aa",
-                borderRadius: "6px",
-                color: "#0061aa",
-                textDecoration: "none",
-                fontWeight: 600,
-              }}
-            >
-              Архив 2024 год
-            </Link>
-            <Link
-              to="/productionPrograms2025"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "180px",
-                padding: "12px 20px",
-                border: "1px solid #0061aa",
-                borderRadius: "6px",
-                color: "#0061aa",
-                textDecoration: "none",
-                fontWeight: 600,
-              }}
-            >
-              Архив 2025 год
-            </Link>
-          </div>
         </div>
       </div>
     </motion.div>

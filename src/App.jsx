@@ -37,6 +37,7 @@ import AttentionFraud from "./pages/consumers/AttentionFraud";
 import { useEffect } from "react";
 import CreditRating from "./pages/CreditRating";
 import ProductionPrograms from "./pages/consumers/ProductionPrograms";
+import ProductionPrograms2024 from "./pages/consumers/ProductionPrograms2024";
 import Plugme from "./pages/Plugme";
 import SpecialProjects from "./pages/SpecialProjects/SpecialProjects";
 import GosuslugiBanner from "./components/GosuslugiBanner";
@@ -144,8 +145,12 @@ function App() {
             <Route path="/saleOfItems" element={<SaleOfItems />} />
             <Route path="/attentionFraud" element={<AttentionFraud />} />
             <Route
-              path="/productionPrograms2024"
+              path="/productionPrograms"
               element={<ProductionPrograms />}
+            />
+            <Route
+              path="/productionPrograms2024"
+              element={<ProductionPrograms2024 />}
             />
             <Route
               path="/productionPrograms2025"
