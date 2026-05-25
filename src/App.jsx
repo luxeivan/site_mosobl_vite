@@ -20,6 +20,7 @@ import Certs from "./pages/Certs/Certs";
 import Gardeners from "./pages/Gardeners";
 import ContactForMedia from "./pages/ContactForMedia";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Consumers from "./pages/Consumers";
 import Territory from "./pages/consumers/Territory";
 import AdditionalServices from "./pages/consumers/AdditionalServices/AdditionalServices";
@@ -110,6 +111,7 @@ function App() {
             <Route path="/specialProjects" element={<SpecialProjects />} />
             <Route path="/specialProjects/:id" element={<EventDetails />} />
             <Route path="/news" element={<News />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/consumers" element={<Consumers />} />
             <Route path="/additionalServices" element={<AdditionalServices />} />
             <Route
