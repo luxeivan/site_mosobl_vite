@@ -24,18 +24,17 @@ export const NEWS_SECTIONS = [
 ];
 
 const SOCIAL_LINKS = [
-  { title: "Telegram", url: "https://t.me/mosoblenergo", icon: telegramIcon },
+  { title: "MAX", url: "https://max.ru/id5032137342_gos", icon: maxIcon },
   { title: "VK", url: "https://vk.com/mosoblenergo", icon: vkIcon },
   { title: "OK", url: "https://ok.ru/mosoblenergo", icon: okIcon },
-  { title: "MAX", url: "https://web.max.ru/-70667119585929", icon: maxIcon },
-  { title: "Отключения Telegram", url: "https://t.me/mosoblenergo24", icon: telegramIcon },
+  { title: "Telegram", url: "https://t.me/mosoblenergo", icon: telegramIcon },
+  { title: "Отключения MAX", url: "https://max.ru/mosoblenergo24", icon: maxIcon },
   { title: "Отключения VK", url: "https://vk.com/mosoblenergo24", icon: vkIcon },
   { title: "Отключения OK", url: "https://ok.ru/mosoblenergo24", icon: okIcon },
+  { title: "Отключения Telegram", url: "https://t.me/mosoblenergo24", icon: telegramIcon },
 ];
 
 export const demoItems = [];
-
-const TV_BLOCK_ENABLED = false;
 
 function getMediaUrl(file) {
   const item = Array.isArray(file) ? file[0] : file;
@@ -95,12 +94,13 @@ async function fetchNews() {
 
 function getSortedItems(rows) {
   return [...rows].sort((a, b) => {
+    const timeA = Number.isFinite(Number(a.timestamp)) ? Number(a.timestamp) : 0;
+    const timeB = Number.isFinite(Number(b.timestamp)) ? Number(b.timestamp) : 0;
+    if (timeA !== timeB) return timeB - timeA;
     const sortA = Number.isFinite(Number(a.sort)) ? Number(a.sort) : 9999;
     const sortB = Number.isFinite(Number(b.sort)) ? Number(b.sort) : 9999;
     if (sortA !== sortB) return sortA - sortB;
-    const timeA = Number.isFinite(Number(a.timestamp)) ? Number(a.timestamp) : 0;
-    const timeB = Number.isFinite(Number(b.timestamp)) ? Number(b.timestamp) : 0;
-    return timeB - timeA;
+    return 0;
   });
 }
 
@@ -162,7 +162,6 @@ function NewsCard({ item, variant = "media", onPhotoClick, onVideoClick }) {
 
 function NewsRail({ title, items, variant, onPhotoClick, onVideoClick }) {
   const railRef = useRef(null);
-  const shouldCenterShortPosterRail = variant === "poster" && items.length <= 4;
   const scroll = (direction) => {
     const node = railRef.current;
     if (!node) return;
@@ -174,31 +173,41 @@ function NewsRail({ title, items, variant, onPhotoClick, onVideoClick }) {
   return (
     <section className={styles.section}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>{title}</h2>
-        <div className={styles.arrows}>
-          <button type="button" className={styles.arrow} onClick={() => scroll(-1)} aria-label="Прокрутить влево">
-            <LeftOutlined />
-          </button>
-          <button type="button" className={styles.arrow} onClick={() => scroll(1)} aria-label="Прокрутить вправо">
-            <RightOutlined />
-          </button>
-        </div>
+        <h2 className={styles.socialTitle}>{title}</h2>
       </div>
-      <div
-        ref={railRef}
-        className={`${styles.rail} ${variant === "poster" ? styles.railPoster : ""} ${
-          variant === "photo" ? styles.railPhoto : ""
-        } ${shouldCenterShortPosterRail ? styles.railCentered : ""}`}
-      >
-        {items.map((item, index) => (
-          <NewsCard
-            key={item.id}
-            item={item}
-            variant={variant}
-            onPhotoClick={() => onPhotoClick(index)}
-            onVideoClick={onVideoClick}
-          />
-        ))}
+      <div className={styles.railArea}>
+        <button
+          type="button"
+          className={`${styles.arrow} ${styles.arrowLeft}`}
+          onClick={() => scroll(-1)}
+          aria-label="Прокрутить влево"
+        >
+          <LeftOutlined />
+        </button>
+        <div
+          ref={railRef}
+          className={`${styles.rail} ${variant === "poster" ? styles.railPoster : ""} ${
+            variant === "photo" ? styles.railPhoto : ""
+          }`}
+        >
+          {items.map((item, index) => (
+            <NewsCard
+              key={item.id}
+              item={item}
+              variant={variant}
+              onPhotoClick={() => onPhotoClick(index)}
+              onVideoClick={onVideoClick}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          className={`${styles.arrow} ${styles.arrowRight}`}
+          onClick={() => scroll(1)}
+          aria-label="Прокрутить вправо"
+        >
+          <RightOutlined />
+        </button>
       </div>
     </section>
   );
@@ -314,22 +323,26 @@ export default function News2() {
         ) : (
           <>
             <NewsRail title="Новости" items={itemsBySection.news || []} variant="poster" />
-            {/* Когда появятся ссылки Rutube, добавьте поле video_url в Strapi,
-                включите TV_BLOCK_ENABLED и верните блок "Мособлэнерго ТВ". */}
-            {TV_BLOCK_ENABLED && (
+            {/*
+              Видео пока скрыто.
+              Когда будут ссылки Rutube, добавить в Strapi поле video_url,
+              заполнить ссылки и раскомментить эти блоки.
+              Мособлэнерго ТВ тянется из section = tv.
+              Видеосюжеты телеканалов тянутся из section = channels.
+
               <NewsRail
                 title="Мособлэнерго ТВ"
                 items={(itemsBySection.tv || []).filter((item) => item.videoUrl)}
                 variant="media"
                 onVideoClick={setVideoItem}
               />
-            )}
-            <NewsRail
-              title="Видеосюжеты телеканалов"
-              items={channelVideoItems}
-              variant="media"
-              onVideoClick={setVideoItem}
-            />
+              <NewsRail
+                title="Видеосюжеты телеканалов"
+                items={channelVideoItems}
+                variant="media"
+                onVideoClick={setVideoItem}
+              />
+            */}
             <NewsRail title="Фотобанк" items={photoItems} variant="photo" onPhotoClick={setPhotoIndex} />
             <SocialBlock />
           </>

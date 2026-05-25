@@ -35,7 +35,6 @@ async function fetchNewsItem(id) {
       const response = await axios.get(`${addressServer}${endpoint}`);
       if (response.data?.data) return normalizeNewsItem(response.data.data);
     } catch {
-      // Если Strapi-коллекция еще не подключена, ниже покажем аккуратную заглушку.
     }
   }
 
