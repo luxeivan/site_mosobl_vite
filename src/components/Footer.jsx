@@ -254,7 +254,7 @@ export default function Footer() {
                 </a> */}
                 <a
                   className="footer-wrap-link__row"
-                  href="http://www.consultant.ru/cons/cgi/online.cgi?from=221444-0&amp;rnd=B368155CDEE9313B15DF85BD2F39D334&amp;req=doc&amp;base=LAW&amp;n=372838&amp;REFDOC=221444&amp;REFBASE=LAW#a9yu0niwfqw"
+                  href="https://mosoblenergo.ru/back/uploads/Politika_obrabotki_personalnyh_dannyh_e5625323fd.pdf"
                 >
                   <div className="footer-wrap-link__wrap-arrow">
                     <svg className="footer-nav-list__arrow">
@@ -267,7 +267,7 @@ export default function Footer() {
                     </svg>
                   </div>
                   <span className="footer-wrap-link__text">
-                    Политика конфиденциальности
+                    Политика обработки персональных данных
                   </span>
                 </a>
               </div>
