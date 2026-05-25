@@ -531,12 +531,16 @@ export default function News() {
               </p>
             </div>
             <div className={styles.pressContacts}>
-              <p>
+              <p className={styles.pressPhone}>
                 Почтовый адрес: 143421, Красногорский р-н, 26 км автодороги
                 «Балтия», Бизнес Центр «Рига-Ленд», строение Б3.
               </p>
-              <p>Наш телефон: +7 (495) 780-39-62, факс: +7 (495) 780-39-60</p>
-              <p>Наша почта: smi@mosoblenergo.ru</p>
+              <p className={styles.pressPhone}>
+                Наш телефон: +7 (495) 780-39-62, факс: +7 (495) 780-39-60
+              </p>
+              <p className={styles.pressPhone}>
+                Наша почта: smi@mosoblenergo.ru
+              </p>
               <p className={styles.pressPhone}>
                 Обращаем Ваше внимание, что контакты Пресс-центра предназначены
                 только для представителей СМИ. По всем остальным вопросам
@@ -544,7 +548,7 @@ export default function News() {
               </p>
               <p>
                 <a href="tel:+74959950099" className={styles.pressPhone}>
-                  8 (495) 99-500-99
+                  +7 (495) 99-500-99
                 </a>
               </p>
             </div>
