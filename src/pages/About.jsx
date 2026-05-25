@@ -74,7 +74,7 @@ export default function About() {
         <div className="row-docs-age">
           <a
             className="doc-line"
-            href={`${addressServer}/uploads/politika_f5e5f82c29.pdf?updated_at=2024-06-14T18:45:03.258Z`}
+            href={`${addressServer}/uploads/Politika_obrabotki_personalnyh_dannyh_e5625323fd.pdf`}
             download=""
             rel="noopener noreferrer"
             target="_blank"
@@ -85,10 +85,10 @@ export default function About() {
             <div className="doc-line__wrap-text">
               <span className="doc-line__name">
                 {" "}
-                ПОЛИТИКА ОБРАБОТКИ И ЗАЩИТЫ ПЕРСОНАЛЬНЫХ ДАННЫХ АО
-                "МОСОБЛЭНЕРГО"
+                Политика обработки персональных данных АО
+                «Мособлэнерго»
               </span>
-              <span className="doc-line__file-info">pdf, 1МБ</span>
+              <span className="doc-line__file-info">pdf, 4МБ</span>
             </div>
           </a>
 
