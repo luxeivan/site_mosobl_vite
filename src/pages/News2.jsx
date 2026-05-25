@@ -289,7 +289,8 @@ export default function News2() {
         <div className="container">
           <div className={styles.pressGrid}>
             <div>
-              <h2 className={styles.pressTitle}>Пресс-центр АО «Мособлэнерго»</h2>
+              {/* <h2 className={styles.pressTitle}>Пресс-центр АО «Мособлэнерго»</h2> */}
+              <h2 className={styles.socialTitle}>Пресс-центр АО «Мособлэнерго»</h2>
               <p className={styles.pressText}>
                 АО «Мособлэнерго» открыто к сотрудничеству со СМИ: мы предоставим журналистам информационные
                 материалы о деятельности компании, а также поможем организовать интервью или получить комментарии от

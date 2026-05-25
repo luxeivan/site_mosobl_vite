@@ -10,6 +10,11 @@
   align-items: start;
 }
 
+.pressTitle {
+  margin: 0;
+  color: #1e76ae;
+}
+
 .pressText,
 .pressContacts {
   margin-top: 18px;
