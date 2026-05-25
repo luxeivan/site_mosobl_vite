@@ -11,11 +11,17 @@ import axios from "axios";
 import TopImage from "../components/TopImage";
 import MarkDownText from "../components/MarkDownText/MarkDownText";
 import { addressServer } from "../config";
-import { demoItems, normalizeNewsItem } from "./News";
+import { demoItems, normalizeNewsItem } from "./News2";
 import heroImage from "../img/5d1dda82e3641ae19df5a51619ffb49c.jpg";
 import styles from "./News.module.css";
 
 const { Paragraph } = Typography;
+
+function getRutubeEmbedUrl(url) {
+  if (!url || !url.includes("rutube.ru")) return "";
+  const match = url.match(/rutube\.ru\/(?:video|play\/embed)\/([a-zA-Z0-9]+)/);
+  return match ? `https://rutube.ru/play/embed/${match[1]}` : "";
+}
 
 async function fetchNewsItem(id) {
   const candidates = [
@@ -67,7 +73,7 @@ export default function NewsDetail() {
   if (!item) {
     return (
       <div className="container" style={{ padding: "80px 0" }}>
-        <Link to="/news" className={styles.backLink}>
+        <Link to="/news2" className={styles.backLink}>
           Назад к новостям
         </Link>
         <h1 className={styles.detailTitle}>Новость не найдена</h1>
@@ -76,12 +82,13 @@ export default function NewsDetail() {
   }
 
   const pageTitle = item.title || (item.section === "photos" ? "Фотобанк" : "Новости компании");
+  const videoEmbedUrl = getRutubeEmbedUrl(item.videoUrl);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
       <TopImage image={heroImage} title={pageTitle} paddingTop={150} paddingBottom={80} />
       <div className={`container ${styles.detail}`}>
-        <Link to="/news" className={styles.backLink}>
+        <Link to="/news2" className={styles.backLink}>
           Назад к новостям
         </Link>
 
@@ -99,9 +106,19 @@ export default function NewsDetail() {
           {(photos.length > 0 || item.videoUrl) && (
             <div className={styles.detailMedia}>
               {item.videoUrl && (
-                <video className={styles.video} src={item.videoUrl} controls poster={item.image}>
-                  Ваш браузер не поддерживает встроенное видео.
-                </video>
+                videoEmbedUrl ? (
+                  <iframe
+                    className={styles.video}
+                    src={videoEmbedUrl}
+                    title={item.title || "Видео"}
+                    allow="clipboard-write; autoplay"
+                    allowFullScreen
+                  />
+                ) : (
+                  <a href={item.videoUrl} className={styles.videoLink} target="_blank" rel="noreferrer">
+                    Открыть видео
+                  </a>
+                )
               )}
 
               {photos.length === 1 && (
