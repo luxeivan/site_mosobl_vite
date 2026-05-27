@@ -18,7 +18,7 @@ export default function SpecialProjects() {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${addressServer}/api/speczialnye-proekties?populate=*`
+          `${addressServer}/api/speczialnye-proekties?populate=*&pagination[pageSize]=100`
         );
 
         // превращаем ответ Strapi в удобный для рендера массив
