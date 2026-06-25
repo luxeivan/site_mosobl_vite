@@ -18,7 +18,7 @@ export default function ContactForMedia() {
         </div>
         <div class="contacts-row__wrap-text">
           <span class="contacts-row__caption">Почтовый адрес:</span>
-          <span class="contacts-row__text">143421, Красногорский р-н, 26 км автодороги «Балтия», Бизнес Центр «Рига-Ленд», строение Б3.</span>
+          <span class="contacts-row__text">143421, Московская область, г.о. Красногорск, тер. Автодорога Балтия, км 26-й, д. 5 стр. 5/3, помещ. 2, ком. 1</span>
         </div>
       </div>
       <div class="contacts-row">

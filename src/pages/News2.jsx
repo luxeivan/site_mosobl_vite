@@ -299,8 +299,7 @@ export default function News2() {
             </div>
             <div className={styles.pressContacts}>
               <p className={styles.pressPhone}>
-                Почтовый адрес: 143421, Красногорский р-н, 26 км автодороги «Балтия», Бизнес Центр «Рига-Ленд»,
-                строение Б3.
+                Почтовый адрес: 143421, Московская область, г.о. Красногорск, тер. Автодорога Балтия, км 26-й, д. 5 стр. 5/3, помещ. 2, ком. 1
               </p>
               <p className={styles.pressPhone}>Наш телефон: +7 (495) 780-39-62, факс: +7 (495) 780-39-60</p>
               <p className={styles.pressPhone}>Наша почта: smi@mosoblenergo.ru</p>
