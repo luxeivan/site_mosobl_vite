@@ -55,12 +55,37 @@
   background: #d9effc;
 }
 
+.photoSection {
+  background: #ffffff !important;
+}
+
+.videoSection {
+  background: #ffffff !important;
+}
+
 .sectionHeader {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 18px;
   margin-bottom: 24px;
+}
+
+.newsCalendar {
+  min-width: 170px;
+  margin-left: auto;
+}
+
+.newsCalendarDateActive {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1e76ae;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .arrow {
@@ -124,10 +149,16 @@
 }
 
 .railPoster {
-  grid-auto-columns: minmax(190px, 260px);
+  grid-auto-columns: calc((100% - 128px) / 5);
+  gap: 32px;
 }
 
 .railPhoto {
+  grid-auto-columns: calc((100% - 48px) / 3);
+  gap: 24px;
+}
+
+.railMedia {
   grid-auto-columns: calc((100% - 48px) / 3);
   gap: 24px;
 }
@@ -152,6 +183,16 @@
   text-align: left;
   cursor: pointer;
   font: inherit;
+}
+
+.cardDisabled {
+  cursor: default;
+}
+
+.cardDisabled .cardImageWrap,
+.cardDisabled .cardDate,
+.cardDisabled .cardText {
+  opacity: 0.72;
 }
 
 .cardImageWrap {
@@ -217,6 +258,13 @@
   font-size: 19px;
   font-weight: 700;
   line-height: 1.25;
+}
+
+.cardPoster .cardTitle {
+  margin-top: 16px;
+  color: #1d2a3d;
+  font-size: 18px;
+  line-height: 1.28;
 }
 
 .cardText {
@@ -336,6 +384,46 @@
   background: #111827;
 }
 
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.modalTitle {
+  min-width: 0;
+  color: #334055;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.modalClose {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 16px;
+  border: 1px solid rgba(30, 118, 174, 0.28);
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1e76ae;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.modalClose:hover {
+  background: #1e76ae;
+  border-color: #1e76ae;
+  color: #ffffff;
+}
+
 .videoLink {
   display: inline-flex;
   align-items: center;
@@ -353,6 +441,73 @@
 .videoLink:hover {
   background: #f07d22;
   color: #ffffff;
+}
+
+.playlistGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.playlistFrame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #111827;
+}
+
+.playlistText {
+  color: #334055;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.playlistText p {
+  margin: 0 0 18px;
+}
+
+.moreArea {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 max(24px, calc((100vw - 1420px) / 2)) 38px;
+  background: #d9effc;
+}
+
+.moreButton {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid rgba(30, 118, 174, 0.28);
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1e76ae;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.moreButton:hover {
+  background: #1e76ae;
+  border-color: #1e76ae;
+  color: #ffffff;
+}
+
+.photoNotice {
+  margin: -24px 0 0;
+  padding: 0 max(24px, calc((100vw - 1420px) / 2)) 36px;
+  color: #1e76ae;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+  background: #ffffff;
 }
 
 .socialBlock {
@@ -455,9 +610,15 @@
 
   .railPoster {
     grid-auto-columns: minmax(180px, 240px);
+    gap: 28px;
   }
 
   .railPhoto {
+    grid-auto-columns: minmax(280px, 360px);
+    gap: 18px;
+  }
+
+  .railMedia {
     grid-auto-columns: minmax(280px, 360px);
     gap: 18px;
   }
@@ -468,6 +629,10 @@
 
   .socialLinks {
     grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+
+  .playlistGrid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -484,6 +649,14 @@
     padding: 28px 16px 36px;
   }
 
+  .sectionHeader {
+    flex-wrap: wrap;
+  }
+
+  .newsCalendar {
+    margin-left: 0;
+  }
+
   .arrow {
     display: none;
   }
@@ -495,6 +668,28 @@
   .rail {
     grid-auto-columns: minmax(230px, 82vw);
     gap: 18px;
+  }
+
+  .railPoster {
+    grid-auto-columns: minmax(210px, 78vw);
+  }
+
+  .railMedia {
+    grid-auto-columns: minmax(230px, 82vw);
+  }
+
+  .modalHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .moreArea {
+    padding: 0 16px 32px;
+  }
+
+  .photoNotice {
+    margin-top: -16px;
+    padding: 0 16px 32px;
   }
 
   .detailTitle {

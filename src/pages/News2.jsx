@@ -2,7 +2,10 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Modal, Spin } from "antd";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+import { ConfigProvider, DatePicker, Modal, Spin } from "antd";
+import locale from "antd/es/locale/ru_RU";
 import { LeftOutlined, PlayCircleFilled, RightOutlined } from "@ant-design/icons";
 import Lightbox from "yet-another-react-lightbox";
 import { Counter, Download, Fullscreen, Slideshow, Zoom } from "yet-another-react-lightbox/plugins";
@@ -36,6 +39,8 @@ const SOCIAL_LINKS = [
 
 export const demoItems = [];
 
+dayjs.locale("ru");
+
 function getMediaUrl(file) {
   const item = Array.isArray(file) ? file[0] : file;
   const raw =
@@ -52,6 +57,12 @@ function getMediaList(value) {
   return list.map((item) => getMediaUrl(item?.attributes || item)).filter(Boolean);
 }
 
+function getRutubeVideoId(url) {
+  if (!url || !url.includes("rutube.ru")) return "";
+  const match = url.match(/rutube\.ru\/(?:video|shorts|play\/embed)\/([a-zA-Z0-9]+)/);
+  return match?.[1] || "";
+}
+
 export function normalizeNewsItem(raw) {
   const item = raw?.attributes
     ? { id: raw.id, documentId: raw.documentId, ...raw.attributes }
@@ -61,15 +72,16 @@ export function normalizeNewsItem(raw) {
   const section = item.section || item.category || item.type || "news";
   const image = getMediaUrl(item.main_photo || item.mainPhoto || item.image || item.cover || item.preview);
   const photos = getMediaList(item.photo_file || item.photos || item.images || item.gallery);
-  const videoUrl = item.video_url || item.videoUrl || "";
+  const videoUrl = item.url_Rutube || item.url_rutube || item.urlRutube || item.video_url || item.videoUrl || "";
   const id = item.documentId || item.id;
 
   return {
     id,
     linkId: id,
     section,
-    title: item.title || item.name || "",
+    title: item.title || item.name || item.shortDescription || "",
     date,
+    dateKey: dateValue ? dayjs(dateValue).format("YYYY-MM-DD") : "",
     sort: Number.isFinite(Number(item.sort)) ? Number(item.sort) : 9999,
     timestamp: dateValue ? new Date(dateValue).getTime() : 0,
     shortDescription: item.shortDescription || item.previewText || item.descriptionShort || "",
@@ -81,13 +93,12 @@ export function normalizeNewsItem(raw) {
 }
 
 function getRutubeEmbedUrl(url) {
-  if (!url || !url.includes("rutube.ru")) return "";
-  const match = url.match(/rutube\.ru\/(?:video|play\/embed)\/([a-zA-Z0-9]+)/);
-  return match ? `https://rutube.ru/play/embed/${match[1]}` : "";
+  const id = getRutubeVideoId(url);
+  return id ? `https://rutube.ru/play/embed/${id}/` : "";
 }
 
 async function fetchNews() {
-  const response = await axios.get(`${addressServer}/api/news?populate=*&pagination[pageSize]=100`);
+  const response = await axios.get(`${addressServer}/api/news?populate=*&pagination[pageSize]=200`);
   const rows = response.data?.data;
   return Array.isArray(rows) ? rows.map(normalizeNewsItem) : [];
 }
@@ -106,7 +117,7 @@ function getSortedItems(rows) {
 
 function MediaThumb({ item, alt }) {
   if (item.image) {
-    return <img src={item.image} alt={alt} className={styles.cardImage} />;
+    return <img src={item.image} alt={alt} className={styles.cardImage} loading="lazy" />;
   }
   if (item.videoUrl) {
     return <span className={styles.emptyMedia}>Видео</span>;
@@ -117,7 +128,7 @@ function MediaThumb({ item, alt }) {
 function NewsCard({ item, variant = "media", onPhotoClick, onVideoClick }) {
   const isPoster = variant === "poster";
   const isPhoto = variant === "photo";
-  const isVideo = Boolean(item.videoUrl) && !isPoster && !isPhoto;
+  const isMedia = !isPoster && !isPhoto;
   const linkId = item.linkId || item.id;
   const alt =
     item.title ||
@@ -128,8 +139,9 @@ function NewsCard({ item, variant = "media", onPhotoClick, onVideoClick }) {
     <>
       <span className={styles.cardImageWrap}>
         <MediaThumb item={item} alt={alt} />
-        {item.videoUrl && <PlayCircleFilled className={styles.playIcon} />}
+        {isMedia && item.videoUrl && <PlayCircleFilled className={styles.playIcon} />}
       </span>
+      {isPoster && item.title && <span className={styles.cardTitle}>{item.title}</span>}
       {!isPoster && !isPhoto && item.date && <span className={styles.cardDate}>{item.date}</span>}
       {!isPoster && !isPhoto && item.shortDescription && (
         <span className={styles.cardText}>{item.shortDescription}</span>
@@ -145,9 +157,14 @@ function NewsCard({ item, variant = "media", onPhotoClick, onVideoClick }) {
     );
   }
 
-  if (isVideo) {
+  if (isMedia) {
     return (
-      <button type="button" className={`${styles.card} ${styles.cardButton}`} onClick={() => onVideoClick(item)}>
+      <button
+        type="button"
+        className={`${styles.card} ${styles.cardButton} ${!item.videoUrl ? styles.cardDisabled : ""}`}
+        onClick={() => item.videoUrl && onVideoClick(item)}
+        disabled={!item.videoUrl}
+      >
         {content}
       </button>
     );
@@ -160,8 +177,9 @@ function NewsCard({ item, variant = "media", onPhotoClick, onVideoClick }) {
   );
 }
 
-function NewsRail({ title, items, variant, onPhotoClick, onVideoClick }) {
+function NewsRail({ title, items, variant, action, minItemsForArrows = 0, onPhotoClick, onVideoClick }) {
   const railRef = useRef(null);
+  const showArrows = items.length > minItemsForArrows;
   const scroll = (direction) => {
     const node = railRef.current;
     if (!node) return;
@@ -171,24 +189,27 @@ function NewsRail({ title, items, variant, onPhotoClick, onVideoClick }) {
   if (!items.length) return null;
 
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${variant === "photo" ? styles.photoSection : ""}`}>
       <div className={styles.sectionHeader}>
         <h2 className={styles.socialTitle}>{title}</h2>
+        {action}
       </div>
       <div className={styles.railArea}>
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowLeft}`}
-          onClick={() => scroll(-1)}
-          aria-label="Прокрутить влево"
-        >
-          <LeftOutlined />
-        </button>
+        {showArrows && (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowLeft}`}
+            onClick={() => scroll(-1)}
+            aria-label="Прокрутить влево"
+          >
+            <LeftOutlined />
+          </button>
+        )}
         <div
           ref={railRef}
           className={`${styles.rail} ${variant === "poster" ? styles.railPoster : ""} ${
             variant === "photo" ? styles.railPhoto : ""
-          }`}
+          } ${variant === "media" ? styles.railMedia : ""}`}
         >
           {items.map((item, index) => (
             <NewsCard
@@ -200,14 +221,16 @@ function NewsRail({ title, items, variant, onPhotoClick, onVideoClick }) {
             />
           ))}
         </div>
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowRight}`}
-          onClick={() => scroll(1)}
-          aria-label="Прокрутить вправо"
-        >
-          <RightOutlined />
-        </button>
+        {showArrows && (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowRight}`}
+            onClick={() => scroll(1)}
+            aria-label="Прокрутить вправо"
+          >
+            <RightOutlined />
+          </button>
+        )}
       </div>
     </section>
   );
@@ -241,6 +264,7 @@ export default function News2() {
   const [loading, setLoading] = useState(true);
   const [videoItem, setVideoItem] = useState(null);
   const [photoIndex, setPhotoIndex] = useState(-1);
+  const [selectedNewsDate, setSelectedNewsDate] = useState(null);
 
   useEffect(() => {
     let alive = true;
@@ -275,6 +299,21 @@ export default function News2() {
   }, [itemsBySection]);
 
   const lightboxSlides = useMemo(() => photoItems.map((item) => ({ src: item.image })), [photoItems]);
+  const newsItems = itemsBySection.news || [];
+  const newsDateKeys = useMemo(() => new Set(newsItems.map((item) => item.dateKey).filter(Boolean)), [newsItems]);
+  const latestNewsDate = useMemo(() => {
+    const latestTimestamp = Math.max(...newsItems.map((item) => item.timestamp || 0));
+    return Number.isFinite(latestTimestamp) && latestTimestamp > 0 ? dayjs(latestTimestamp) : null;
+  }, [newsItems]);
+  const weekNewsItems = useMemo(() => {
+    if (!latestNewsDate) return newsItems;
+    const weekStart = latestNewsDate.subtract(6, "day").startOf("day").valueOf();
+    const weekEnd = latestNewsDate.endOf("day").valueOf();
+    return newsItems.filter((item) => item.timestamp >= weekStart && item.timestamp <= weekEnd);
+  }, [latestNewsDate, newsItems]);
+  const visibleNewsItems = selectedNewsDate
+    ? newsItems.filter((item) => item.dateKey === selectedNewsDate.format("YYYY-MM-DD"))
+    : weekNewsItems;
   const channelVideoItems = useMemo(
     () => (itemsBySection.channels || []).filter((item) => item.videoUrl),
     [itemsBySection],
@@ -322,34 +361,74 @@ export default function News2() {
           <Spin size="large" className={styles.loader} />
         ) : (
           <>
-            <NewsRail title="Новости" items={itemsBySection.news || []} variant="poster" />
-            {/*
-              Видео пока скрыто.
-              Когда будут ссылки Rutube, добавить в Strapi поле video_url,
-              заполнить ссылки и раскомментить эти блоки.
-              Мособлэнерго ТВ тянется из section = tv.
-              Видеосюжеты телеканалов тянутся из section = channels.
-
-              <NewsRail
-                title="Мособлэнерго ТВ"
-                items={(itemsBySection.tv || []).filter((item) => item.videoUrl)}
-                variant="media"
-                onVideoClick={setVideoItem}
-              />
-              <NewsRail
-                title="Видеосюжеты телеканалов"
-                items={channelVideoItems}
-                variant="media"
-                onVideoClick={setVideoItem}
-              />
-            */}
+            <NewsRail
+              title="Новости"
+              items={visibleNewsItems}
+              variant="poster"
+              minItemsForArrows={5}
+              action={
+                <ConfigProvider locale={locale}>
+                  <DatePicker
+                    className={styles.newsCalendar}
+                    value={selectedNewsDate}
+                    onChange={setSelectedNewsDate}
+                    disabledDate={(current) => current && !newsDateKeys.has(current.format("YYYY-MM-DD"))}
+                    cellRender={(current, info) => {
+                      if (info.type !== "date") return info.originNode;
+                      const hasNews = newsDateKeys.has(current.format("YYYY-MM-DD"));
+                      return (
+                        <span className={hasNews ? styles.newsCalendarDateActive : ""}>
+                          {current.date()}
+                        </span>
+                      );
+                    }}
+                    format="DD.MM.YYYY"
+                    placeholder="Дата публикации"
+                  />
+                </ConfigProvider>
+              }
+            />
+            {selectedNewsDate && !visibleNewsItems.length && (
+              <p className={styles.newsEmpty}>На выбранную дату новостей нет.</p>
+            )}
+            <NewsRail
+              title="Мособлэнерго ТВ"
+              items={itemsBySection.tv || []}
+              variant="media"
+              minItemsForArrows={3}
+              onVideoClick={setVideoItem}
+            />
+            <NewsRail
+              title="Видеосюжеты телеканалов"
+              items={channelVideoItems}
+              variant="media"
+              minItemsForArrows={3}
+              onVideoClick={setVideoItem}
+            />
             <NewsRail title="Фотобанк" items={photoItems} variant="photo" onPhotoClick={setPhotoIndex} />
+            <p className={styles.photoNotice}>
+              Использование фотографий допускается с указанием имени правообладателя – АО «Мособлэнерго».
+            </p>
             <SocialBlock />
           </>
         )}
       </div>
 
-      <Modal open={Boolean(videoItem)} onCancel={() => setVideoItem(null)} footer={null} width="min(1100px, 92vw)" centered destroyOnClose>
+      <Modal
+        open={Boolean(videoItem)}
+        onCancel={() => setVideoItem(null)}
+        footer={null}
+        closeIcon={null}
+        width="min(1100px, 92vw)"
+        centered
+        destroyOnClose
+      >
+        <div className={styles.modalHeader}>
+          <span className={styles.modalTitle}>{videoItem?.title || videoItem?.shortDescription || "Видео"}</span>
+          <button type="button" className={styles.modalClose} onClick={() => setVideoItem(null)}>
+            Закрыть
+          </button>
+        </div>
         {videoEmbedUrl ? (
           <iframe
             className={styles.modalVideo}
