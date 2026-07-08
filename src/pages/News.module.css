@@ -149,8 +149,8 @@
 }
 
 .railPoster {
-  grid-auto-columns: calc((100% - 128px) / 5);
-  gap: 32px;
+  grid-auto-columns: calc((100% - 72px) / 4);
+  gap: 24px;
 }
 
 .railPhoto {

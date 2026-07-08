@@ -63,6 +63,10 @@ function getRutubeVideoId(url) {
   return match?.[1] || "";
 }
 
+function getRutubeThumbnailUrl(videoId) {
+  return videoId ? `https://rutube.ru/api/video/${videoId}/thumbnail/?redirect=1` : "";
+}
+
 export function normalizeNewsItem(raw) {
   const item = raw?.attributes
     ? { id: raw.id, documentId: raw.documentId, ...raw.attributes }
@@ -73,6 +77,7 @@ export function normalizeNewsItem(raw) {
   const image = getMediaUrl(item.main_photo || item.mainPhoto || item.image || item.cover || item.preview);
   const photos = getMediaList(item.photo_file || item.photos || item.images || item.gallery);
   const videoUrl = item.url_Rutube || item.url_rutube || item.urlRutube || item.video_url || item.videoUrl || "";
+  const rutubeId = getRutubeVideoId(videoUrl);
   const id = item.documentId || item.id;
 
   return {
@@ -89,6 +94,7 @@ export function normalizeNewsItem(raw) {
     image,
     photos,
     videoUrl,
+    rutubeId,
   };
 }
 
@@ -101,6 +107,17 @@ async function fetchNews() {
   const response = await axios.get(`${addressServer}/api/news?populate=*&pagination[pageSize]=200`);
   const rows = response.data?.data;
   return Array.isArray(rows) ? rows.map(normalizeNewsItem) : [];
+}
+
+async function fetchRutubeMeta(videoId) {
+  const rutubeUrl = `https://rutube.ru/video/${videoId}/`;
+  const response = await fetch(`https://rutube.ru/api/oembed/?url=${encodeURIComponent(rutubeUrl)}`);
+  if (!response.ok) throw new Error(`Rutube meta ${response.status}`);
+  const data = await response.json();
+  return {
+    title: data?.title || "",
+    image: data?.thumbnail_url || getRutubeThumbnailUrl(videoId),
+  };
 }
 
 function getSortedItems(rows) {
@@ -262,6 +279,7 @@ function SocialBlock() {
 export default function News2() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rutubeMeta, setRutubeMeta] = useState({});
   const [videoItem, setVideoItem] = useState(null);
   const [photoIndex, setPhotoIndex] = useState(-1);
   const [selectedNewsDate, setSelectedNewsDate] = useState(null);
@@ -284,12 +302,60 @@ export default function News2() {
     };
   }, []);
 
+  useEffect(() => {
+    const videoIds = [...new Set(items.map((item) => item.rutubeId).filter(Boolean))].filter(
+      (videoId) => !(videoId in rutubeMeta),
+    );
+    if (!videoIds.length) return;
+
+    let alive = true;
+    Promise.allSettled(
+      videoIds.map((videoId) =>
+        fetchRutubeMeta(videoId).then((meta) => ({
+          videoId,
+          meta,
+        })),
+      ),
+    ).then((results) => {
+      if (!alive) return;
+      setRutubeMeta((current) => {
+        const next = { ...current };
+        results.forEach((result) => {
+          if (result.status === "fulfilled") {
+            next[result.value.videoId] = result.value.meta;
+          } else {
+            const failedId = videoIds[results.indexOf(result)];
+            if (failedId) next[failedId] = null;
+          }
+        });
+        return next;
+      });
+    });
+
+    return () => {
+      alive = false;
+    };
+  }, [items, rutubeMeta]);
+
+  const enrichedItems = useMemo(() => {
+    return items.map((item) => {
+      if (!item.rutubeId || !["tv", "channels"].includes(item.section)) return item;
+      const meta = rutubeMeta[item.rutubeId];
+      return {
+        ...item,
+        image: meta?.image || getRutubeThumbnailUrl(item.rutubeId) || item.image,
+        shortDescription: meta?.title || item.shortDescription,
+        title: meta?.title || item.title,
+      };
+    });
+  }, [items, rutubeMeta]);
+
   const itemsBySection = useMemo(() => {
     return NEWS_SECTIONS.reduce((acc, section) => {
-      acc[section.key] = getSortedItems(items.filter((item) => item.section === section.key));
+      acc[section.key] = getSortedItems(enrichedItems.filter((item) => item.section === section.key));
       return acc;
     }, {});
-  }, [items]);
+  }, [enrichedItems]);
 
   const photoItems = useMemo(() => {
     return getSortedItems(itemsBySection.photos || []).flatMap((item) => {
@@ -365,7 +431,7 @@ export default function News2() {
               title="Новости"
               items={visibleNewsItems}
               variant="poster"
-              minItemsForArrows={5}
+              minItemsForArrows={4}
               action={
                 <ConfigProvider locale={locale}>
                   <DatePicker
