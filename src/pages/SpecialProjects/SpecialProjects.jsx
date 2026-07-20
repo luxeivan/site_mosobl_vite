@@ -71,6 +71,31 @@ export default function SpecialProjects() {
       <TopImage
         image={img5d1dda82e3641ae19df5a51619ffb49c}
         title="Специальные проекты"
+        more={
+          <div
+            style={{ marginTop: 20, textAlign: "left" }}
+            className="block-btn"
+          >
+            <a
+              href="https://sport.mosoblenergo.ru"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "block",
+                width: "100%",
+                color: "#ffffff",
+                fontSize: 24,
+                fontWeight: 700,
+                lineHeight: 1.25,
+                textAlign: "left",
+              }}
+            >
+              ЛЕТНИЕ СПОРТИВНО-ТРЕНИРОВОЧНЫЕ
+              <br />
+              СБОРЫ АО «МОСОБЛЭНЕРГО»
+            </a>
+          </div>
+        }
       />
 
       <div className="container">
