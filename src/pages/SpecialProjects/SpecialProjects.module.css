@@ -3,6 +3,24 @@
   
 }
 
+.sportBanner {
+  margin-top: 20px;
+  width: clamp(30%, 600px, 100%);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.sportBannerLink {
+  display: block;
+  width: 100%;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -43,4 +61,23 @@
 
 .cardContent p {
   flex-grow: 1;
+}
+
+@media (max-width: 767px) {
+  .sportBanner {
+    margin-top: 20px;
+    padding: 12px 16px;
+  }
+
+  .sportBannerLink {
+    font-size: 20px;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 420px) {
+  .sportBannerLink {
+    font-size: 18px;
+  }
 }

@@ -73,22 +73,13 @@ export default function SpecialProjects() {
         title="Специальные проекты"
         more={
           <div
-            style={{ marginTop: 20, textAlign: "left" }}
-            className="block-btn"
+            className={`${styles.sportBanner} block-btn`}
           >
             <a
               href="https://sport.mosoblenergo.ru"
               target="_blank"
               rel="noreferrer"
-              style={{
-                display: "block",
-                width: "100%",
-                color: "#ffffff",
-                fontSize: 24,
-                fontWeight: 700,
-                lineHeight: 1.25,
-                textAlign: "left",
-              }}
+              className={styles.sportBannerLink}
             >
               ЛЕТНИЕ СПОРТИВНО-ТРЕНИРОВОЧНЫЕ
               <br />
@@ -96,6 +87,8 @@ export default function SpecialProjects() {
             </a>
           </div>
         }
+        paddingTop={270}
+        paddingBottom={100}
       />
 
       <div className="container">
