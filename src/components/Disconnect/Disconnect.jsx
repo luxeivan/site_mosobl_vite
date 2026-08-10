@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import qs from "qs";
+import React, { useEffect, useRef, useState } from "react";
 import { DateTime } from "luxon";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -12,76 +11,160 @@ import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 
 export default function Disconnect() {
   const [currentDate, setCurrentDate] = useState(dayjs());
+  const [calendarMonth, setCalendarMonth] = useState(dayjs());
   const [listDisconnect, setListDisconnect] = useState();
   const [currentOpenRow, setCurrentOpenRow] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [plannedDays, setPlannedDays] = useState([]);
+  const outagesCacheRef = useRef(new globalThis.Map());
+  const plannedDaysCacheRef = useRef(new globalThis.Map());
 
-  const query = qs.stringify(
-    {
-      populate: {
-        uzel_podklyucheniya: { populate: { uliczas: true, gorod: true } },
-      },
-      filters: {
-        $or: [
-          {
-            $and: [
-              {
-                begin: {
-                  $gte: dayjs(currentDate).startOf("day").valueOf(),
-                },
-              },
-              {
-                begin: {
-                  $lte: dayjs(currentDate).endOf("day").valueOf(),
-                },
-              },
-            ],
-          },
-          {
-            $and: [
-              {
-                end: {
-                  $gte: dayjs(currentDate).startOf("day").valueOf(),
-                },
-              },
-              {
-                end: {
-                  $lte: dayjs(currentDate).endOf("day").valueOf(),
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      encodeValuesOnly: true,
-    }
-  );
+  const isLocalHost =
+    typeof window !== "undefined" &&
+    ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const plannedOutagesUrl =
+    import.meta.env.VITE_JTN_PLANNED_OUTAGES_URL ||
+    (isLocalHost
+      ? "http://localhost:3110/services/site/planned-outages"
+      : "https://jtv.mosoblenergo.ru/services/site/planned-outages");
 
   useEffect(() => {
+    let isCancelled = false;
+    const selectedDate = dayjs(currentDate).format("YYYY-MM-DD");
+    const cacheKey = `${plannedOutagesUrl}:${selectedDate}`;
+    const cachedRows = outagesCacheRef.current.get(cacheKey);
+
+    setCurrentOpenRow();
+    setLoadError("");
+
+    if (cachedRows) {
+      setListDisconnect(cachedRows);
+      setIsLoading(false);
+      return () => {
+        isCancelled = true;
+      };
+    }
+
+    setIsLoading(true);
+    setListDisconnect();
+
     axios
-      .get(
-        "https://nopowersupply.mosoblenergo.ru/back/api/otklyuchenies?" +
-          query +
-          "&pagination[pageSize]=100000"
-      )
+      .get(plannedOutagesUrl, {
+        params: { date: selectedDate },
+      })
       .then((response) => {
-        const newarray = response.data.data.reduce((objectsByKeyValue, obj) => {
-          const value =
-            obj.attributes.uzel_podklyucheniya.data.attributes.gorod.data
-              .attributes.name;
+        if (isCancelled) return;
+        // Старый источник плановых до перехода на МКиМО/ЖТН:
+        // https://nopowersupply.mosoblenergo.ru/back/api/otklyuchenies
+        const rows = Array.isArray(response?.data?.data) ? response.data.data : [];
+        const newarray = rows.reduce((objectsByKeyValue, obj) => {
+          const value = getCityName(obj);
+          if (!value) return objectsByKeyValue;
           objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(
             obj
           );
           return objectsByKeyValue;
         }, {});
 
+        outagesCacheRef.current.set(cacheKey, newarray);
         setListDisconnect(newarray);
       })
       .catch((err) => {
         console.log(err);
+        if (isCancelled) return;
+        setLoadError("Не удалось загрузить плановые отключения");
+        setListDisconnect({});
+      })
+      .finally(() => {
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
       });
-  }, [currentDate]);
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [currentDate, plannedOutagesUrl]);
+
+  useEffect(() => {
+    let isCancelled = false;
+    const selectedMonth = dayjs(calendarMonth).format("YYYY-MM");
+    const cacheKey = `${plannedOutagesUrl}:days:${selectedMonth}`;
+    const cachedDays = plannedDaysCacheRef.current.get(cacheKey);
+
+    if (cachedDays) {
+      setPlannedDays(cachedDays);
+      return () => {
+        isCancelled = true;
+      };
+    }
+
+    axios
+      .get(`${plannedOutagesUrl}/days`, {
+        params: { month: selectedMonth },
+      })
+      .then((response) => {
+        if (isCancelled) return;
+        const days = Array.isArray(response?.data?.data)
+          ? response.data.data
+          : [];
+        plannedDaysCacheRef.current.set(cacheKey, days);
+        setPlannedDays(days);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (!isCancelled) setPlannedDays([]);
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [calendarMonth, plannedOutagesUrl]);
+
+  const getCityAttributes = (item) =>
+    item?.attributes?.uzel_podklyucheniya?.data?.attributes?.gorod?.data
+      ?.attributes || {};
+
+  const getStreetRows = (item) =>
+    item?.attributes?.uzel_podklyucheniya?.data?.attributes?.uliczas?.data || [];
+
+  const getCityName = (item) => getCityAttributes(item)?.name || "";
+
+  const getCityCoordinates = (item) => {
+    const fias = getCityAttributes(item)?.fias?.data || {};
+    return [Number(fias.geo_lat) || 55.754475, Number(fias.geo_lon) || 37.621869];
+  };
+
+  const formatLocalDateTime = (value) => {
+    const date = DateTime.fromISO(value || "");
+    if (!date.isValid) return "";
+    const local = date.toLocal().c;
+    const dd = local.day < 10 ? "0" + local.day : local.day;
+    const mm = local.month < 10 ? "0" + local.month : local.month;
+    const hh = local.hour < 10 ? "0" + local.hour : local.hour;
+    const min = local.minute < 10 ? "0" + local.minute : local.minute;
+    return `${dd}.${mm}.${local.year} ${hh}:${min}`;
+  };
+
+  const plannedDaysSet = new Set(plannedDays);
+
+  const renderCalendarCell = (date, info) => {
+    if (info.type !== "date") return info.originNode;
+    const dateKey = date.format("YYYY-MM-DD");
+    const hasOutage = plannedDaysSet.has(dateKey);
+    const originClassName = info.originNode?.props?.className || "";
+
+    return React.cloneElement(
+      info.originNode,
+      {
+        className: hasOutage
+          ? `${originClassName} planned-outages-calendar-cell planned-outages-calendar-cell--active`
+          : `${originClassName} planned-outages-calendar-cell`,
+      },
+      date.date()
+    );
+  };
 
   const addGO = (name) => {
     if (name.match(/г\s/gm)) {
@@ -105,14 +188,19 @@ export default function Disconnect() {
         <DatePicker
           onChange={(value, mode) => {
             console.log(value, mode);
-            setCurrentDate(value);
+            const nextDate = value || dayjs();
+            setCurrentDate(nextDate);
+            setCalendarMonth(nextDate);
           }}
-          defaultValue={currentDate}
-          // value={currentDate}
+          onPanelChange={(value) => {
+            setCalendarMonth(value || currentDate || dayjs());
+          }}
+          value={currentDate}
           // showLeadingZeros={true}
           // clearIcon={null}
           allowClear={false}
           format={"DD.MM.YYYY"}
+          cellRender={renderCalendarCell}
         />
       </ConfigProvider>
 
@@ -131,6 +219,7 @@ export default function Disconnect() {
           {listDisconnect &&
             Object.keys(listDisconnect).length !== 0 &&
             Object.entries(listDisconnect).map((item, index) => {
+              const coordinates = getCityCoordinates(item[1][0]);
               return (
                 <Placemark
                   onClick={(event) => {
@@ -149,12 +238,7 @@ export default function Disconnect() {
                   key={index}
                   geometry={{
                     type: "Point",
-                    coordinates: [
-                      item[1][0].attributes.uzel_podklyucheniya.data.attributes
-                        .gorod.data.attributes.fias.data.geo_lat,
-                      item[1][0].attributes.uzel_podklyucheniya.data.attributes
-                        .gorod.data.attributes.fias.data.geo_lon,
-                    ],
+                    coordinates,
                   }}
                   properties={{
                     iconContent: `${addGO(item[0])}`,
@@ -170,10 +254,22 @@ export default function Disconnect() {
       </YMaps>
 
       <div className="disconnect__area">
-        {listDisconnect && Object.keys(listDisconnect).length !== 0 && (
-          <ul className="disconnect__list">
-            {Object.entries(listDisconnect).map((item, index) => {
-              return (
+        {isLoading && (
+          <div className="disconnect__status">
+            Загружаем плановые отключения...
+          </div>
+        )}
+        {!isLoading && loadError && (
+          <div className="disconnect__status disconnect__status--error">
+            {loadError}
+          </div>
+        )}
+        {!isLoading &&
+          listDisconnect &&
+          Object.keys(listDisconnect).length !== 0 && (
+	          <ul className="disconnect__list">
+	            {Object.entries(listDisconnect).map((item, index) => {
+	              return (
                 <div key={index} className="accordion-row">
                   <div
                     id={`City-${index}`}
@@ -200,29 +296,29 @@ export default function Disconnect() {
                   </div>
                   <div className="accordion-row__drop-down">
                     <div className="accordion-row__wrapper1">
-                      <div className="text-area1 disconnect__for-desktop">
-                        <ul className="street__list">
-                          <li className="street__item street-row">
-                            <div className="street-table__th">Улицы</div>
-                            <div className="street-table__th">Комментарий</div>
-                            <div className="street-table__th">Начало</div>
-                            <div className="street-table__th">Окончание</div>
+	                      <div className="text-area1 disconnect__for-desktop">
+	                        <ul className="street__list">
+	                          <li className="street__item street-row">
+	                            <div className="street-table__th">Улицы</div>
+	                            <div className="street-table__th">Комментарий</div>
+	                            <div className="street-table__th">Начало</div>
+	                            <div className="street-table__th">Окончание</div>
                           </li>
                           {item[1].map((item, index) => {
-                            const begin = DateTime.fromISO(
+                            const begin = formatLocalDateTime(
                               item.attributes.begin
-                            ).toLocal().c;
-                            const end = DateTime.fromISO(
+                            );
+                            const end = formatLocalDateTime(
                               item.attributes.end
-                            ).toLocal().c;
+                            );
                             return (
-                              <li
-                                key={index}
-                                className="street__item street-row"
-                              >
-                                <div className="street-table__td street-table">
-                                  <ul>
-                                    {item.attributes.uzel_podklyucheniya.data.attributes.uliczas.data.map(
+	                              <li
+	                                key={index}
+	                                className="street__item street-row"
+	                              >
+	                                <div className="street-table__td street-table">
+	                                  <ul>
+	                                    {getStreetRows(item).map(
                                       (item, index) => (
                                         <li
                                           className="street-table__item"
@@ -230,8 +326,7 @@ export default function Disconnect() {
                                           style={{ listStyle: "none" }}
                                           key={index}
                                         >
-                                          <b>{addGO(item.attributes.name)}</b> -{" "}
-                                          {item.attributes.comment}
+                                          <b>{addGO(item.attributes.name)}</b>
                                         </li>
                                       )
                                     )}
@@ -244,28 +339,10 @@ export default function Disconnect() {
                                   {item.attributes.comment}
                                 </div>
                                 <div className="street-table__td">
-                                  {begin.day < 10 ? "0" + begin.day : begin.day}
-                                  .
-                                  {begin.month < 10
-                                    ? "0" + begin.month
-                                    : begin.month}
-                                  .{begin.year}{" "}
-                                  {begin.hour < 10
-                                    ? "0" + begin.hour
-                                    : begin.hour}
-                                  :
-                                  {begin.minute < 10
-                                    ? "0" + begin.minute
-                                    : begin.minute}
+                                  {begin}
                                 </div>
                                 <div className="street-table__td">
-                                  {end.day < 10 ? "0" + end.day : end.day}.
-                                  {end.month < 10 ? "0" + end.month : end.month}
-                                  .{end.year}{" "}
-                                  {end.hour < 10 ? "0" + end.hour : end.hour}:
-                                  {end.minute < 10
-                                    ? "0" + end.minute
-                                    : end.minute}
+                                  {end}
                                 </div>
                               </li>
                             );
@@ -273,28 +350,28 @@ export default function Disconnect() {
                         </ul>
                       </div>
 
-                      <div className="text-area1 disconnect__for-mobile">
-                        <ul className="street__list">
-                          <li className="street__item street-row">
-                            <div className="street-table__th">Улицы</div>
-                            <div className="street-table__th">Комментарий</div>
-                            <div className="street-table__th">Время</div>
+	                      <div className="text-area1 disconnect__for-mobile">
+	                        <ul className="street__list">
+	                          <li className="street__item street-row">
+	                            <div className="street-table__th">Улицы</div>
+	                            <div className="street-table__th">Комментарий</div>
+	                            <div className="street-table__th">Время</div>
                           </li>
                           {item[1].map((item, index) => {
-                            const begin = DateTime.fromISO(
+                            const begin = formatLocalDateTime(
                               item.attributes.begin
-                            ).toLocal().c;
-                            const end = DateTime.fromISO(
+                            );
+                            const end = formatLocalDateTime(
                               item.attributes.end
-                            ).toLocal().c;
+                            );
                             return (
-                              <li
-                                key={index}
-                                className="street__item street-row"
-                              >
-                                <div className="street-table__td street-table">
-                                  <ul>
-                                    {item.attributes.uzel_podklyucheniya.data.attributes.uliczas.data.map(
+	                              <li
+	                                key={index}
+	                                className="street__item street-row"
+	                              >
+	                                <div className="street-table__td street-table">
+	                                  <ul>
+                                    {getStreetRows(item).map(
                                       (item, index) => (
                                         <li
                                           className="street-table__item"
@@ -302,8 +379,7 @@ export default function Disconnect() {
                                           style={{ listStyle: "none" }}
                                           key={index}
                                         >
-                                          <b>{item.attributes.name}</b> -{" "}
-                                          {item.attributes.comment}
+                                          <b>{item.attributes.name}</b>
                                         </li>
                                       )
                                     )}
@@ -315,29 +391,11 @@ export default function Disconnect() {
                                 <div className="street-table__td">
                                   <b>Начало:</b>
                                   <br />
-                                  {begin.day < 10 ? "0" + begin.day : begin.day}
-                                  .
-                                  {begin.month < 10
-                                    ? "0" + begin.month
-                                    : begin.month}
-                                  .{begin.year}{" "}
-                                  {begin.hour < 10
-                                    ? "0" + begin.hour
-                                    : begin.hour}
-                                  :
-                                  {begin.minute < 10
-                                    ? "0" + begin.minute
-                                    : begin.minute}
+                                  {begin}
                                   <br />
                                   <b>Окончание:</b>
                                   <br />
-                                  {end.day < 10 ? "0" + end.day : end.day}.
-                                  {end.month < 10 ? "0" + end.month : end.month}
-                                  .{end.year}{" "}
-                                  {end.hour < 10 ? "0" + end.hour : end.hour}:
-                                  {end.minute < 10
-                                    ? "0" + end.minute
-                                    : end.minute}
+                                  {end}
                                 </div>
                               </li>
                             );
@@ -367,14 +425,7 @@ export default function Disconnect() {
                           <YMaps>
                             <Map
                               state={{
-                                center: [
-                                  item[1][0].attributes.uzel_podklyucheniya.data
-                                    .attributes.gorod.data.attributes.fias.data
-                                    .geo_lat,
-                                  item[1][0].attributes.uzel_podklyucheniya.data
-                                    .attributes.gorod.data.attributes.fias.data
-                                    .geo_lon,
-                                ],
+                                center: getCityCoordinates(item[1][0]),
                                 zoom: 10,
                                 behaviors: ["disable('scrollZoom')", "drag"],
                               }}
@@ -385,23 +436,29 @@ export default function Disconnect() {
                               ]}
                             >
                               <ZoomControl />
-                              {item[1].map((item, index) => {
-                                return item.attributes.uzel_podklyucheniya.data.attributes.uliczas.data.map(
-                                  (item, index) => {
+                              {item[1].map((outage) => {
+                                const fallbackCoordinates =
+                                  getCityCoordinates(outage);
+                                return getStreetRows(outage).map(
+                                  (street, index) => {
+                                    const fias = street?.attributes?.fias || {};
                                     return (
                                       <Placemark
                                         key={index}
                                         geometry={{
                                           type: "Point",
                                           coordinates: [
-                                            item.attributes.fias.data.geo_lat,
-                                            item.attributes.fias.data.geo_lon,
+                                            Number(fias?.data?.geo_lat) ||
+                                              fallbackCoordinates[0],
+                                            Number(fias?.data?.geo_lon) ||
+                                              fallbackCoordinates[1],
                                           ],
                                         }}
                                         properties={{
                                           iconContent: "X",
                                           hintContent:
-                                            item.attributes.fias.value,
+                                            fias?.value ||
+                                            street?.attributes?.name,
                                         }}
                                         options={{
                                           preset: "islands#redDotIcon",
@@ -422,7 +479,10 @@ export default function Disconnect() {
             })}
           </ul>
         )}
-        {listDisconnect && Object.keys(listDisconnect).length === 0 && (
+        {!isLoading &&
+          !loadError &&
+          listDisconnect &&
+          Object.keys(listDisconnect).length === 0 && (
           <h2>Отключений на эту дату нет</h2>
         )}
       </div>

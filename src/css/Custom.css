@@ -545,7 +545,12 @@ button.wrap-link {
 }
 
 .street-row {
-  display: flex;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(0, 1.1fr)
+    minmax(150px, 0.55fr)
+    minmax(150px, 0.55fr);
 }
 
 .street-row:nth-child(2n + 1) {
@@ -559,7 +564,11 @@ button.wrap-link {
   border: 1px solid #eee;
   text-align: center;
   /* flex: 1; */
-  width: 25%;
+  width: auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
   font-weight: 600;
 }
 
@@ -567,11 +576,66 @@ button.wrap-link {
   padding: 5px;
   border: 1px solid #eee;
   /* flex: 1; */
-  width: 25%;
+  width: auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .street-table__item {
   margin-bottom: 5px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.disconnect__status {
+  color: #0061aa;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.disconnect__status--error {
+  color: #e37021;
+}
+
+.planned-outages-calendar-cell {
+  align-items: center;
+  border-radius: 6px;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  position: relative;
+  width: 24px;
+}
+
+.planned-outages-calendar-cell--active {
+  color: #0061aa;
+  font-weight: 700;
+}
+
+.planned-outages-calendar-cell--active::after {
+  background-color: #0061aa;
+  border-radius: 50%;
+  bottom: 1px;
+  content: "";
+  height: 4px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 4px;
+}
+
+.ant-picker-cell-selected .planned-outages-calendar-cell--active,
+.ant-picker-cell-today .planned-outages-calendar-cell--active {
+  color: inherit;
+}
+
+.ant-picker-cell-selected .planned-outages-calendar-cell--active::after {
+  background-color: #ffffff;
 }
 
 .open-map {
@@ -1330,7 +1394,14 @@ th {
 
   .street-table__td,
   .street-table__th {
-    width: 33.33%;
+    width: auto;
+  }
+
+  .disconnect__for-mobile .street-row {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      minmax(120px, 0.65fr);
   }
 
   .mob-contact {
