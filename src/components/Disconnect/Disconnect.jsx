@@ -7,13 +7,14 @@ import locale from "antd/es/locale/ru_RU";
 // import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 
-import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
+// Временно отключено по задаче 2026-08-11: карта плановых и кнопки "Показать на карте".
+// import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 
 export default function Disconnect() {
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [calendarMonth, setCalendarMonth] = useState(dayjs());
   const [listDisconnect, setListDisconnect] = useState();
-  const [currentOpenRow, setCurrentOpenRow] = useState();
+  // const [currentOpenRow, setCurrentOpenRow] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [plannedDays, setPlannedDays] = useState([]);
@@ -35,7 +36,7 @@ export default function Disconnect() {
     const cacheKey = `${plannedOutagesUrl}:${selectedDate}`;
     const cachedRows = outagesCacheRef.current.get(cacheKey);
 
-    setCurrentOpenRow();
+    // setCurrentOpenRow();
     setLoadError("");
 
     if (cachedRows) {
@@ -204,54 +205,58 @@ export default function Disconnect() {
         />
       </ConfigProvider>
 
-      <YMaps>
-        <Map
-          state={{
-            center: [55.754475, 37.621869],
-            zoom: 8,
-            behaviors: ["scrollZoom", "drag"],
-          }}
-          className="yandex-map"
-          modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
-          style={{ width: "100%", height: "400px", position: "relative" }}
-        >
-          <ZoomControl />
-          {listDisconnect &&
-            Object.keys(listDisconnect).length !== 0 &&
-            Object.entries(listDisconnect).map((item, index) => {
-              const coordinates = getCityCoordinates(item[1][0]);
-              return (
-                <Placemark
-                  onClick={(event) => {
-                    event.preventDefault();
-                    const element = document.getElementById(`City-${index}`);
-                    element.click();
-                    window.scrollTo({
-                      top:
-                        element.getBoundingClientRect().top +
-                        window.pageYOffset -
-                        85,
-                      left: 0,
-                      behavior: "smooth",
-                    });
-                  }}
-                  key={index}
-                  geometry={{
-                    type: "Point",
-                    coordinates,
-                  }}
-                  properties={{
-                    iconContent: `${addGO(item[0])}`,
-                    hintContent: `${addGO(item[0])}`,
-                  }}
-                  options={{
-                    preset: "islands#redStretchyIcon",
-                  }}
-                />
-              );
-            })}
-        </Map>
-      </YMaps>
+      {/*
+        Временно отключено по задаче 2026-08-11: большая карта плановых отключений.
+
+        <YMaps>
+          <Map
+            state={{
+              center: [55.754475, 37.621869],
+              zoom: 8,
+              behaviors: ["scrollZoom", "drag"],
+            }}
+            className="yandex-map"
+            modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
+            style={{ width: "100%", height: "400px", position: "relative" }}
+          >
+            <ZoomControl />
+            {listDisconnect &&
+              Object.keys(listDisconnect).length !== 0 &&
+              Object.entries(listDisconnect).map((item, index) => {
+                const coordinates = getCityCoordinates(item[1][0]);
+                return (
+                  <Placemark
+                    onClick={(event) => {
+                      event.preventDefault();
+                      const element = document.getElementById(`City-${index}`);
+                      element.click();
+                      window.scrollTo({
+                        top:
+                          element.getBoundingClientRect().top +
+                          window.pageYOffset -
+                          85,
+                        left: 0,
+                        behavior: "smooth",
+                      });
+                    }}
+                    key={index}
+                    geometry={{
+                      type: "Point",
+                      coordinates,
+                    }}
+                    properties={{
+                      iconContent: `${addGO(item[0])}`,
+                      hintContent: `${addGO(item[0])}`,
+                    }}
+                    options={{
+                      preset: "islands#redStretchyIcon",
+                    }}
+                  />
+                );
+              })}
+          </Map>
+        </YMaps>
+      */}
 
       <div className="disconnect__area">
         {isLoading && (
@@ -403,75 +408,80 @@ export default function Disconnect() {
                         </ul>
                       </div>
 
-                      <div className="open-map">
-                        <button
-                          type="button"
-                          className="open-map__button"
-                          onClick={(event) => {
-                            if (currentOpenRow === index) {
-                              setCurrentOpenRow();
-                            } else {
-                              setCurrentOpenRow(index);
-                            }
-                          }}
-                        >
-                          {currentOpenRow === index
-                            ? "Скрыть карту"
-                            : "Показать на карте"}
-                        </button>
-                      </div>
-                      {currentOpenRow === index && (
-                        <>
-                          <YMaps>
-                            <Map
-                              state={{
-                                center: getCityCoordinates(item[1][0]),
-                                zoom: 10,
-                                behaviors: ["disable('scrollZoom')", "drag"],
-                              }}
-                              className="yandex-map"
-                              modules={[
-                                "geoObject.addon.balloon",
-                                "geoObject.addon.hint",
-                              ]}
-                            >
-                              <ZoomControl />
-                              {item[1].map((outage) => {
-                                const fallbackCoordinates =
-                                  getCityCoordinates(outage);
-                                return getStreetRows(outage).map(
-                                  (street, index) => {
-                                    const fias = street?.attributes?.fias || {};
-                                    return (
-                                      <Placemark
-                                        key={index}
-                                        geometry={{
-                                          type: "Point",
-                                          coordinates: [
-                                            Number(fias?.data?.geo_lat) ||
-                                              fallbackCoordinates[0],
-                                            Number(fias?.data?.geo_lon) ||
-                                              fallbackCoordinates[1],
-                                          ],
-                                        }}
-                                        properties={{
-                                          iconContent: "X",
-                                          hintContent:
-                                            fias?.value ||
-                                            street?.attributes?.name,
-                                        }}
-                                        options={{
-                                          preset: "islands#redDotIcon",
-                                        }}
-                                      />
-                                    );
-                                  }
-                                );
-                              })}
-                            </Map>
-                          </YMaps>
-                        </>
-                      )}
+                      {/*
+                        Временно отключено по задаче 2026-08-11: кнопка "Показать на карте"
+                        и вложенная карта выбранного города.
+
+                        <div className="open-map">
+                          <button
+                            type="button"
+                            className="open-map__button"
+                            onClick={(event) => {
+                              if (currentOpenRow === index) {
+                                setCurrentOpenRow();
+                              } else {
+                                setCurrentOpenRow(index);
+                              }
+                            }}
+                          >
+                            {currentOpenRow === index
+                              ? "Скрыть карту"
+                              : "Показать на карте"}
+                          </button>
+                        </div>
+                        {currentOpenRow === index && (
+                          <>
+                            <YMaps>
+                              <Map
+                                state={{
+                                  center: getCityCoordinates(item[1][0]),
+                                  zoom: 10,
+                                  behaviors: ["disable('scrollZoom')", "drag"],
+                                }}
+                                className="yandex-map"
+                                modules={[
+                                  "geoObject.addon.balloon",
+                                  "geoObject.addon.hint",
+                                ]}
+                              >
+                                <ZoomControl />
+                                {item[1].map((outage) => {
+                                  const fallbackCoordinates =
+                                    getCityCoordinates(outage);
+                                  return getStreetRows(outage).map(
+                                    (street, index) => {
+                                      const fias = street?.attributes?.fias || {};
+                                      return (
+                                        <Placemark
+                                          key={index}
+                                          geometry={{
+                                            type: "Point",
+                                            coordinates: [
+                                              Number(fias?.data?.geo_lat) ||
+                                                fallbackCoordinates[0],
+                                              Number(fias?.data?.geo_lon) ||
+                                                fallbackCoordinates[1],
+                                            ],
+                                          }}
+                                          properties={{
+                                            iconContent: "X",
+                                            hintContent:
+                                              fias?.value ||
+                                              street?.attributes?.name,
+                                          }}
+                                          options={{
+                                            preset: "islands#redDotIcon",
+                                          }}
+                                        />
+                                      );
+                                    }
+                                  );
+                                })}
+                              </Map>
+                            </YMaps>
+                          </>
+                        )}
+                      */}
                     </div>
                   </div>
                 </div>
