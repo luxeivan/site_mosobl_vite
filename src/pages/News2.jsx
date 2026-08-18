@@ -22,7 +22,7 @@ import styles from "./News.module.css";
 export const NEWS_SECTIONS = [
   { key: "news", title: "Новости" },
   { key: "tv", title: "Мособлэнерго ТВ" },
-  { key: "channels", title: "Видеосюжеты телеканалов" },
+  { key: "channels", title: "СМИ О НАС" },
   { key: "photos", title: "Фотобанк" },
 ];
 
@@ -465,7 +465,7 @@ export default function News2() {
               onVideoClick={setVideoItem}
             />
             <NewsRail
-              title="Видеосюжеты телеканалов"
+              title="СМИ О НАС"
               items={channelVideoItems}
               variant="media"
               minItemsForArrows={3}
