@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import qs from "qs";
 import { DateTime } from "luxon";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -8,6 +7,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./SecretDisconnect.module.css";
 import { ru } from "date-fns/locale/ru";
+
 registerLocale("ru", ru);
 
 export default function SecretDisconnect() {
@@ -16,63 +16,34 @@ export default function SecretDisconnect() {
     DateTime.now().plus({ days: 1 }).toJSDate()
   );
 
+  const plannedOutagesUrl =
+    import.meta.env.VITE_JTN_PLANNED_OUTAGES_URL ||  "https://jtv.mosoblenergo.ru/services/site/planned-outages" ;
+
   useEffect(() => {
-    const query = qs.stringify(
-      {
-        populate: {
-          uzel_podklyucheniya: { populate: { uliczas: true, gorod: true } },
-        },
-        filters: {
-          $or: [
-            {
-              $and: [
-                {
-                  begin: {
-                    $gte: DateTime.fromJSDate(selectedDate).startOf("day").ts,
-                  },
-                },
-                {
-                  begin: {
-                    $lte: DateTime.fromJSDate(selectedDate).endOf("day").ts,
-                  },
-                },
-              ],
-            },
-            {
-              $and: [
-                {
-                  end: {
-                    $gte: DateTime.fromJSDate(selectedDate).startOf("day").ts,
-                  },
-                },
-                {
-                  end: {
-                    $lte: DateTime.fromJSDate(selectedDate).endOf("day").ts,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      },
-      {
-        encodeValuesOnly: true,
-      }
+    const selectedDateISO = DateTime.fromJSDate(selectedDate).toFormat(
+      "yyyy-MM-dd"
     );
 
     axios
-      .get(
-        "https://nopowersupply.mosoblenergo.ru/back/api/otklyuchenies?" +
-          query +
-          "&pagination[pageSize]=100000"
-      )
+      .get(plannedOutagesUrl, {
+        params: {
+          date: selectedDateISO,
+        },
+      })
       .then((response) => {
-        const groupedData = response.data.data.reduce((acc, item) => {
+        console.log("response",response.data);
+        
+        const rows = Array.isArray(response?.data?.data)
+          ? response.data.data
+          : [];
+
+        const groupedData = rows.reduce((acc, item) => {
           const city =
             item.attributes.uzel_podklyucheniya.data.attributes.gorod.data.attributes.name.replace(
               /^г\s/,
               ""
             );
+
           let streets =
             item.attributes.uzel_podklyucheniya.data.attributes.uliczas.data
               .map(
@@ -82,22 +53,28 @@ export default function SecretDisconnect() {
               .join(", ");
 
           const cityPattern = new RegExp(
-            `(ул\\.\\с*г\\с*${city},\\с*)|(г\\с*${city},\\с*)|(ул\\.\\с*г\\с*${city})|(г\\с*${city})`,
+            `(ул\\.\\s*г\\s*${city},\\s*)|(г\\s*${city},\\s*)|(ул\\.\\s*г\\s*${city})|(г\\s*${city})`,
             "gi"
           );
+
           streets = streets.replace(cityPattern, "").trim();
 
           const comment = item.attributes.comment || "Без комментария";
+
           const begin = DateTime.fromISO(item.attributes.begin).toFormat(
             "dd.MM.yyyy (HH:mm"
           );
+
           const end = DateTime.fromISO(item.attributes.end).toFormat("HH:mm");
+
           const addedAt = DateTime.fromISO(item.attributes.updatedAt).toFormat(
             "dd.MM.yyyy HH:mm"
           );
+
           const addedAtTimestamp = DateTime.fromISO(
             item.attributes.updatedAt
           ).toMillis(); // Конвертируем время обновления в таймстамп
+
           const formattedDisconnect = {
             text: `${begin}-${end}) г. о. ${city}, ${streets}.${comment}`,
             addedAt,
@@ -107,6 +84,7 @@ export default function SecretDisconnect() {
           if (!acc[city]) {
             acc[city] = [];
           }
+
           if (
             !acc[city].some((disconnect) => disconnect.text.includes(streets))
           ) {
@@ -121,10 +99,11 @@ export default function SecretDisconnect() {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedDate]);
+  }, [selectedDate, plannedOutagesUrl]);
 
   const prefix =
     "«Мособлэнерго» информирует о возможных плановых отключениях электроэнергии. На энергообъектах, обслуживаемых компанией, будут проводиться технические работы для повышения надежности электроснабжения потребителей.  Для обеспечения безопасного выполнения работ отключение электричества планируется:";
+
   const sufix =
     "По вопросам отключений и качества электроснабжения обращаться на «Горячую линию» АО «Мособлэнерго» по телефону 8(495) 99-500-99. Информацию об аварийных отключениях Вы найдете на сайте компании. АО «Мособлэнерго» - официальный сайт (mosoblenergo.ru).";
 
@@ -146,10 +125,12 @@ export default function SecretDisconnect() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <TopImage title={""} />
+      <TopImage title={" "} />
+
       <div style={{ whiteSpace: "pre-wrap", padding: "20px" }}>
         <div style={{ marginBottom: "20px" }}>
           <span style={{ fontWeight: 700 }}>Дата отключений: </span>
+
           <DatePicker
             showIcon
             selected={selectedDate}
@@ -158,6 +139,7 @@ export default function SecretDisconnect() {
             locale="ru"
           />
         </div>
+
         {Object.keys(disconnects).length === 0 ? (
           <p>Нет запланированных отключений на выбранную дату.</p>
         ) : (
@@ -170,12 +152,16 @@ export default function SecretDisconnect() {
                 paddingBottom: "10px",
               }}
             >
-              <h2>{`В городском округе ${city} ${DateTime.fromJSDate(
-                selectedDate
-              ).toFormat("d MMMM", {
-                locale: "ru",
-              })} возможны плановые отключения электроэнергии`}</h2>
+              <h2>
+                {`В городском округе ${city} ${DateTime.fromJSDate(
+                  selectedDate
+                ).toFormat("d MMMM", {
+                  locale: "ru",
+                })} возможны плановые отключения электроэнергии`}
+              </h2>
+
               <p>{prefix}</p>
+
               {disconnects.map((disconnect, index) => (
                 <div
                   key={index}
@@ -192,6 +178,7 @@ export default function SecretDisconnect() {
                   >
                     {disconnect.text}
                   </p>
+
                   <span
                     style={{
                       color: "gray",
@@ -203,7 +190,9 @@ export default function SecretDisconnect() {
                   </span>
                 </div>
               ))}
+
               <p>{sufix}</p>
+
               <button
                 className={styles.button}
                 onClick={() => {
@@ -212,11 +201,15 @@ export default function SecretDisconnect() {
                   ).toFormat("d MMMM", {
                     locale: "ru",
                   })} возможны плановые отключения электроэнергии\r\n\r\n`;
+
                   text = text + prefix + "\r\n\r\n";
+
                   disconnects.forEach((item) => {
                     text = text + item.text + "\r\n\r\n";
                   });
+
                   text = text + sufix;
+
                   navigator.clipboard.writeText(text);
                 }}
               >
@@ -229,7 +222,6 @@ export default function SecretDisconnect() {
     </motion.div>
   );
 }
-
 // import React, { useEffect, useState } from "react";
 // import qs from "qs";
 // import { DateTime } from "luxon";
@@ -299,16 +291,19 @@ export default function SecretDisconnect() {
 //           "&pagination[pageSize]=100000"
 //       )
 //       .then((response) => {
-//         console.log("Ответ от сервера:", response.data);
 //         const groupedData = response.data.data.reduce((acc, item) => {
 //           const city =
 //             item.attributes.uzel_podklyucheniya.data.attributes.gorod.data.attributes.name.replace(
 //               /^г\s/,
 //               ""
 //             );
-//           let streets = item.uzel_podklyucheniya.data.uliczas.data
-//             .map((street) => street.name + ` ` + street.comment)
-//             .join(", ");
+//           let streets =
+//             item.attributes.uzel_podklyucheniya.data.attributes.uliczas.data
+//               .map(
+//                 (street) =>
+//                   street.attributes.name + ` ` + street.attributes.comment
+//               )
+//               .join(", ");
 
 //           const cityPattern = new RegExp(
 //             `(ул\\.\\с*г\\с*${city},\\с*)|(г\\с*${city},\\с*)|(ул\\.\\с*г\\с*${city})|(г\\с*${city})`,
@@ -316,15 +311,17 @@ export default function SecretDisconnect() {
 //           );
 //           streets = streets.replace(cityPattern, "").trim();
 
-//           const comment = item.comment || "Без комментария";
-//           const begin = DateTime.fromISO(item.begin).toFormat(
+//           const comment = item.attributes.comment || "Без комментария";
+//           const begin = DateTime.fromISO(item.attributes.begin).toFormat(
 //             "dd.MM.yyyy (HH:mm"
 //           );
-//           const end = DateTime.fromISO(item.end).toFormat("HH:mm");
-//           const addedAt = DateTime.fromISO(item.updatedAt).toFormat(
+//           const end = DateTime.fromISO(item.attributes.end).toFormat("HH:mm");
+//           const addedAt = DateTime.fromISO(item.attributes.updatedAt).toFormat(
 //             "dd.MM.yyyy HH:mm"
 //           );
-//           const addedAtTimestamp = DateTime.fromISO(item.updatedAt).toMillis(); // Конвертируем время обновления в таймстамп
+//           const addedAtTimestamp = DateTime.fromISO(
+//             item.attributes.updatedAt
+//           ).toMillis(); // Конвертируем время обновления в таймстамп
 //           const formattedDisconnect = {
 //             text: `${begin}-${end}) г. о. ${city}, ${streets}.${comment}`,
 //             addedAt,

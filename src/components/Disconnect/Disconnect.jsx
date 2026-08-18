@@ -21,14 +21,9 @@ export default function Disconnect() {
   const outagesCacheRef = useRef(new globalThis.Map());
   const plannedDaysCacheRef = useRef(new globalThis.Map());
 
-  const isLocalHost =
-    typeof window !== "undefined" &&
-    ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
   const plannedOutagesUrl =
-    import.meta.env.VITE_JTN_PLANNED_OUTAGES_URL ||
-    (isLocalHost
-      ? "http://localhost:3110/services/site/planned-outages"
-      : "https://jtv.mosoblenergo.ru/services/site/planned-outages");
+    import.meta.env.VITE_JTN_PLANNED_OUTAGES_URL || "https://jtv.mosoblenergo.ru/services/site/planned-outages";
 
   useEffect(() => {
     let isCancelled = false;
@@ -272,143 +267,143 @@ export default function Disconnect() {
         {!isLoading &&
           listDisconnect &&
           Object.keys(listDisconnect).length !== 0 && (
-	          <ul className="disconnect__list">
-	            {Object.entries(listDisconnect).map((item, index) => {
-	              return (
-                <div key={index} className="accordion-row">
-                  <div
-                    id={`City-${index}`}
-                    className="accordion-row__up"
-                    onClick={(event) => {
-                      document.querySelectorAll(".accordion-row");
-                      event.currentTarget
-                        .closest(".accordion-row")
-                        .classList.toggle("open-accordion");
-                      event.currentTarget.classList.toggle("active");
-                      const drop = event.currentTarget
-                        .closest(".accordion-row")
-                        .querySelector(".accordion-row__drop-down");
-                      if (drop.style.maxHeight == "") {
-                        drop.style.maxHeight = `${drop.scrollHeight + 1200}px`;
-                      } else {
-                        drop.style.maxHeight = "";
-                      }
-                    }}
-                  >
-                    <span className="accordion-row__text city">
-                      {addGO(item[0])}
-                    </span>
-                  </div>
-                  <div className="accordion-row__drop-down">
-                    <div className="accordion-row__wrapper1">
-	                      <div className="text-area1 disconnect__for-desktop">
-	                        <ul className="street__list">
-	                          <li className="street__item street-row">
-	                            <div className="street-table__th">Улицы</div>
-	                            <div className="street-table__th">Комментарий</div>
-	                            <div className="street-table__th">Начало</div>
-	                            <div className="street-table__th">Окончание</div>
-                          </li>
-                          {item[1].map((item, index) => {
-                            const begin = formatLocalDateTime(
-                              item.attributes.begin
-                            );
-                            const end = formatLocalDateTime(
-                              item.attributes.end
-                            );
-                            return (
-	                              <li
-	                                key={index}
-	                                className="street__item street-row"
-	                              >
-	                                <div className="street-table__td street-table">
-	                                  <ul>
-	                                    {getStreetRows(item).map(
-                                      (item, index) => (
-                                        <li
-                                          className="street-table__item"
-                                          type="none"
-                                          style={{ listStyle: "none" }}
-                                          key={index}
-                                        >
-                                          <b>{addGO(item.attributes.name)}</b>
-                                        </li>
-                                      )
-                                    )}
-                                  </ul>
-                                </div>
-                                <div
-                                  className="street-table__td"
-                                  style={{ wordBreak: "break-word" }}
+            <ul className="disconnect__list">
+              {Object.entries(listDisconnect).map((item, index) => {
+                return (
+                  <div key={index} className="accordion-row">
+                    <div
+                      id={`City-${index}`}
+                      className="accordion-row__up"
+                      onClick={(event) => {
+                        document.querySelectorAll(".accordion-row");
+                        event.currentTarget
+                          .closest(".accordion-row")
+                          .classList.toggle("open-accordion");
+                        event.currentTarget.classList.toggle("active");
+                        const drop = event.currentTarget
+                          .closest(".accordion-row")
+                          .querySelector(".accordion-row__drop-down");
+                        if (drop.style.maxHeight == "") {
+                          drop.style.maxHeight = `${drop.scrollHeight + 1200}px`;
+                        } else {
+                          drop.style.maxHeight = "";
+                        }
+                      }}
+                    >
+                      <span className="accordion-row__text city">
+                        {addGO(item[0])}
+                      </span>
+                    </div>
+                    <div className="accordion-row__drop-down">
+                      <div className="accordion-row__wrapper1">
+                        <div className="text-area1 disconnect__for-desktop">
+                          <ul className="street__list">
+                            <li className="street__item street-row">
+                              <div className="street-table__th">Улицы</div>
+                              <div className="street-table__th">Комментарий</div>
+                              <div className="street-table__th">Начало</div>
+                              <div className="street-table__th">Окончание</div>
+                            </li>
+                            {item[1].map((item, index) => {
+                              const begin = formatLocalDateTime(
+                                item.attributes.begin
+                              );
+                              const end = formatLocalDateTime(
+                                item.attributes.end
+                              );
+                              return (
+                                <li
+                                  key={index}
+                                  className="street__item street-row"
                                 >
-                                  {item.attributes.comment}
-                                </div>
-                                <div className="street-table__td">
-                                  {begin}
-                                </div>
-                                <div className="street-table__td">
-                                  {end}
-                                </div>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
+                                  <div className="street-table__td street-table">
+                                    <ul>
+                                      {getStreetRows(item).map(
+                                        (item, index) => (
+                                          <li
+                                            className="street-table__item"
+                                            type="none"
+                                            style={{ listStyle: "none" }}
+                                            key={index}
+                                          >
+                                            <b>{addGO(item.attributes.name)}</b>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                  <div
+                                    className="street-table__td"
+                                    style={{ wordBreak: "break-word" }}
+                                  >
+                                    {item.attributes.comment}
+                                  </div>
+                                  <div className="street-table__td">
+                                    {begin}
+                                  </div>
+                                  <div className="street-table__td">
+                                    {end}
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
 
-	                      <div className="text-area1 disconnect__for-mobile">
-	                        <ul className="street__list">
-	                          <li className="street__item street-row">
-	                            <div className="street-table__th">Улицы</div>
-	                            <div className="street-table__th">Комментарий</div>
-	                            <div className="street-table__th">Время</div>
-                          </li>
-                          {item[1].map((item, index) => {
-                            const begin = formatLocalDateTime(
-                              item.attributes.begin
-                            );
-                            const end = formatLocalDateTime(
-                              item.attributes.end
-                            );
-                            return (
-	                              <li
-	                                key={index}
-	                                className="street__item street-row"
-	                              >
-	                                <div className="street-table__td street-table">
-	                                  <ul>
-                                    {getStreetRows(item).map(
-                                      (item, index) => (
-                                        <li
-                                          className="street-table__item"
-                                          type="none"
-                                          style={{ listStyle: "none" }}
-                                          key={index}
-                                        >
-                                          <b>{item.attributes.name}</b>
-                                        </li>
-                                      )
-                                    )}
-                                  </ul>
-                                </div>
-                                <div className="street-table__td">
-                                  {item.attributes.comment}
-                                </div>
-                                <div className="street-table__td">
-                                  <b>Начало:</b>
-                                  <br />
-                                  {begin}
-                                  <br />
-                                  <b>Окончание:</b>
-                                  <br />
-                                  {end}
-                                </div>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
+                        <div className="text-area1 disconnect__for-mobile">
+                          <ul className="street__list">
+                            <li className="street__item street-row">
+                              <div className="street-table__th">Улицы</div>
+                              <div className="street-table__th">Комментарий</div>
+                              <div className="street-table__th">Время</div>
+                            </li>
+                            {item[1].map((item, index) => {
+                              const begin = formatLocalDateTime(
+                                item.attributes.begin
+                              );
+                              const end = formatLocalDateTime(
+                                item.attributes.end
+                              );
+                              return (
+                                <li
+                                  key={index}
+                                  className="street__item street-row"
+                                >
+                                  <div className="street-table__td street-table">
+                                    <ul>
+                                      {getStreetRows(item).map(
+                                        (item, index) => (
+                                          <li
+                                            className="street-table__item"
+                                            type="none"
+                                            style={{ listStyle: "none" }}
+                                            key={index}
+                                          >
+                                            <b>{item.attributes.name}</b>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                  <div className="street-table__td">
+                                    {item.attributes.comment}
+                                  </div>
+                                  <div className="street-table__td">
+                                    <b>Начало:</b>
+                                    <br />
+                                    {begin}
+                                    <br />
+                                    <b>Окончание:</b>
+                                    <br />
+                                    {end}
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
 
-                      {/*
+                        {/*
                         Временно отключено по задаче 2026-08-11: кнопка "Показать на карте"
                         и вложенная карта выбранного города.
 
@@ -482,19 +477,19 @@ export default function Disconnect() {
                           </>
                         )}
                       */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </ul>
-        )}
+                );
+              })}
+            </ul>
+          )}
         {!isLoading &&
           !loadError &&
           listDisconnect &&
           Object.keys(listDisconnect).length === 0 && (
-          <h2>Отключений на эту дату нет</h2>
-        )}
+            <h2>Отключений на эту дату нет</h2>
+          )}
       </div>
     </div>
   );

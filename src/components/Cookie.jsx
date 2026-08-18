@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 export default function Cookie() {
     const [cookies, setCookie] = useCookies(['cookie'])
     const token = theme.useToken().token
-    console.log(token);
+    // console.log(token);
 
     if (cookies.cookie === "Y") return false
     const addCookie = () => {
