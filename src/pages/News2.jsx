@@ -104,9 +104,27 @@ function getRutubeEmbedUrl(url) {
 }
 
 async function fetchNews() {
-  const response = await axios.get(`${addressServer}/api/news?populate=*&pagination[pageSize]=200`);
-  const rows = response.data?.data;
-  return Array.isArray(rows) ? rows.map(normalizeNewsItem) : [];
+  const PAGE_SIZE = 100;
+  let page = 1;
+  let allRows = [];
+  let hasNext = true;
+
+  while (hasNext) {
+    const response = await axios.get(
+      `${addressServer}/api/news?populate=*&sort=date:desc&pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`
+    );
+    const rows = response.data?.data;
+    const pagination = response.data?.pagination;
+
+    if (Array.isArray(rows)) {
+      allRows = allRows.concat(rows);
+    }
+
+    hasNext = pagination ? pagination.page < pagination.pageCount : Array.isArray(rows) && rows.length === PAGE_SIZE;
+    page++;
+  }
+
+  return allRows.map(normalizeNewsItem);
 }
 
 async function fetchRutubeMeta(videoId) {
