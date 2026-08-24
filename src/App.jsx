@@ -111,8 +111,9 @@ function App() {
             <Route path="/contactForMedia" element={<ContactForMedia />} />
             <Route path="/specialProjects" element={<SpecialProjects />} />
             <Route path="/specialProjects/:id" element={<EventDetails />} />
-            <Route path="/news" element={<News />} />
+            <Route path="/news" element={<News2 />} />
             <Route path="/news2" element={<News2 />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/news2/:id" element={<NewsDetail />} />
             <Route path="/consumers" element={<Consumers />} />
             <Route path="/additionalServices" element={<AdditionalServices />} />

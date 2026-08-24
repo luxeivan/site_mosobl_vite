@@ -119,10 +119,10 @@ export const mainMenu = [
         title: "Новости",
         link: "/news",
       },
-      {
-        title: "Контакты для СМИ",
-        link: "/contactForMedia",
-      },
+      // {
+      //   title: "Контакты для СМИ",
+      //   link: "/contactForMedia",
+      // },
       {
         title: "Специальные проекты",
         link: "/specialProjects",
