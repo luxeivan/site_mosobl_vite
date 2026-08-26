@@ -96,7 +96,7 @@ export default React.memo(function ChargingStations() {
               <p>Мощность от 3,5 до 200 кВт</p>
             </li>
             <li>
-              <p>Номинальный ток зарядки от 16 до 32 А</p>
+              <p>Номинальный ток зарядки от 16 до 300 А</p>
             </li>
             <li>
               <p>Напряжение 220~400 В, однофазный/трехфазных ток – 50/60 Гц</p>
@@ -125,6 +125,9 @@ export default React.memo(function ChargingStations() {
             </li>
             <li>
               <p>GB/T</p>
+            </li>
+            <li>
+              <p>CHAdeMO</p>
             </li>
           </ul>
           <div>
