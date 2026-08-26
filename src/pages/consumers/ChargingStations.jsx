@@ -4,15 +4,73 @@ import React from "react";
 import TopImage from "../../components/TopImage";
 import { addressServer } from "../../config";
 import imge52d6b93112691c58929068e092b99f2 from "../../img/e52d6b93112691c58929068e092b99f2.jpg";
-// import img1 from "../../img/charging/1.jpg";
-// import img2 from "../../img/charging/2.jpg";
-// import img3 from "../../img/charging/3.jpg";
-// import img4 from "../../img/charging/4.jpg";
-// import img5 from "../../img/charging/5.jpg";
-// import img6 from "../../img/charging/6.jpg";
-// import img7 from "../../img/charging/7.jpg";
-// import img8 from "../../img/charging/8.jpg";
+import img1 from "../../img/charging/1.png";
+import img2 from "../../img/charging/2.png";
+import img3 from "../../img/charging/3.png";
+import img4 from "../../img/charging/4.png";
+import img5 from "../../img/charging/5.png";
+import img6 from "../../img/charging/6.png";
+import img7 from "../../img/charging/7.png";
+import img8 from "../../img/charging/8.png";
+import img9 from "../../img/charging/9.png";
+import img10 from "../../img/charging/10.png";
 import ElectricChargingStations from "../../components/ElectricChargingStations";
+import { ConfigProvider, Flex, Image, Typography } from "antd";
+import ruRU from 'antd/locale/ru_RU';
+
+// Создаём копию русского языка и меняем нужное поле
+const customLocale = {
+  ...ruRU,
+  Image: {
+    ...ruRU.Image,
+    preview: 'Посмотреть', // Заменяем стандартную подпись
+  },
+};
+
+const instalApp = [
+  {
+    img: img1,
+    text: "Скачать приложение"
+  },
+  {
+    img: img2,
+    text: "Пройти регистрацию"
+  },
+  {
+    img: img3,
+    text: "Привязать банковскую карту или СБП"
+  }
+]
+const useApp = [
+  {
+    img: img4,
+    text: "Выбрать ближайшую зарядную станцию и построить маршрут"
+  },
+  {
+    img: img5,
+    text: "Выбрать свой тип коннектора в карточке станции"
+  },
+  {
+    img: img6,
+    text: "Выбрать  формат зарядной сессии"
+  },
+  {
+    img: img7,
+    text: "Подключить коннектор к электромобилю"
+  },
+  {
+    img: img8,
+    text: "Зарядиться"
+  },
+  {
+    img: img9,
+    text: "Завершить зарядку"
+  },
+  {
+    img: img10,
+    text: "Отключить коннектор"
+  },
+]
 
 export default React.memo(function ChargingStations() {
   return (
@@ -35,7 +93,7 @@ export default React.memo(function ChargingStations() {
           </h3>
           <ul style={{ margin: "0 auto", maxWidth: "1200px" }}>
             <li>
-              <p>Мощность от 3,5 до 22 кВт</p>
+              <p>Мощность от 3,5 до 200 кВт</p>
             </li>
             <li>
               <p>Номинальный ток зарядки от 16 до 32 А</p>
@@ -62,17 +120,57 @@ export default React.memo(function ChargingStations() {
             <li>
               <p>Type2 (MENNEKES)</p>
             </li>
+            <li>
+              <p>CCS</p>
+            </li>
+            <li>
+              <p>GB/T</p>
+            </li>
           </ul>
           <div>
             <br />
           </div>
-          <h3 className="charging__title">
-            Зарядка автомобиля никогда не была настолько проста
-          </h3>
+          <ConfigProvider locale={customLocale}>
+
+            <div>
+              <h3 className="charging__title">
+                Удобное приложение для пользователей PUNKT E
+              </h3>
+              <div>
+                <Typography.Title level={4}>Установка приложения</Typography.Title>
+                <Flex gap={10} wrap="wrap">
+                  <Image.PreviewGroup>
+
+                    {instalApp.map((item, index) => <Flex vertical align="center">
+                      <Image src={item.img} width={200} />
+                      <div style={{ width: 200 }}>
+                        <Typography.Text>{item.text}</Typography.Text>
+                      </div>
+                    </Flex>)}
+                  </Image.PreviewGroup>
+                </Flex>
+              </div>
+              <div>
+                <Typography.Title level={4}>Этапы процесса зарядки электромобиля</Typography.Title>
+                <Flex gap={10} wrap="wrap">
+                  <Image.PreviewGroup>
+                    {useApp.map((item, index) => <Flex vertical align="center">
+                      <Image src={item.img} width={200} height={400} preview={{
+                        title: "Посмотреть"
+                      }} />
+                      <div style={{ width: 200 }}>
+                        <Typography.Text>{item.text}</Typography.Text>
+                      </div>
+                    </Flex>)}
+                  </Image.PreviewGroup>
+                </Flex>
+              </div>
+            </div>
+          </ConfigProvider>
           {/* <p style={{ textAlign: "center" }}>
               <img alt="быстрый способ зарядить автомобиль" src={`${addressServer}/uploads/24b2a02a593a04f610f047315a9c21f0_2c1a9efef7.jpg?updated_at=2022-11-14T11:45:15.654Z`} title="Слайд1.jpg" />
-            </p> */}
-          <div className="charging-app">
+              </p> */}
+          {/* <div className="charging-app">
             <div className="charging-app__item">
               <h4 className="charging-app__title">1. Регистрация</h4>
               <img
@@ -161,7 +259,7 @@ export default React.memo(function ChargingStations() {
                 alt="8. Меню"
               />
             </div>
-          </div>
+          </div> */}
           <h3 className="charging__title">
             ФОТОГРАФИИ ЭЗС УСТАНОВЛЕННЫЕ В «УМНЫХ ОПОРАХ» МОЩНОСТЬЮ 3,5 КВТ
           </h3>

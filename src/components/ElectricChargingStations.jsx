@@ -12,11 +12,13 @@ import chargingIco_dis from "../img/Chargingico_dis.png";
 import qrPlaymarket from "../img/qr_plugme_playmarket.svg";
 import qrAppstore from "../img/qr_plugme_appstore.svg";
 import Playmarket from "../img/playmarket.png";
+import qrpunkte from "../img/charging/qr.png";
 import Appstore from "../img/appstore.png";
-import plugme from "../img/plugme.webp";
+import punkte from "../img/charging/b8a82179-eef4-4056-b198-0521b8e9f91d.jpg";
 import Cookies from "js-cookie";
 
 import { utils, writeFileXLSX } from "xlsx";
+import { Button, Flex, Result } from "antd";
 
 const iconImageSize = [130 / 4, 221 / 4];
 let tempArray = [];
@@ -286,13 +288,17 @@ export default React.memo(function ElectricChargingStations() {
   return (
     <>
       {/* <h2>Карта электрических зарядных станций</h2> */}
+      <Result
+        title="C 1 сентября управление сетью электрозарядных станций АО «Мособлэнерго» переходит к новому оператору — «PUNKT E»"
+        subTitle="До 31 августа включительно продолжает действовать текущее приложение PlugMe. С 1 сентября для запуска зарядки потребуется регистрация в приложении нового оператора."
+      />
 
-      <div className="qr-plugme-comp">
+      <Flex wrap="wrap" justify="center" align="center" gap={10} style={{ marginBottom: 20 }}>
         <div className="qr-plugme-comp__text-area">
           <div className="qr-plugme-comp__title-area">
-            <img src={plugme} alt="текст" />
+            <img src={punkte} alt="текст" />
             <h3 style={{ textTransform: "inherit" }}>
-              PlugMe - зарядные станции
+              PUNKT E
             </h3>
           </div>
           <p>Мобильное приложение для управления ЭЗС АО «Мособлэнерго»</p>
@@ -300,12 +306,24 @@ export default React.memo(function ElectricChargingStations() {
           <p>
             Круглосуточная техническая поддержка:{" "}
             <a href="tel:+78002509779" className="qr-plugme-comp__tel">
-              +7 (800) 250-97-79
+              +7 (800) 222-37-00
             </a>
           </p>
         </div>
         <div className="qr-plugme-comp__qr-area">
           <div className="qr-plugme-comp__qr">
+            <img src={qrpunkte} alt="Playmarket" className="qr-plugme-comp__img" />
+            <a
+              // type="button"
+              className="qr-plugme-comp__link"
+              href="https://punkt-e.ru/app"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Button size="large" type="primary" ><span style={{ color: "#fff" }}>Скачать приложение</span></Button>
+            </a>
+          </div>
+          {/* <div className="qr-plugme-comp__qr">
             <a
               type="button"
               className="qr-plugme-comp__link"
@@ -328,9 +346,9 @@ export default React.memo(function ElectricChargingStations() {
               <img src={Appstore} alt="Appstore" />
             </a>
             <img src={qrAppstore} alt="qr" className="qr-plugme-comp__img" />
-          </div>
+          </div> */}
         </div>
-      </div>
+      </Flex>
 
       {listAllStationWithStatus.length > 0 ? (
         <>
@@ -529,7 +547,7 @@ export default React.memo(function ElectricChargingStations() {
                           }<br>
                                                             <b>Мощность:</b> ${item.attributes
                             .power
-                          } кВт/ч<br>
+                          } кВт<br>
                                                             <b>Тип разьема:</b> ${item.attributes
                             .connector_type
                           }<br>
@@ -539,12 +557,8 @@ export default React.memo(function ElectricChargingStations() {
                                                             <b>Способ монтажа:</b> ${item.attributes
                             .method_of_installation
                           }<br>
-                                                            <b>Мобильное приложение:</b> ${item.attributes
-                            .mobile_applications
-                          }<br>
-                                                            <b>Тех. поддержка:</b> ${item.attributes
-                            .support_phone_number
-                          }<br>
+                                                            <b>Мобильное приложение:</b> PUNKT E<br>
+                                                            <b>Тех. поддержка:</b> +7 (800) 222-37-00<br>
                                                             <b>Режим работы:</b> ${item.attributes
                             .operating_mode
                           }<br>
