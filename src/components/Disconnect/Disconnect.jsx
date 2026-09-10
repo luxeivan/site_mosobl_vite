@@ -28,7 +28,8 @@ export default function Disconnect() {
   useEffect(() => {
     let isCancelled = false;
     const selectedDate = dayjs(currentDate).format("YYYY-MM-DD");
-    const cacheKey = `${plannedOutagesUrl}:${selectedDate}`;
+    const isPast = dayjs(currentDate).isBefore(dayjs().startOf("day"));
+    const cacheKey = `${plannedOutagesUrl}:${selectedDate}${isPast ? ":history" : ""}`;
     const cachedRows = outagesCacheRef.current.get(cacheKey);
 
     // setCurrentOpenRow();
@@ -47,7 +48,7 @@ export default function Disconnect() {
 
     axios
       .get(plannedOutagesUrl, {
-        params: { date: selectedDate },
+        params: { date: selectedDate, ...(isPast ? { includeHistory: "true" } : {}) },
       })
       .then((response) => {
         if (isCancelled) return;
@@ -86,7 +87,8 @@ export default function Disconnect() {
   useEffect(() => {
     let isCancelled = false;
     const selectedMonth = dayjs(calendarMonth).format("YYYY-MM");
-    const cacheKey = `${plannedOutagesUrl}:days:${selectedMonth}`;
+    const isPastMonth = dayjs(calendarMonth).isBefore(dayjs().startOf("month"));
+    const cacheKey = `${plannedOutagesUrl}:days:${selectedMonth}${isPastMonth ? ":history" : ""}`;
     const cachedDays = plannedDaysCacheRef.current.get(cacheKey);
 
     if (cachedDays) {
@@ -98,7 +100,7 @@ export default function Disconnect() {
 
     axios
       .get(`${plannedOutagesUrl}/days`, {
-        params: { month: selectedMonth },
+        params: { month: selectedMonth, ...(isPastMonth ? { includeHistory: "true" } : {}) },
       })
       .then((response) => {
         if (isCancelled) return;
