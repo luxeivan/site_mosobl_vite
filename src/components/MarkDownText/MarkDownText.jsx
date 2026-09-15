@@ -14,10 +14,21 @@ export default function MarkDownText({ children, }) {
         // forceInline: true,
         // forceWrapper:true,
         overrides: {
+          
           p: {
             props: {
               className: styles.para,
             },
+          },
+          span:{
+            props:{
+              className:styles.text
+            }
+          },
+          text:{
+            props:{
+              className:styles.text
+            }
           },
           h2: {
             component: Typography.Title,

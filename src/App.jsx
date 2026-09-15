@@ -60,6 +60,7 @@ import TerritoryOfService from "./pages/consumers/TerritoryOfService/TerritoryOf
 import PassportsCommercialServices from "./pages/consumers/AdditionalServices/PassportsCommercialServices";
 import Cookie from "./components/Cookie";
 import { CookiesProvider, useCookies } from 'react-cookie'
+import RobotAssistant from "./components/RobotAssistant/RobotAssistant";
 
 function App() {
   useEffect(() => {
@@ -171,6 +172,7 @@ function App() {
             <Route path="/universities" element={<Universities />} />
             <Route path="/*" element={<Page404 />} />
           </Routes>
+          <RobotAssistant/>
           <GosuslugiBanner />
           <Footer />
         </BrowserRouter>
