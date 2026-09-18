@@ -34,7 +34,7 @@ const getOrCreateSessionId = () => {
 // -----------------------------------------
 
 const API_CONFIG = {
-  baseUrl: 'https://n8n.mosoblenergo.ru/webhook/f2274c46-ee15-4d83-95fe-b37796dc871a',
+  baseUrl: 'https://n8n.mosoblenergo.ru/webhook/dcb1d216-fd9b-4bf7-828f-ddc58290803d',
 };
 
 // Компонент плавающей кнопки с роботом
