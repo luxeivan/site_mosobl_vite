@@ -27,7 +27,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/desktop/"
+                href="https://portal.mosoblenergo.ru/"
               >
                 В личном кабинете на Портале
               </a>
@@ -119,24 +119,10 @@ export default function TCProcedureCarrying() {
           </li>
           <li>
             <p>
-              произвести оплату удаленно банковской картой в{" "}
-              <a
-                rel="noopener noreferrer"
-                target="_blank"
-                href="https://moetp.ru/desktop/personal-applications/"
-              >
-                Личном кабинете Заявителя
-              </a>
-              *&nbsp;
+              произвести оплату
             </p>
           </li>
         </ul>
-        <p>
-          Для заключения договора технологического присоединения в Личном
-          кабинете необходимо нажать «Оплатить» и следовать дальнейшим
-          инструкциям. Дата оплаты выставленного счета – дата вступления
-          договора в силу.
-        </p>
         <p>
           *Обращаем внимание! Срок действия выставленного счета для заключения
           договора технологического присоединения в Личном кабинете составляет 5
@@ -174,7 +160,7 @@ export default function TCProcedureCarrying() {
           выполнении технических условий можно самостоятельно (п. 85 Правил
           технологического присоединения –&nbsp;
           <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
-            Постановление Правительства РФ № 861 от27.12.2004
+            Постановление Правительства РФ № 861 от 27.12.2004
           </a>
         </p>
         <p>
@@ -198,7 +184,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/desktop/"
+                href="https://portal.mosoblenergo.ru/"
               >
                 В личном кабинете на Портале
               </a>
@@ -288,24 +274,10 @@ export default function TCProcedureCarrying() {
           </li>
           <li>
             <p>
-              произвести оплату удаленно банковской картой в{" "}
-              <a
-                rel="noopener noreferrer"
-                target="_blank"
-                href="https://moetp.ru/desktop/personal-applications/"
-              >
-                Личном кабинете Заявителя
-              </a>
-              *
+              произвести оплату
             </p>
           </li>
         </ul>
-        <p>
-          Для заключения договора технологического присоединения в Личном
-          кабинете необходимо нажать «Оплатить» и следовать дальнейшим
-          инструкциям. Дата оплаты выставленного счета – дата вступления
-          договора в силу.
-        </p>
         <p>
           <i>
             *Обращаем внимание! Срок действия выставленного счета для заключения
@@ -345,7 +317,7 @@ export default function TCProcedureCarrying() {
             технологического присоединения –&nbsp;
           </i>
           <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
-            <i>Постановление Правительства РФ № 861 от27.12.2004</i>
+            <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
         <p>
@@ -367,7 +339,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/desktop/"
+                href="https://portal.mosoblenergo.ru/"
               >
                 В личном кабинете на Портале
               </a>
@@ -378,7 +350,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/kontakti/"
+                href="https://portal.mosoblenergo.ru/contacts"
               >
                 В центрах обслуживания клиентов&nbsp;
               </a>
@@ -386,7 +358,7 @@ export default function TCProcedureCarrying() {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://moetp.ru/kontakti/"
+              href="https://portal.mosoblenergo.ru/contacts"
             >
               {" "}
             </a>
@@ -395,7 +367,7 @@ export default function TCProcedureCarrying() {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://moetp.ru/kontakti/"
+              href="https://portal.mosoblenergo.ru/contacts"
             >
               {" "}
             </a>
@@ -520,7 +492,7 @@ export default function TCProcedureCarrying() {
           <li>
             <p>
               при очном визите в&nbsp;
-              <a href="https://moetp.ru/kontakti/">один из клиентских офисов</a>
+              <a href="https://portal.mosoblenergo.ru/contacts">один из клиентских офисов</a>
               ;
             </p>
           </li>
@@ -558,7 +530,7 @@ export default function TCProcedureCarrying() {
             технологического присоединения –&nbsp;
           </i>
           <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
-            <i>Постановление Правительства РФ № 861 от27.12.2004</i>
+            <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
         <p>
@@ -578,11 +550,11 @@ export default function TCProcedureCarrying() {
           <li>
             <p>
               в остальных случаях, Заявитель сможет забрать готовые
-              документы&nbsp;<a href="https://moetp.ru/kontakti/">в&nbsp;</a>
+              документы&nbsp;<a href="https://portal.mosoblenergo.ru/contacts">в&nbsp;</a>
               <a href="http://mrsk-cp.ru/for_consumers/consumer_service/consumer_service_office/">
                 Центрах
               </a>
-              <a href="https://moetp.ru/kontakti/">
+              <a href="https://portal.mosoblenergo.ru/contacts">
                 &nbsp;обслуживания клиентов
               </a>
               .
@@ -615,7 +587,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/desktop/"
+                href="https://portal.mosoblenergo.ru/"
               >
                 В личном кабинете на Портале
               </a>
@@ -626,7 +598,7 @@ export default function TCProcedureCarrying() {
               <a
                 rel="noopener noreferrer"
                 target="_blank"
-                href="https://moetp.ru/kontakti/"
+                href="https://portal.mosoblenergo.ru/contacts"
               >
                 В центрах обслуживания клиентов
               </a>
@@ -776,7 +748,7 @@ export default function TCProcedureCarrying() {
           <li>
             <p>
               При очном визите в&nbsp;
-              <a href="https://moetp.ru/kontakti/">один из клиентских офисов</a>
+              <a href="https://portal.mosoblenergo.ru/contacts">один из клиентских офисов</a>
               ;
             </p>
           </li>
@@ -852,7 +824,7 @@ export default function TCProcedureCarrying() {
             технологического присоединения –&nbsp;
           </i>
           <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
-            <i>Постановление Правительства РФ № 861 от27.12.2004</i>
+            <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
         <p>
@@ -913,14 +885,14 @@ export default function TCProcedureCarrying() {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href="https://moetp.ru/kontakti/"
+            href="https://portal.mosoblenergo.ru/contacts"
           >
             в&nbsp;
           </a>
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href="https://moetp.ru/kontakti/"
+            href="https://portal.mosoblenergo.ru/contacts"
           >
             центрах обслуживания клиентов
           </a>

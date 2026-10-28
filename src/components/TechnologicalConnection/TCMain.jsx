@@ -69,11 +69,11 @@ export default function TCMain() {
             Подать заявку на технологическое присоединение к электрическим сетям
             АО "Мособлэнерго" Вы можете в личном кабинете на{" "}
             <a
-              href="https://moetp.ru"
+              href="https://portal.mosoblenergo.ru/"
               rel="noopener noreferrer"
               target="_blank"
             >
-              "Портале потребителя"
+              «Портале потребителя»
             </a>
             .
           </div>
@@ -106,16 +106,6 @@ export default function TCMain() {
                 target="_blank"
               >
                 https://uslugi.mosreg.ru/
-              </a>
-            </p>
-            <p>
-              <a
-                href="https://www.youtube.com/watch?v=YL8au7k-C54&amp;feature=youtu.be"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Видеоинструкция по подаче заявки на технологическое
-                присоединение (смотреть)
               </a>
             </p>
           </div>

@@ -198,7 +198,7 @@ export default function TCMainInformation() {
       <a
         rel="noopener noreferrer"
         target="_blank"
-        href="https://moetp.ru/desktop/"
+        href="https://portal.mosoblenergo.ru/"
       >
         <p style={{ textAlign: "center" }}>ПОДАТЬ ЗАЯВКУ</p>
       </a>
