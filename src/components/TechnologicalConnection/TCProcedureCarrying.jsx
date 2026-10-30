@@ -159,7 +159,7 @@ export default function TCProcedureCarrying() {
           *Более подробно ознакомиться с порядком уведомления заявителей о
           выполнении технических условий можно самостоятельно (п. 85 Правил
           технологического присоединения –&nbsp;
-          <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
+          <a href="https://www.kontur-extern.ru/info/normativ/document/1/508777-postanovlenie-pravitelstva-rf-ot-27-12-2004-n-861">
             Постановление Правительства РФ № 861 от 27.12.2004
           </a>
         </p>
@@ -316,7 +316,7 @@ export default function TCProcedureCarrying() {
             выполнении технических условий можно самостоятельно (п. 85 Правил
             технологического присоединения –&nbsp;
           </i>
-          <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
+          <a href="https://www.kontur-extern.ru/info/normativ/document/1/508777-postanovlenie-pravitelstva-rf-ot-27-12-2004-n-861">
             <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
@@ -529,7 +529,7 @@ export default function TCProcedureCarrying() {
             выполнении технических условий можно самостоятельно (п. 85 Правил
             технологического присоединения –&nbsp;
           </i>
-          <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
+          <a href="https://www.kontur-extern.ru/info/normativ/document/1/508777-postanovlenie-pravitelstva-rf-ot-27-12-2004-n-861">
             <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
@@ -823,7 +823,7 @@ export default function TCProcedureCarrying() {
             выполнении технических условий можно самостоятельно (п. 85 Правил
             технологического присоединения –&nbsp;
           </i>
-          <a href="http://www.consultant.ru/document/cons_doc_LAW_51030/">
+          <a href="https://www.kontur-extern.ru/info/normativ/document/1/508777-postanovlenie-pravitelstva-rf-ot-27-12-2004-n-861">
             <i>Постановление Правительства РФ № 861 от 27.12.2004</i>
           </a>
         </p>
