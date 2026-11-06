@@ -64,14 +64,14 @@ export default function AntiCorruption() {
             </div>
             <div className="doc-line__wrap-text">
               <span className="doc-line__name">
-                Памятка "Что нужно знать о коррупции?"
+                Памятка «Что нужно знать о коррупции?»
               </span>
               <span className="doc-line__file-info">pdf, 1мб</span>
             </div>
           </a>
           <a
             className="doc-line"
-            href={`${addressServer}/uploads/Antikorrupczionnaya_politika_762adf5a21.pdf`}
+            href={`${addressServer}/uploads/Antikorrupczionnaya_politika_AO_Mosoblenergo_6a0ae390ad.pdf`}
             download=""
             rel="noopener noreferrer"
             target="_blank"
@@ -80,14 +80,14 @@ export default function AntiCorruption() {
               <img src={pdf} alt="icon pdf" />
             </div>
             <div className="doc-line__wrap-text">
-              <span className="doc-line__name">Антикоррупционная политика</span>
+              <span className="doc-line__name">Антикоррупционная политика АО «Мособлэнерго»</span>
               <span className="doc-line__file-info">pdf, 5,4 мб</span>
             </div>
           </a>
           {/* Новый док */}
           <a
             className="doc-line"
-            href={`${addressServer}/uploads/Izmeneniya_v_Antikorrupczionnuyu_politiku_ee0ee379cf.docx`}
+            href={`${addressServer}/uploads/Antikorrupczionnye_standarty_AO_Mosoblenergo_7271b39359.pdf`}
             download=""
             rel="noopener noreferrer"
             target="_blank"
@@ -97,26 +97,7 @@ export default function AntiCorruption() {
             </div>
             <div className="doc-line__wrap-text">
               <span className="doc-line__name">
-                Изменения в Антикоррупционную политику
-              </span>
-              <span className="doc-line__file-info">docs, 17 кб</span>
-            </div>
-          </a>
-          {/* Новый док */}
-          <a
-            className="doc-line"
-            href={`${addressServer}/uploads/09712613ac9e27d2b3283ed9d15b7ad6_compressed_d1ab536605.pdf?updated_at=2022-10-28T11:19:26.263Z`}
-            download=""
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <div className="doc-line__wrap-icon">
-              <img src={pdf} alt="icon pdf" />
-            </div>
-            <div className="doc-line__wrap-text">
-              <span className="doc-line__name">
-                Антикоррупционные стандарты акционерного общества «Московская
-                областная энергосетевая компания»
+                Антикоррупционные стандарты АО «Мособлэнерго»
               </span>
               <span className="doc-line__file-info">pdf, 205 кб</span>
             </div>
@@ -158,7 +139,7 @@ export default function AntiCorruption() {
             </div>
             <div className="doc-line__wrap-text">
               <span className="doc-line__name">
-                Памятка работнику АО «Мособлэнерго» /гражданинупри обнаружении
+                Памятка работнику АО «Мособлэнерго»/гражданину при обнаружении
                 подозрительного предмета, который может оказаться взрывным
                 устройством на объектах АО «Мособлэнерго», а также захвате в
                 заложники, получении информации о готовящемся террористическом
