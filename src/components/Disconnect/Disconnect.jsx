@@ -303,6 +303,7 @@ export default function Disconnect() {
                             <li className="street__item street-row">
                               <div className="street-table__th">Улицы</div>
                               <div className="street-table__th">Комментарий</div>
+                              <div className="street-table__th">Описание плановых работ</div>
                               <div className="street-table__th">Начало</div>
                               <div className="street-table__th">Окончание</div>
                             </li>
@@ -340,6 +341,12 @@ export default function Disconnect() {
                                   >
                                     {item.attributes.comment}
                                   </div>
+                                  <div
+                                    className="street-table__td"
+                                    style={{ wordBreak: "break-word" }}
+                                  >
+                                    {item.attributes.description}
+                                  </div>
                                   <div className="street-table__td">
                                     {begin}
                                   </div>
@@ -357,6 +364,7 @@ export default function Disconnect() {
                             <li className="street__item street-row">
                               <div className="street-table__th">Улицы</div>
                               <div className="street-table__th">Комментарий</div>
+                              <div className="street-table__th">Описание плановых работ</div>
                               <div className="street-table__th">Время</div>
                             </li>
                             {item[1].map((item, index) => {
@@ -389,6 +397,9 @@ export default function Disconnect() {
                                   </div>
                                   <div className="street-table__td">
                                     {item.attributes.comment}
+                                  </div>
+                                  <div className="street-table__td">
+                                    {item.attributes.description}
                                   </div>
                                   <div className="street-table__td">
                                     <b>Начало:</b>
