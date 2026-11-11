@@ -58,7 +58,7 @@ export default function Certs() {
           {/* СРОЧНО ЗАКИНУЛ СЮДА СЕРТИК, НО НАДО БЫ СДЕЛАТЬ БАЗУ В strapi */}
           <a
             className="doc-line"
-            href={gostPdf}
+            href={`${addressServer}/uploads/SKAN_SERTIFIKAT_11_11_2026_20180c038b.pdf`}
             download=""
             rel="noopener noreferrer"
             target="_blank"
